@@ -45,9 +45,10 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:fontFamily="@font/semibold"
-            android:text="NAME"
+            android:text="EKO"
             android:textColor="@color/colorPrimary"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:ignore="HardcodedText" />
 
         <LinearLayout
             android:id="@+id/filterLayout"
