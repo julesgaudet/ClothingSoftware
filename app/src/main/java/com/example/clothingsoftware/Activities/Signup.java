@@ -25,8 +25,6 @@ public class Signup extends AppCompatActivity {
     private EditText signupUsername;
     private EditText signupEmail;
     private Button button;
-    private ImageView goBackIcon;
-    private TextView linkTermsOfUse;
 
     //J'ai laissé progressBar car elle va être utile plus tard quand on va faire un login
     private ProgressBar progressBar;
@@ -43,8 +41,8 @@ public class Signup extends AppCompatActivity {
         signupEmail = findViewById(R.id.signupEmail);
         button = findViewById(R.id.button);
         progressBar = findViewById(R.id.progressbar);
-        goBackIcon = findViewById(R.id.goBackIcon);
-        linkTermsOfUse = findViewById(R.id.linkTermsOfUse);
+        ImageView goBackIcon = findViewById(R.id.goBackIcon);
+        TextView linkTermsOfUse = findViewById(R.id.linkTermsOfUse);
 
         //Put the link in bold for the conditions of use
         setBoldColorText(linkTermsOfUse, "By continuing, you agree to Our Terms of Use", "Terms of Use", R.color.colorPrimary);

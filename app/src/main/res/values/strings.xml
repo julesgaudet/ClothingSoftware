@@ -2,4 +2,27 @@
     <string name="app_name">ClothingSoftware</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="icon_for_the_feed_section">Icon for the feed section</string>
+    <string name="feed">Feed</string>
+    <string name="icon_for_the_post_section">Icon for the post section</string>
+    <string name="posts">Posts</string>
+    <string name="icon_for_the_orders_section">Icon for the orders section</string>
+    <string name="orders">Orders</string>
+    <string name="or">Or</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an Account? Sign Up</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="passport">Passport</string>
+    <string name="e_mail_address">E-mail Address</string>
+    <string name="go_back_actionable">Go back actionable</string>
+    <string name="create_a_new_admin">Create a new Admin</string>
+    <string name="user_name">User Name</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="by_continuing_you_agree_to_our_terms_of_use">By continuing, you agree to Our Terms of Use</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="search">Search</string>
+    <string name="filter_icon">Filter Icon</string>
+    <string name="filter">Filter</string>
+    <string name="post">Post</string>
 </resources>

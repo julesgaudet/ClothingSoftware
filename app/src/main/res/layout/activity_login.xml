@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/login"
         android:fontFamily="@font/regular"
         android:textSize="18sp"
         android:gravity="center"/>
@@ -23,7 +23,7 @@
         android:layout_height="55dp"
         android:layout_marginTop="25dp"
         android:fontFamily="@font/regular"
-        android:hint="E-mail Address"
+        android:hint="@string/e_mail_address"
         android:background="@drawable/input_border"
         android:inputType="textEmailAddress"
         android:autofillHints="emailAddress"
@@ -38,7 +38,7 @@
         android:layout_height="55dp"
         android:layout_marginTop="25dp"
         android:fontFamily="@font/regular"
-        android:hint="Passport"
+        android:hint="@string/passport"
         android:background="@drawable/input_border"
         android:inputType="textPassword"
         android:autofillHints="password"
@@ -66,7 +66,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remember me"
+            android:text="@string/remember_me"
             android:textColor="@color/colorPrimary"
             android:fontFamily="@font/regular"
             android:textSize="16sp"/>
@@ -84,7 +84,7 @@
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:fontFamily="@font/medium"
-            android:text="Forgot Password"/>
+            android:text="@string/forgot_password"/>
 
     </LinearLayout>
 
@@ -104,7 +104,7 @@
         android:background="@drawable/principal_button"
         android:enabled="false"
         android:fontFamily="@font/medium"
-        android:text="Login"
+        android:text="@string/login"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -127,7 +127,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Or"
+            android:text="@string/or"
             android:textSize="16sp"
             android:fontFamily="@font/regular"
             android:layout_marginStart="8dp"
@@ -150,7 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Don't have an Account? Sign Up"
+        android:text="@string/don_t_have_an_account_sign_up"
         android:textSize="16sp"
         android:fontFamily="@font/medium"
         android:textColor="@color/colorPrimary"/>
