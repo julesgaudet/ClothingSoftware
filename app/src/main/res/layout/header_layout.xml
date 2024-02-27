@@ -68,7 +68,7 @@
                 android:id="@+id/textImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/filter"
+                android:text="@string/more"
                 android:fontFamily="@font/inter"
                 android:textSize="14sp"
                 android:textColor="@color/black"/>

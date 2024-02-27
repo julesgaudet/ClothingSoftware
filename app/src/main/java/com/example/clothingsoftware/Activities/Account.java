@@ -37,6 +37,7 @@ public class Account extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        // Initialize views
         feedLinearLayout = findViewById(R.id.feedLinearLayout);
         postLinearLayout = findViewById(R.id.postLinearLayout);
         ordersLinearLayout = findViewById(R.id.ordersLinearLayout);
@@ -47,14 +48,17 @@ public class Account extends AppCompatActivity {
         postText = findViewById(R.id.postText);
         ordersText = findViewById(R.id.ordersText);
 
+        // Initialize Fragment
         ordersFragment = new Orders();
         feedFragment = new Feed();
         postFragment = new Post();
 
+        // Add color to the Feed icon and text
         displayFragment(new Feed());
         feedIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
         feedText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
 
+        // Add color to the icon and text and move to the Feed fragment
         feedLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +69,7 @@ public class Account extends AppCompatActivity {
             }
         });
 
+        // Add color to the icon and text and move to the Post fragment
         postLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +80,7 @@ public class Account extends AppCompatActivity {
             }
         });
 
+        // Add color to the icon and text and move to the Orders fragment
         ordersLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +92,7 @@ public class Account extends AppCompatActivity {
         });
     }
 
+    // Reset the base color of the icons and footer text
     private void resetIconsAndText() {
         ordersIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
         feedIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));

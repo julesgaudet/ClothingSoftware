@@ -20,14 +20,16 @@ import com.example.clothingsoftware.Class.AccountValidator;
 import com.example.clothingsoftware.R;
 
 public class Signup extends AppCompatActivity {
-    private EditText signupPassword;
-    private EditText signupPassword2;
-    private EditText signupUsername;
-    private EditText signupEmail;
-    private Button button;
+    EditText signupPassword;
+    EditText signupPassword2;
+    EditText signupUsername;
+    EditText signupEmail;
+    Button button;
+    ImageView goBackIcon;
+    TextView linkTermsOfUse;
 
     //J'ai laissé progressBar car elle va être utile plus tard quand on va faire un login
-    private ProgressBar progressBar;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,8 @@ public class Signup extends AppCompatActivity {
         signupEmail = findViewById(R.id.signupEmail);
         button = findViewById(R.id.button);
         progressBar = findViewById(R.id.progressbar);
-        ImageView goBackIcon = findViewById(R.id.goBackIcon);
-        TextView linkTermsOfUse = findViewById(R.id.linkTermsOfUse);
+        goBackIcon = findViewById(R.id.goBackIcon);
+        linkTermsOfUse = findViewById(R.id.linkTermsOfUse);
 
         //Put the link in bold for the conditions of use
         setBoldColorText(linkTermsOfUse, "By continuing, you agree to Our Terms of Use", "Terms of Use", R.color.colorPrimary);
@@ -73,6 +75,7 @@ public class Signup extends AppCompatActivity {
             }
         });
 
+        // Set up text change listener for enabling/disabling button
         signupPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -89,6 +92,7 @@ public class Signup extends AppCompatActivity {
             }
         });
 
+        // Set up text change listener for enabling/disabling button
         signupPassword2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -105,6 +109,7 @@ public class Signup extends AppCompatActivity {
             }
         });
 
+        // Set up text change listener for enabling/disabling button
         signupUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -121,6 +126,7 @@ public class Signup extends AppCompatActivity {
             }
         });
 
+        // Checker to see that the two passwords are the same.
         signupPassword2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -157,6 +163,7 @@ public class Signup extends AppCompatActivity {
         });
     }
 
+    // Activates and changes the color of the button when the admin inputs are in the correct format
     private void updateButtonState() {
         String textName = signupUsername.getText().toString();
         String textEmail = signupEmail.getText().toString();
