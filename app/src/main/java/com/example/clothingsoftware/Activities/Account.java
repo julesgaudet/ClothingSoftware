@@ -34,6 +34,7 @@ public class Account extends AppCompatActivity {
     Orders ordersFragment;
     Post postFragment;
     SwipeRefreshLayout swipeRefreshLayout;
+    LinearLayout searchLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class Account extends AppCompatActivity {
         feedText = findViewById(R.id.feedText);
         postText = findViewById(R.id.postText);
         ordersText = findViewById(R.id.ordersText);
+        searchLinearLayout = findViewById(R.id.searchLinearLayout);
 
         // Initialize Fragment
         ordersFragment = new Orders();
@@ -84,6 +86,7 @@ public class Account extends AppCompatActivity {
                 resetIconsAndText();
                 postIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 postText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                searchLinearLayout.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -122,6 +125,7 @@ public class Account extends AppCompatActivity {
         ordersText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
         feedText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
         postText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
+        searchLinearLayout.setVisibility(View.VISIBLE);
     }
 
     // Change the fragment for the specific fragment
