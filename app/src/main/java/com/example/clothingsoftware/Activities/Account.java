@@ -5,8 +5,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +33,7 @@ public class Account extends AppCompatActivity {
     Feed feedFragment;
     Orders ordersFragment;
     Post postFragment;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,10 @@ public class Account extends AppCompatActivity {
         ordersFragment = new Orders();
         feedFragment = new Feed();
         postFragment = new Post();
+
+        // Initialize SwipeRefreshLayout
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
 
         // Add color to the Feed icon and text
         displayFragment(new Feed());
@@ -88,6 +95,20 @@ public class Account extends AppCompatActivity {
                 resetIconsAndText();
                 ordersIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 ordersText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+            }
+        });
+
+        // À IMPLÉMENTER PLUS TARD; il serait utile pour refresh le contenu.
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Stop refresh animation after 3 seconds
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 1000);
             }
         });
     }
