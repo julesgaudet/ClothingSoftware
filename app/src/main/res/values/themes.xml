@@ -6,5 +6,10 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
+    <style name="InputText_Overlay">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+    </style>
+
     <style name="Theme.ClothingSoftware" parent="Base.Theme.ClothingSoftware" />
 </resources>

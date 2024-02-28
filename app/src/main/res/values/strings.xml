@@ -26,4 +26,8 @@
     <string name="filter">Filter</string>
     <string name="post">Post</string>
     <string name="more">More</string>
+    <string name="article_name">Article Name</string>
+    <string name="type_of_article">Type of Article</string>
+    <string name="price">Price</string>
+    <string name="description">Description...</string>
 </resources>

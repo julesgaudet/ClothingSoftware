@@ -82,8 +82,9 @@ public class Account extends AppCompatActivity {
         postLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayFragment(postFragment);
                 resetIconsAndText();
+                displayFragment(postFragment);
+                swipeRefreshLayout.setEnabled(false);
                 postIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 postText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 searchLinearLayout.setVisibility(View.INVISIBLE);
@@ -126,6 +127,7 @@ public class Account extends AppCompatActivity {
         feedText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
         postText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
         searchLinearLayout.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setEnabled(true);
     }
 
     // Change the fragment for the specific fragment
