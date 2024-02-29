@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/articleName"
+                android:id="@+id/articleNameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="25dp"
@@ -61,7 +61,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <EditText
-                android:id="@+id/price"
+                android:id="@+id/priceEditText"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="25dp"
@@ -79,7 +79,7 @@
                 tools:ignore="RtlSymmetry" />
 
             <EditText
-                android:id="@+id/description"
+                android:id="@+id/descriptionEditText"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="25dp"
@@ -134,7 +134,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="25dp"
                 android:background="@drawable/form_button"
-                android:enabled="false"
+                android:enabled="true"
                 android:fontFamily="@font/medium"
                 android:text="@string/post_an_article"
                 android:textAllCaps="false"

@@ -24,4 +24,16 @@ public class TextUtils {
 
         textView.setText(spannableString);
     }
+
+    // Counter for injections
+    public static String sanitizeInput(String input) {
+        String[] dangerousChars = {"<", ">", "'", "\"", ";", "(", ")", "&", "$", "|", "`", "\\", "/", "%", "#", "{", "}", "[", "]", "=", "*", "+", "^", "~", ":"};
+
+        for (String dangerousChar : dangerousChars) {
+            if (input.contains(dangerousChar)) {
+                input = input.replace(dangerousChar, "");
+            }
+        }
+        return input;
+    }
 }

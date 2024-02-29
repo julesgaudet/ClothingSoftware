@@ -49,17 +49,19 @@ public class Account extends AppCompatActivity {
     LinearLayout filterLayout;
     View shadowOverlay;
     String[] stateFeed = {"Lowest to highest price", "Highest to lowest price",
-                           "Recent to distant post", "Distant to recent post",
-                           "Less to most popular", "Most to less popular"};
+            "Recent to distant post", "Distant to recent post",
+            "Less to most popular", "Most to less popular"};
 
     String[] stateOrders = {"Lowest to highest price", "Highest to lowest price",
-                           "Recent to distant order", "Distant to recent order",
-                           "Orders Finished", "Orders not finished"};
+            "Recent to distant order", "Distant to recent order",
+            "Orders Finished", "Orders not finished"};
     AutoCompleteTextView autoCompleteTextViewFeed;
     ArrayAdapter<String> adapterItemsFeed;
-
     AutoCompleteTextView autoCompleteTextViewOrders;
     ArrayAdapter<String> adapterItemsOrders;
+
+    // Verify if the "Search" or "More" menu is still open (prevent spam clicking)
+    private boolean isDialogShowing = false;
 
 
     @Override
@@ -94,8 +96,8 @@ public class Account extends AppCompatActivity {
 
         // Add color to the Feed icon and text
         displayFragment(new Feed());
-        feedIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-        feedText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+        setIconAndTextColor(feedIcon, feedText, R.color.colorPrimary);
+
 
         // Add color to the icon and text and move to the Feed fragment
         feedLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -103,8 +105,8 @@ public class Account extends AppCompatActivity {
             public void onClick(View v) {
                 displayFragment(feedFragment);
                 resetIconsAndText();
-                feedIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                feedText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                setIconAndTextColor(feedIcon, feedText, R.color.colorPrimary);
+
             }
         });
 
@@ -115,8 +117,8 @@ public class Account extends AppCompatActivity {
                 resetIconsAndText();
                 displayFragment(postFragment);
                 swipeRefreshLayout.setEnabled(false);
-                postIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                postText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                setIconAndTextColor(postIcon, postText, R.color.colorPrimary);
+
                 searchLinearLayout.setVisibility(View.INVISIBLE);
             }
         });
@@ -127,8 +129,8 @@ public class Account extends AppCompatActivity {
             public void onClick(View v) {
                 displayFragment(ordersFragment);
                 resetIconsAndText();
-                ordersIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                ordersText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                setIconAndTextColor(ordersIcon, ordersText, R.color.colorPrimary);
+
             }
         });
 
@@ -143,6 +145,26 @@ public class Account extends AppCompatActivity {
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 1000);
+            }
+        });
+
+        searchLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shadowOverlayEffect(true);
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+                if (currentFragment != null) {
+                    switch (currentFragment.getClass().getSimpleName()) {
+                        case "Feed":
+                            filterLayout.setEnabled(false);
+                            showDialogFeedSearch();
+                            break;
+                        case "Orders":
+                            filterLayout.setEnabled(false);
+                            showDialogOrdersSearch();
+                            break;
+                    }
+                }
             }
         });
 
@@ -172,8 +194,47 @@ public class Account extends AppCompatActivity {
         });
     }
 
-    // Show the Sheet Dialog for the feed Menu (menu when you click on More)
+    // Show the Sheet Dialog for the Search in "Search Fragment"(when you click on Search icon)
+    private void showDialogFeedSearch() {
+        if (isDialogShowing) return; // Do nothing if the menu is open
+        isDialogShowing = true;
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottom_sheet_layout_feed_search);
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                resetVariable();
+            }
+        });
+        configureDialog(dialog);
+    }
+
+    // Show the Sheet Dialog for the Search in "Orders Fragment"(when you click on Search icon)
+    private void showDialogOrdersSearch() {
+        if (isDialogShowing) return; // Do nothing if the menu is open
+        isDialogShowing = true;
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottom_sheet_layout_orders_search);
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                resetVariable();
+            }
+        });
+        configureDialog(dialog);
+    }
+
+    // Show the Sheet Dialog for the more Menu of the Feed Fragment (menu when you click on More)
     private void showDialogFeed() {
+        if (isDialogShowing) return; // Do nothing if the menu is open
+        isDialogShowing = true;
+
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottom_sheet_layout_feed);
@@ -188,21 +249,17 @@ public class Account extends AppCompatActivity {
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                filterLayout.setEnabled(true);
-                shadowOverlay.setVisibility(View.INVISIBLE);
-                shadowOverlayEffect(false);
+                resetVariable();
             }
         });
-
-        dialog.show();
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        configureDialog(dialog);
     }
 
-    // Show the Sheet Dialog for the feed Menu (menu when you click on More)
+    // Show the Sheet Dialog for the more Menu of the Orders Fragment (menu when you click on More)
     private void showDialogOrders() {
+        if (isDialogShowing) return; // Do nothing if the menu is open
+        isDialogShowing = true;
+
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottom_sheet_layout_orders);
@@ -217,22 +274,18 @@ public class Account extends AppCompatActivity {
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                filterLayout.setEnabled(true);
-                shadowOverlay.setVisibility(View.INVISIBLE);
-                shadowOverlayEffect(false);
+                resetVariable();
             }
         });
-
-        dialog.show();
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        configureDialog(dialog);
     }
 
 
-    // Show the Sheet Dialog for the feed Menu (menu when you click on More)
+    // Show the Sheet Dialog for the feed Menu of the Post Fragment (menu when you click on More)
     private void showDialogPost() {
+        if (isDialogShowing) return; // Do nothing if the menu is open
+        isDialogShowing = true;
+
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottom_sheet_layout_post);
@@ -240,17 +293,10 @@ public class Account extends AppCompatActivity {
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                shadowOverlay.setVisibility(View.INVISIBLE);
-                filterLayout.setEnabled(true);
-                shadowOverlayEffect(false);
+                resetVariable();
             }
         });
-
-        dialog.show();
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        configureDialog(dialog);
     }
 
     // Shadow effect when the Dialog Menu is clicked
@@ -288,5 +334,26 @@ public class Account extends AppCompatActivity {
         transaction.replace(R.id.fragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    // Reset all parameters when exiting the menu
+    private void resetVariable() {
+        isDialogShowing = false;
+        filterLayout.setEnabled(true);
+        shadowOverlay.setVisibility(View.INVISIBLE);
+        shadowOverlayEffect(false);
+    }
+
+    private void configureDialog(Dialog dialog) {
+        dialog.show();
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    private void setIconAndTextColor(ImageView icon, TextView text, int color) {
+        icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), color));
+        text.setTextColor(ContextCompat.getColor(getApplicationContext(), color));
     }
 }

@@ -6,7 +6,9 @@
     android:layout_gravity="top"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:paddingVertical="20dp">
+    android:paddingVertical="20dp"
+    android:paddingHorizontal="30dp"
+    android:id="@+id/footer_layout">
 
     <LinearLayout
         android:id="@+id/feedLinearLayout"

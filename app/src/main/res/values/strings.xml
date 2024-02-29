@@ -39,4 +39,5 @@
     <string name="signout">Signout</string>
     <string name="sort_posts_according_to">Sort posts according to</string>
     <string name="sort_orders_according_to">Sort orders according to</string>
+    <string name="search_for_a_post">Search for a post…</string>
 </resources>
