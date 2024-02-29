@@ -9,7 +9,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
+        android:scrollbars="vertical"
+        android:scrollbarSize="5dip"
+        android:scrollbarFadeDuration="@integer/material_motion_duration_short_1"
         tools:ignore="UselessParent">
 
         <LinearLayout
@@ -35,7 +37,7 @@
                 tools:ignore="RtlSymmetry" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+                android:id="@+id/typeOfArticle"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,35 +67,84 @@
                 android:layout_marginTop="25dp"
                 android:autofillHints=""
                 android:background="@drawable/input_border"
+                android:drawableEnd="@drawable/money_icon"
                 android:fontFamily="@font/regular"
-                android:textColorHint="@color/colorSecondPrimary"
                 android:hint="@string/price"
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:textColorHint="@color/colorSecondPrimary"
                 android:textSize="16sp"
-                tools:ignore="RtlSymmetry"
-                android:drawableEnd="@drawable/money_icon"
-                android:paddingEnd="10dp"/>
+                tools:ignore="RtlSymmetry" />
 
             <EditText
                 android:id="@+id/description"
-                android:paddingTop="22dp"
-                android:gravity="top"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="25dp"
                 android:autofillHints=""
                 android:background="@drawable/input_border"
                 android:fontFamily="@font/regular"
-                android:textColorHint="@color/colorSecondPrimary"
+                android:gravity="top"
                 android:hint="@string/description"
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:paddingStart="20dp"
+                android:paddingTop="22dp"
+                android:paddingEnd="10dp"
+                android:textColorHint="@color/colorSecondPrimary"
                 android:textSize="16sp"
-                tools:ignore="RtlSymmetry"
-                android:paddingEnd="10dp"/>
+                tools:ignore="RtlSymmetry" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonAddImage"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/add_button"
+                android:enabled="false"
+                android:fontFamily="@font/medium"
+                android:text="@string/add_a_picture"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonAddSize"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/add_button"
+                android:enabled="false"
+                android:fontFamily="@font/medium"
+                android:text="@string/add_a_size"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonPost"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/form_button"
+                android:enabled="false"
+                android:fontFamily="@font/medium"
+                android:text="@string/post_an_article"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="75dp"/>
 
         </LinearLayout>
     </ScrollView>

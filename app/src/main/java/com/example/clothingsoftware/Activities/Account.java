@@ -7,9 +7,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +27,8 @@ import com.example.clothingsoftware.Fragments.Feed;
 import com.example.clothingsoftware.Fragments.Orders;
 import com.example.clothingsoftware.Fragments.Post;
 import com.example.clothingsoftware.R;
+
+import java.util.Objects;
 
 public class Account extends AppCompatActivity {
 
@@ -35,6 +46,21 @@ public class Account extends AppCompatActivity {
     Post postFragment;
     SwipeRefreshLayout swipeRefreshLayout;
     LinearLayout searchLinearLayout;
+    LinearLayout filterLayout;
+    View shadowOverlay;
+    String[] stateFeed = {"Lowest to highest price", "Highest to lowest price",
+                           "Recent to distant post", "Distant to recent post",
+                           "Less to most popular", "Most to less popular"};
+
+    String[] stateOrders = {"Lowest to highest price", "Highest to lowest price",
+                           "Recent to distant order", "Distant to recent order",
+                           "Orders Finished", "Orders not finished"};
+    AutoCompleteTextView autoCompleteTextViewFeed;
+    ArrayAdapter<String> adapterItemsFeed;
+
+    AutoCompleteTextView autoCompleteTextViewOrders;
+    ArrayAdapter<String> adapterItemsOrders;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +78,10 @@ public class Account extends AppCompatActivity {
         postText = findViewById(R.id.postText);
         ordersText = findViewById(R.id.ordersText);
         searchLinearLayout = findViewById(R.id.searchLinearLayout);
+        filterLayout = findViewById(R.id.filterLayout);
+
+        // Initialize View for shadow
+        shadowOverlay = findViewById(R.id.shadowOverlay);
 
         // Initialize Fragment
         ordersFragment = new Orders();
@@ -102,7 +132,7 @@ public class Account extends AppCompatActivity {
             }
         });
 
-        // À IMPLÉMENTER PLUS TARD; il serait utile pour refresh le contenu.
+        // Refresh animation
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -115,6 +145,127 @@ public class Account extends AppCompatActivity {
                 }, 1000);
             }
         });
+
+        // The "More" menu with the Bottom Sheet Dialog
+        filterLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shadowOverlayEffect(true);
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+                if (currentFragment != null) {
+                    switch (currentFragment.getClass().getSimpleName()) {
+                        case "Feed":
+                            filterLayout.setEnabled(false);
+                            showDialogFeed();
+                            break;
+                        case "Post":
+                            filterLayout.setEnabled(false);
+                            showDialogPost();
+                            break;
+                        case "Orders":
+                            filterLayout.setEnabled(false);
+                            showDialogOrders();
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
+    // Show the Sheet Dialog for the feed Menu (menu when you click on More)
+    private void showDialogFeed() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottom_sheet_layout_feed);
+
+        // Retrieve views from the included layout
+        autoCompleteTextViewFeed = dialog.findViewById(R.id.auto_complete_text1);
+
+        // Set up adapters and other operations on the views here
+        adapterItemsFeed = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, stateFeed);
+        autoCompleteTextViewFeed.setAdapter(adapterItemsFeed);
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                filterLayout.setEnabled(true);
+                shadowOverlay.setVisibility(View.INVISIBLE);
+                shadowOverlayEffect(false);
+            }
+        });
+
+        dialog.show();
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    // Show the Sheet Dialog for the feed Menu (menu when you click on More)
+    private void showDialogOrders() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottom_sheet_layout_orders);
+
+        // Retrieve views from the included layout
+        autoCompleteTextViewOrders = dialog.findViewById(R.id.auto_complete_text2);
+
+        // Set up adapters and other operations on the views here
+        adapterItemsOrders = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, stateOrders);
+        autoCompleteTextViewOrders.setAdapter(adapterItemsOrders);
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                filterLayout.setEnabled(true);
+                shadowOverlay.setVisibility(View.INVISIBLE);
+                shadowOverlayEffect(false);
+            }
+        });
+
+        dialog.show();
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+
+    // Show the Sheet Dialog for the feed Menu (menu when you click on More)
+    private void showDialogPost() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottom_sheet_layout_post);
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                shadowOverlay.setVisibility(View.INVISIBLE);
+                filterLayout.setEnabled(true);
+                shadowOverlayEffect(false);
+            }
+        });
+
+        dialog.show();
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    // Shadow effect when the Dialog Menu is clicked
+    private void shadowOverlayEffect(boolean value) {
+        if (value) {
+            shadowOverlay.setVisibility(View.VISIBLE);
+            shadowOverlay.animate().alpha(1f).setDuration(600).start();
+        } else {
+            shadowOverlay.animate().alpha(0f).setDuration(600).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    shadowOverlay.setVisibility(View.INVISIBLE);
+                }
+            }).start();
+        }
     }
 
     // Reset the base color of the icons and footer text

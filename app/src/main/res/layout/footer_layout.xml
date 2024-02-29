@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:layout_gravity="top"
-    android:paddingVertical="20dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingVertical="20dp">
 
     <LinearLayout
+        android:id="@+id/feedLinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/feedLinearLayout"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
@@ -37,7 +37,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <LinearLayout
         android:id="@+id/postLinearLayout"
@@ -68,7 +68,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <LinearLayout
         android:id="@+id/ordersLinearLayout"
@@ -90,10 +90,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter"
-            android:textColor="@color/colorSecondPrimary"
             android:text="@string/orders"
+            android:textColor="@color/colorSecondPrimary"
             android:textSize="14sp" />
 
     </LinearLayout>
 </LinearLayout>
-

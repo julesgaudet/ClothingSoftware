@@ -19,9 +19,7 @@ import com.google.android.material.textfield.TextInputLayout;
 public class Post extends Fragment {
 
     String[] item = {"T-shirt", "Pants", "Jeans", "Dress", "Coat", "Shorts", "Jacket", "Jumpsuit", "Skirt", "Blouse", "Sweater", "Hoodie", "Suit", "Tie", "Blazer", "Leggings", "Tank top", "Cardigan", "Polo shirt", "Sweatshirt", "Romper"};
-
     AutoCompleteTextView autoCompleteTextView;
-
     ArrayAdapter<String> adapterItems;
 
     @Override

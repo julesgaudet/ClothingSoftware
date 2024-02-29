@@ -29,5 +29,14 @@
     <string name="article_name">Article Name</string>
     <string name="type_of_article">Type of Article</string>
     <string name="price">Price</string>
-    <string name="description">Description...</string>
+    <string name="description">Description…</string>
+    <string name="add_a_size">Add a Size</string>
+    <string name="add_a_picture">Add a Picture</string>
+    <string name="post_an_article">Post an Article</string>
+    <string name="sort_your_posts_by_price">Sort your Posts by Price</string>
+    <string name="sort_your_posts_by_date">Sort your Posts by Date</string>
+    <string name="sort_your_posts_by_popularity">Sort your Posts by Popularity</string>
+    <string name="signout">Signout</string>
+    <string name="sort_posts_according_to">Sort posts according to</string>
+    <string name="sort_orders_according_to">Sort orders according to</string>
 </resources>
