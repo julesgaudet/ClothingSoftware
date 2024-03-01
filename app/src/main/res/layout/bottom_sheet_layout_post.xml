@@ -25,13 +25,13 @@
         android:gravity="bottom">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSignout"
+            android:id="@+id/buttonSignout2"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:background="@drawable/signout_button"
-            android:enabled="false"
+            android:enabled="true"
             android:fontFamily="@font/medium"
             android:text="@string/signout"
             android:textAllCaps="false"

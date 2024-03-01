@@ -26,6 +26,9 @@
         android:background="@drawable/input_border"
         android:fontFamily="@font/regular"
         android:hint="@string/search_for_a_post"
+        android:drawableEnd="@drawable/search"
+        android:drawableTint="@color/colorSecondPrimary"
+        android:paddingEnd="20dp"
         android:inputType="text"
         android:minHeight="48dp"
         android:paddingStart="20dp"
@@ -45,6 +48,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
-        tools:ignore="DuplicateSpeakableTextCheck" />
+        tools:ignore="DuplicateSpeakableTextCheck"
+        android:layout_marginBottom="30dp"/>
 
 </LinearLayout>

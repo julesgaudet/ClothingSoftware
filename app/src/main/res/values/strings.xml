@@ -36,8 +36,19 @@
     <string name="sort_your_posts_by_price">Sort your Posts by Price</string>
     <string name="sort_your_posts_by_date">Sort your Posts by Date</string>
     <string name="sort_your_posts_by_popularity">Sort your Posts by Popularity</string>
-    <string name="signout">Signout</string>
+    <string name="signout">Sign-out</string>
     <string name="sort_posts_according_to">Sort posts according to</string>
     <string name="sort_orders_according_to">Sort orders according to</string>
-    <string name="search_for_a_post">Search for a post…</string>
+    <string name="search_for_a_post">Search for a post</string>
+    <string name="search_for_an_order">Search for an order</string>
+    <string name="confirm_sign_out">Confirm Sign-out?</string>
+    <string name="cancel">Cancel</string>
+    <string name="first_image_url">First image URL</string>
+    <string name="fourth_image_url">Fourth image URL</string>
+    <string name="third_image_url">Third image URL</string>
+    <string name="second_image_url">Second image URL</string>
+    <string name="number_of_images_for_the_post">Number of Images for the post</string>
+    <string name="number_of_size_for_the_post">Number of Sizes for the Post</string>
+    <string name="reset_icon">Reset Icon</string>
+    <string name="reset">Reset</string>
 </resources>

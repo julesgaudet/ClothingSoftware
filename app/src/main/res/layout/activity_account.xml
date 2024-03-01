@@ -47,6 +47,7 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <View
+            android:id="@+id/viewFooter"
             android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
@@ -54,6 +55,7 @@
 
         <!-- Footer Layout -->
         <RelativeLayout
+            android:id="@+id/layoutFooter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom">

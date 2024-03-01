@@ -7,6 +7,8 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
 
+import java.util.regex.Pattern;
+
 public class TextUtils {
 
     //This function takes a complete sentence, the part to be bolded and the color of the part to be bolded
@@ -35,5 +37,27 @@ public class TextUtils {
             }
         }
         return input;
+    }
+
+    // Verify that the url is valid
+    public static boolean isValidUrl(String url) {
+        // Pattern pour vérifier les URL
+        String urlPattern = "^((https?|ftp|file)://)?([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}(/[a-zA-Z0-9-._?,'+=&%$]*)?$";
+        return Pattern.matches(urlPattern, url);
+    }
+
+    // Verify that it's less than 200 characters
+    public static boolean numberOfCharacterBigInput(String input) {
+        return input.length() <= 200;
+    }
+
+    // Verify that it's less than 30 characters
+    public static boolean numberOfCharacterMediumInput(String input) {
+        return input.length() <= 30;
+    }
+
+    // Verify that it's less than 10 characters
+    public static boolean numberOfCharacterSmallInput(String input) {
+        return input.length() <= 30;
     }
 }

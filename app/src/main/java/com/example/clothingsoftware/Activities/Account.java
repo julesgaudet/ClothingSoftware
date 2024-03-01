@@ -9,6 +9,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,8 +20,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.clothingsoftware.Fragments.Feed;
@@ -37,16 +40,19 @@ public class Account extends AppCompatActivity {
     LinearLayout ordersLinearLayout;
     ImageView feedIcon;
     ImageView postIcon;
+    ImageView resetIcon;
     ImageView ordersIcon;
     TextView feedText;
     TextView postText;
     TextView ordersText;
+    TextView resetText;
     Feed feedFragment;
     Orders ordersFragment;
     Post postFragment;
     SwipeRefreshLayout swipeRefreshLayout;
     LinearLayout searchLinearLayout;
     LinearLayout filterLayout;
+    LinearLayout resetLayout;
     View shadowOverlay;
     String[] stateFeed = {"Lowest to highest price", "Highest to lowest price",
             "Recent to distant post", "Distant to recent post",
@@ -59,6 +65,9 @@ public class Account extends AppCompatActivity {
     ArrayAdapter<String> adapterItemsFeed;
     AutoCompleteTextView autoCompleteTextViewOrders;
     ArrayAdapter<String> adapterItemsOrders;
+
+    RelativeLayout layoutFooter;
+    View viewFooter;
 
     // Verify if the "Search" or "More" menu is still open (prevent spam clicking)
     private boolean isDialogShowing = false;
@@ -73,14 +82,19 @@ public class Account extends AppCompatActivity {
         feedLinearLayout = findViewById(R.id.feedLinearLayout);
         postLinearLayout = findViewById(R.id.postLinearLayout);
         ordersLinearLayout = findViewById(R.id.ordersLinearLayout);
+        resetLayout = findViewById(R.id.resetLinearLayout);
         feedIcon = findViewById(R.id.feedIcon);
         postIcon = findViewById(R.id.postIcon);
+        resetIcon = findViewById(R.id.resetImage);
         ordersIcon = findViewById(R.id.ordersIcon);
         feedText = findViewById(R.id.feedText);
+        resetText = findViewById(R.id.resetText);
         postText = findViewById(R.id.postText);
         ordersText = findViewById(R.id.ordersText);
         searchLinearLayout = findViewById(R.id.searchLinearLayout);
         filterLayout = findViewById(R.id.filterLayout);
+        layoutFooter = findViewById(R.id.layoutFooter);
+        viewFooter = findViewById(R.id.viewFooter);
 
         // Initialize View for shadow
         shadowOverlay = findViewById(R.id.shadowOverlay);
@@ -110,6 +124,18 @@ public class Account extends AppCompatActivity {
             }
         });
 
+        resetLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of the Post fragment
+                Post fragment = new Post();
+
+                // Replace the current fragment with the new instance
+                displayFragment(fragment);
+            }
+        });
+
+
         // Add color to the icon and text and move to the Post fragment
         postLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +145,8 @@ public class Account extends AppCompatActivity {
                 swipeRefreshLayout.setEnabled(false);
                 setIconAndTextColor(postIcon, postText, R.color.colorPrimary);
 
-                searchLinearLayout.setVisibility(View.INVISIBLE);
+                searchLinearLayout.setVisibility(View.GONE);
+                resetLayout.setVisibility(View.VISIBLE);
             }
         });
 
@@ -246,6 +273,10 @@ public class Account extends AppCompatActivity {
         adapterItemsFeed = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, stateFeed);
         autoCompleteTextViewFeed.setAdapter(adapterItemsFeed);
 
+        // Call the signout method
+        Button buttonSignout1 = dialog.findViewById(R.id.buttonSignout1);
+        signout(buttonSignout1, dialog);
+
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -271,6 +302,10 @@ public class Account extends AppCompatActivity {
         adapterItemsOrders = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, stateOrders);
         autoCompleteTextViewOrders.setAdapter(adapterItemsOrders);
 
+        // Call the signout method
+        Button buttonSignout3 = dialog.findViewById(R.id.buttonSignout3);
+        signout(buttonSignout3, dialog);
+
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -279,7 +314,6 @@ public class Account extends AppCompatActivity {
         });
         configureDialog(dialog);
     }
-
 
     // Show the Sheet Dialog for the feed Menu of the Post Fragment (menu when you click on More)
     private void showDialogPost() {
@@ -290,6 +324,9 @@ public class Account extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottom_sheet_layout_post);
 
+        // Call the Signout method
+        Button buttonSignout2 = dialog.findViewById(R.id.buttonSignout2);
+        signout(buttonSignout2, dialog);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -320,11 +357,14 @@ public class Account extends AppCompatActivity {
         feedIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
         postIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
 
+
         ordersText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
         feedText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
         postText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
+
         searchLinearLayout.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setEnabled(true);
+        resetLayout.setVisibility(View.GONE);
     }
 
     // Change the fragment for the specific fragment
@@ -352,8 +392,21 @@ public class Account extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
+    // Change the color of the icon and the text of the icon
     private void setIconAndTextColor(ImageView icon, TextView text, int color) {
         icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), color));
         text.setTextColor(ContextCompat.getColor(getApplicationContext(), color));
+    }
+
+    // Sign-out function
+    private void signout(Button button, final Dialog currentDialog) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Account.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
