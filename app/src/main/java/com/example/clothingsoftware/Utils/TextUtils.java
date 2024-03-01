@@ -41,7 +41,6 @@ public class TextUtils {
 
     // Verify that the url is valid
     public static boolean isValidUrl(String url) {
-        // Pattern pour vérifier les URL
         String urlPattern = "^((https?|ftp|file)://)?([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}(/[a-zA-Z0-9-._?,'+=&%$]*)?$";
         return Pattern.matches(urlPattern, url);
     }

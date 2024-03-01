@@ -1,5 +1,8 @@
 package com.example.clothingsoftware.Fragments;
 
+import static com.example.clothingsoftware.Utils.TextUtils.numberOfCharacterMediumInput;
+import static com.example.clothingsoftware.Utils.TextUtils.numberOfCharacterSmallInput;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,38 +34,46 @@ public class Post extends Fragment {
     String[] item = {"T-shirt", "Pants", "Jeans", "Dress", "Coat", "Shorts", "Jacket", "Jumpsuit", "Skirt", "Blouse", "Sweater", "Hoodie", "Suit", "Tie", "Blazer", "Leggings", "Tank top", "Cardigan", "Polo shirt", "Sweatshirt", "Romper"};
     String[] numberOfImage = {"1","2","3","4"};
     String[] numberOfSize = {"1","2","3","4", "5", "6"};
+    String[] numberOfColor = {"1","2","3","4", "5", "6", "7", "8"};
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterItems;
     AutoCompleteTextView autoCompleteTextViewImage;
+    AutoCompleteTextView autoCompleteTextViewColor;
+    ArrayAdapter<String> adapterItemsColor;
     ArrayAdapter<String> adapterItemsImage;
     AutoCompleteTextView autoCompleteTextViewSize;
     ArrayAdapter<String> adapterItemsSize;
     LinearLayout linearLayoutImage;
     LinearLayout linearLayoutSize;
+    LinearLayout linearLayoutColor;
     private final List<EditText> editTextListImage = new ArrayList<>();
     private final List<EditText> editTextListSize = new ArrayList<>();
+    private final List<EditText> editTextListColor = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post, container, false);
 
         autoCompleteTextView = view.findViewById(R.id.auto_complete_text);
         autoCompleteTextViewImage = view.findViewById(R.id.auto_complete_text_add_image);
         autoCompleteTextViewSize = view.findViewById(R.id.auto_complete_text_add_type);
+        autoCompleteTextViewColor = view.findViewById(R.id.auto_complete_text_add_color);
         linearLayoutImage = view.findViewById(R.id.layoutforNewImage);
         linearLayoutSize = view.findViewById(R.id.layoutforNewSize);
+        linearLayoutColor = view.findViewById(R.id.layoutforNewColor);
 
         // Initialize adapter with the context and the layout for each item
         adapterItems = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, item);
         adapterItemsImage = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, numberOfImage);
         adapterItemsSize = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, numberOfSize);
+        adapterItemsColor = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, numberOfColor);
 
         // Set the adapter to the AutoCompleteTextView
         autoCompleteTextView.setAdapter(adapterItems);
         autoCompleteTextViewImage.setAdapter(adapterItemsImage);
         autoCompleteTextViewSize.setAdapter(adapterItemsSize);
+        autoCompleteTextViewColor.setAdapter(adapterItemsColor);
 
         return view;
     }
@@ -80,8 +91,9 @@ public class Post extends Fragment {
                 TextView articleName = view.findViewById(R.id.articleNameEditText);
                 TextView price = view.findViewById(R.id.priceEditText);
                 TextView description = view.findViewById(R.id.descriptionEditText);
+                TextView brand = view.findViewById(R.id.brandEditText);
 
-                validateAndResetFields(articleName, price, description);
+                validateAndResetFields(articleName, price, description, brand);
             }
         });
 
@@ -95,6 +107,12 @@ public class Post extends Fragment {
         autoCompleteTextViewSize.setOnItemClickListener((parent, view1, position, id) -> {
             int numberOfSizes = Integer.parseInt(Objects.requireNonNull(adapterItemsSize.getItem(position)));
             createEditTextsForSizes(numberOfSizes);
+        });
+
+        // Create EditText for Color based on selected number
+        autoCompleteTextViewColor.setOnItemClickListener((parent, view1, position, id) -> {
+            int numberOfColors = Integer.parseInt(Objects.requireNonNull(adapterItemsColor.getItem(position)));
+            createEditTextsForColors(numberOfColors);
         });
     }
 
@@ -117,7 +135,44 @@ public class Post extends Fragment {
         }
     }
 
+    private void createEditTextsForColors(int numberOfColors) {
+        linearLayoutColor.removeAllViews();
+        editTextListColor.clear();
+
+        for (int i = 1; i <= numberOfColors; i++) {
+            createEditTextForColor("Hexadecimal code for color " + i);
+        }
+    }
+
     private void createEditTextForImage(String hint) {
+        EditText editText = new EditText(requireContext());
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.setMargins(0, 70, 0, 0);
+        editText.setLayoutParams(layoutParams
+
+        );
+        editText.setHint(hint);
+        editText.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+        editText.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.colorSecondPrimary));
+        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.input_border));
+        editText.setPadding(0, 45, 0, 45);
+        editText.setTextSize(16);
+        editText.setGravity(Gravity.CENTER);
+        editText.setMinHeight(48);
+
+        // Adding the EditText to the list
+        editTextListImage.add(editText);
+
+        // Adding EditText to parent layout
+        linearLayoutImage.addView(editText);
+    }
+
+    private void createEditTextForColor(String hint) {
         EditText editText = new EditText(requireContext());
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -131,15 +186,16 @@ public class Post extends Fragment {
         editText.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.colorSecondPrimary));
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
         editText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.input_border));
-        editText.setPadding(50, 45, 0, 45);
+        editText.setPadding(0, 45, 0, 45);
         editText.setTextSize(16);
+        editText.setGravity(Gravity.CENTER);
         editText.setMinHeight(48);
 
         // Adding the EditText to the list
-        editTextListImage.add(editText);
+        editTextListColor.add(editText);
 
         // Adding EditText to parent layout
-        linearLayoutImage.addView(editText);
+        linearLayoutColor.addView(editText);
     }
 
     private void createEditTextForSize(String hint1) {
@@ -194,26 +250,50 @@ public class Post extends Fragment {
     }
 
 
-    private void validateAndResetFields(TextView articleName, TextView price, TextView description) {
+    private void validateAndResetFields(TextView articleName, TextView price, TextView description, TextView brand) {
         // Extract input from TextViews
         String stringArticleName = TextUtils.sanitizeInput(articleName.getText().toString().trim());
         String stringPrice = TextUtils.sanitizeInput(price.getText().toString().trim());
         String stringDescription = TextUtils.sanitizeInput(description.getText().toString().trim());
+        String stringBrand = TextUtils.sanitizeInput(brand.getText().toString().trim());
 
         // Verify if any required field is empty
-        if (isAnyFieldEmpty(stringArticleName, stringPrice, stringDescription)) {
+        if (isAnyFieldEmpty(stringArticleName, stringPrice, stringDescription, stringBrand)) {
             Toast.makeText(getContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Validate medium input length for description
-        if (!isMediumInputLength(stringDescription)) {
+        if (!numberOfCharacterSmallInput(stringBrand) || !numberOfCharacterSmallInput(stringArticleName)) {
+            Toast.makeText(getContext(), "Brand name length is too long", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate medium input length for description
+        if (!isMediumInputLength(stringBrand)) {
             Toast.makeText(getContext(), "Description length is too long", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate that price is a positive number
+        try {
+            double priceValue = Double.parseDouble(stringPrice);
+            if (priceValue <= 0 || priceValue > 10000) {
+                Toast.makeText(getContext(), "Price not valid", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(getContext(), "Price must be a number", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Validate sizes and number of items
         if (!validateSizesAndItems()) {
+            return;
+        }
+
+        // Validate colors
+        if (!validateHexadecimalCode()) {
             return;
         }
 
@@ -229,11 +309,13 @@ public class Post extends Fragment {
         Toast.makeText(getContext(), "New post successful", Toast.LENGTH_SHORT).show();
     }
 
-    private boolean isAnyFieldEmpty(String articleName, String price, String description) {
-        return articleName.isEmpty() || price.isEmpty() || description.isEmpty() ||
+    private boolean isAnyFieldEmpty(String articleName, String price, String description, String stringBrand) {
+        return articleName.isEmpty() || price.isEmpty()
+                || description.isEmpty() || stringBrand.isEmpty() ||
                 autoCompleteTextView.getText().toString().isEmpty() ||
                 autoCompleteTextViewImage.getText().toString().isEmpty() ||
-                autoCompleteTextViewSize.getText().toString().isEmpty();
+                autoCompleteTextViewSize.getText().toString().isEmpty() ||
+                autoCompleteTextViewColor.getText().toString().isEmpty();
     }
 
     private boolean isMediumInputLength(String input) {
@@ -246,7 +328,9 @@ public class Post extends Fragment {
             EditText editText1 = (EditText) linearLayout.getChildAt(0);
             EditText editText2 = (EditText) linearLayout.getChildAt(1);
 
-            String editText1Text = editText1.getText().toString().trim();
+            String editText1Text = editText1.getText().toString().
+
+                    trim();
             String editText2Text = editText2.getText().toString().trim();
 
             if (editText1Text.isEmpty() || editText2Text.isEmpty()) {
@@ -255,11 +339,16 @@ public class Post extends Fragment {
             } else {
                 try {
                     double editText2Value = Double.parseDouble(editText2Text);
+                    if (editText2Value <= 0) {
+                        Toast.makeText(getContext(), "Number of items must be greater than 0", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "Number of items must be a number", Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
+
         }
         return true;
     }
@@ -279,17 +368,44 @@ public class Post extends Fragment {
         return true;
     }
 
+    private boolean validateHexadecimalCode() {
+        for (EditText editText : editTextListColor) {
+            String code = editText.getText().toString().trim();
+            if (code.isEmpty()) {
+                Toast.makeText(getContext(), "Enter hexadecimal code for all colors", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            // Check if the length of the string is correct for a hexadecimal code
+            if (code.length() != 6) {
+                Toast.makeText(getContext(), "The hexadecimal code format is invalid.", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            for (int i = 0; i < code.length(); i++) {
+                char c = code.charAt(i);
+                if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'))) {
+                    Toast.makeText(getContext(), "The hexadecimal code format is invalid.", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+        }
+        // The string is a valid hexadecimal code
+        return true;
+    }
+
     private void resetFields() {
         TextView articleName = requireView().findViewById(R.id.articleNameEditText);
         TextView price = requireView().findViewById(R.id.priceEditText);
         TextView description = requireView().findViewById(R.id.descriptionEditText);
+        TextView brand = requireView().findViewById(R.id.brandEditText);
 
         articleName.setText("");
         price.setText("");
         description.setText("");
+        brand.setText("");
         autoCompleteTextView.setText("");
         autoCompleteTextViewImage.setText("");
         autoCompleteTextViewSize.setText("");
+        autoCompleteTextViewColor.setText("");
 
         for (EditText editText : editTextListSize) {
             editText.setText("");
@@ -299,7 +415,11 @@ public class Post extends Fragment {
             editText.setText("");
         }
 
+        for (EditText editText : editTextListColor) {
+            editText.setText("");
+        }
         linearLayoutImage.removeAllViews();
         linearLayoutSize.removeAllViews();
+        linearLayoutColor.removeAllViews();
     }
 }

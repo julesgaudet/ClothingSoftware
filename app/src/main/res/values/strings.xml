@@ -47,8 +47,10 @@
     <string name="fourth_image_url">Fourth image URL</string>
     <string name="third_image_url">Third image URL</string>
     <string name="second_image_url">Second image URL</string>
-    <string name="number_of_images_for_the_post">Number of Images for the post</string>
-    <string name="number_of_size_for_the_post">Number of Sizes for the Post</string>
+    <string name="number_of_images_for_the_post">Number of Images</string>
+    <string name="number_of_size_for_the_post">Number of Sizes</string>
     <string name="reset_icon">Reset Icon</string>
     <string name="reset">Reset</string>
+    <string name="brand_name">Brand Name</string>
+    <string name="number_of_colors">Number of Colors</string>
 </resources>

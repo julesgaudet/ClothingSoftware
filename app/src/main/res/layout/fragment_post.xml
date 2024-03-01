@@ -36,6 +36,23 @@
                 android:textSize="16sp"
                 tools:ignore="RtlSymmetry" />
 
+            <EditText
+                android:id="@+id/brandEditText"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="25dp"
+                android:autofillHints=""
+                android:background="@drawable/input_border"
+                android:fontFamily="@font/regular"
+                android:hint="@string/brand_name"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:textColorHint="@color/colorSecondPrimary"
+                android:textSize="16sp"
+                tools:ignore="RtlSymmetry" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/typeOfArticle"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -89,9 +106,9 @@
                 android:fontFamily="@font/regular"
                 android:gravity="top"
                 android:hint="@string/description"
-                android:inputType="text"
                 android:minHeight="48dp"
                 android:paddingStart="20dp"
+                android:inputType="textMultiLine"
                 android:paddingTop="22dp"
                 android:paddingEnd="10dp"
                 android:textColorHint="@color/colorSecondPrimary"
@@ -127,8 +144,7 @@
                 android:id="@+id/layoutforNewImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
+                android:orientation="vertical"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/numberOfType"
@@ -159,7 +175,38 @@
                 android:id="@+id/layoutforNewSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/numberOfColors"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:hint="@string/number_of_colors"
+                android:textAppearance="@font/inter"
+                android:textColorHint="@color/colorSecondPrimary"
+                android:theme="@style/InputText_Overlay"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/colorSecondPrimary"
+                app:boxStrokeWidth="1dp"
+                app:endIconTint="@color/colorSecondPrimary"
+                app:hintTextColor="@color/colorSecondPrimary">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_complete_text_add_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutforNewColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonPost"

@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.clothingsoftware.Fragments.Feed;
 import com.example.clothingsoftware.Fragments.Orders;
@@ -69,8 +70,9 @@ public class Account extends AppCompatActivity {
     RelativeLayout layoutFooter;
     View viewFooter;
 
-    // Verify if the "Search" or "More" menu is still open (prevent spam clicking)
-    private boolean isDialogShowing = false;
+
+    private boolean isDialogShowing = false;  // Verify if the "Search" or "More" menu is still open (prevent spam clicking)
+    private boolean isClickable = true; // Variable to track click state
 
 
     @Override
@@ -127,14 +129,27 @@ public class Account extends AppCompatActivity {
         resetLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create a new instance of the Post fragment
-                Post fragment = new Post();
+                if (isClickable) { // Check if the element is clickable
+                    isClickable = false; // Disable click
+                    // Create a new instance of the Post fragment
+                    Post fragment = new Post();
 
-                // Replace the current fragment with the new instance
-                displayFragment(fragment);
+                    // Replace the current fragment with the new instance
+                    displayFragment(fragment);
+
+                    // Display a toast message indicating that the reset button is clicked
+                    Toast.makeText(Account.this, "Reset clicked", Toast.LENGTH_SHORT).show();
+
+                    // Enable click again after a delay
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            isClickable = true;
+                        }
+                    }, 1000); // Delay in milliseconds, for example, 1000 for 1 second
+                }
             }
         });
-
 
         // Add color to the icon and text and move to the Post fragment
         postLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -275,7 +290,7 @@ public class Account extends AppCompatActivity {
 
         // Call the signout method
         Button buttonSignout1 = dialog.findViewById(R.id.buttonSignout1);
-        signout(buttonSignout1, dialog);
+        signout(buttonSignout1);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -304,7 +319,7 @@ public class Account extends AppCompatActivity {
 
         // Call the signout method
         Button buttonSignout3 = dialog.findViewById(R.id.buttonSignout3);
-        signout(buttonSignout3, dialog);
+        signout(buttonSignout3);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -326,7 +341,7 @@ public class Account extends AppCompatActivity {
 
         // Call the Signout method
         Button buttonSignout2 = dialog.findViewById(R.id.buttonSignout2);
-        signout(buttonSignout2, dialog);
+        signout(buttonSignout2);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -399,7 +414,7 @@ public class Account extends AppCompatActivity {
     }
 
     // Sign-out function
-    private void signout(Button button, final Dialog currentDialog) {
+    private void signout(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

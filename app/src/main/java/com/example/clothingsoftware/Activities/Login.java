@@ -19,13 +19,12 @@ import com.example.clothingsoftware.R;
 
 public class Login extends AppCompatActivity {
 
-    private CheckBox checkbox;
-    private EditText loginEmail;
-    private EditText loginPassword;
-    private TextView linkForgotPassword;
-    private TextView linkSignUp;
-    private Button button;
-    private ProgressBar progressBar;
+    CheckBox checkbox;
+    EditText loginEmail;
+    EditText loginPassword;
+    TextView linkSignUp;
+    Button button;
+    ProgressBar progressBar;
 
     @Override
     public void onStart() {
@@ -42,23 +41,12 @@ public class Login extends AppCompatActivity {
         checkbox = findViewById(R.id.checkbox);
         loginEmail = findViewById(R.id.loginEmail);
         loginPassword = findViewById(R.id.loginPassword);
-        linkForgotPassword = findViewById(R.id.linkForgotPassword);
         linkSignUp = findViewById(R.id.linkSignUp);
         button = findViewById(R.id.button);
         progressBar = findViewById(R.id.progressbar);
 
         loginEmail.addTextChangedListener(textWatcher);
         loginPassword.addTextChangedListener(textWatcher);
-
-        // Link to Activity ForgotPassword
-        linkForgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Login.this, ForgotPassword.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         // Set up text change listener for enabling/disabling button
         linkSignUp.setOnClickListener(new View.OnClickListener() {
