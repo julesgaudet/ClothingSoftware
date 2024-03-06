@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ClothingSoftware</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="icon_for_the_feed_section">Icon for the feed section</string>
     <string name="feed">Feed</string>
@@ -53,4 +52,52 @@
     <string name="reset">Reset</string>
     <string name="brand_name">Brand Name</string>
     <string name="number_of_colors">Number of Colors</string>
+    <string name="primary_image_in_a_post">Primary image in a post</string>
+    <string name="image_for_a_post">Image for a post</string>
+    <string name="raincoat_spring_edition_85_39">Raincoat Spring Edition $</string>
+    <string name="colors">Colors</string>
+    <string name="sizes">Sizes</string>
+    <string name="more_details">More Details</string>
+    <string name="second_image">Second Image</string>
+    <string name="third_image">Third Image</string>
+    <string name="fourth_image">Fourth Image</string>
+
+    <string-array name="feed_txt_name">
+        <item>first article</item>
+        <item>second article</item>
+        <item>third article</item>
+        <item>fourth article</item>
+        <item>fifth article</item>
+        <item>six article</item>
+        <item>seven article</item>
+        <item>height article</item>
+        <item>nine article</item>
+        <item>ten article</item>
+    </string-array>
+
+    <string-array name="feed_txt_price">
+        <item>12.0</item>
+        <item>12.0</item>
+        <item>12.0</item>
+        <item>12.0</item>
+        <item>100.0</item>
+        <item>100.0</item>
+        <item>100.0</item>
+        <item>100.0</item>
+        <item>100.0</item>
+        <item>200.0</item>
+    </string-array>
+
+    <string-array name="feed_txt_size">
+        <item>S</item>
+        <item>S</item>
+        <item>L</item>
+        <item>L</item>
+        <item>XL</item>
+        <item>XL</item>
+        <item>XL</item>
+        <item>XXL</item>
+        <item>XXL</item>
+        <item>XXL</item>
+    </string-array>
 </resources>
