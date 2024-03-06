@@ -5,23 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Feed">
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewFeed"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        tools:ignore="UselessParent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/recyclerViewFeed"/>
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="match_parent" />
 
 </FrameLayout>
