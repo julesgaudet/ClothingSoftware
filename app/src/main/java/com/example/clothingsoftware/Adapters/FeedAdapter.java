@@ -1,6 +1,5 @@
 package com.example.clothingsoftware.Adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,57 +11,69 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clothingsoftware.Models.FeedModel;
 import com.example.clothingsoftware.R;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> {
-    Context context;
-    ArrayList<FeedModel> feedModel;
-    public FeedAdapter(Context context, ArrayList<FeedModel> feedModel) {
-        this.context = context;
-        this.feedModel = feedModel;
+public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder>{
+
+    private final List<FeedModel> feedModels;
+
+    public FeedAdapter(List<FeedModel> feedModels) {
+        this.feedModels = feedModels;
     }
 
     @NonNull
     @Override
-    public FeedAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.post_item, parent, false);
-
-        return new FeedAdapter.MyViewHolder(view);
+    public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new FeedViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.post_item,
+                        parent,
+                        false
+                )
+        );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FeedAdapter.MyViewHolder holder, int position) {
-        holder.titleText.setText(feedModel.get(position).getName());
-        holder.priceText.setText(feedModel.get(position).getPrice());
-        holder.sizeText.setText(feedModel.get(position).getSize());
-        holder.imageView1.setImageResource(feedModel.get(position).getImage1());
-        holder.imageView2.setImageResource(feedModel.get(position).getImage2());
-        holder.imageView3.setImageResource(feedModel.get(position).getImage3());
-        holder.imageView4.setImageResource(feedModel.get(position).getImage4());
+    public void onBindViewHolder(@NonNull FeedViewHolder holder, int position) {
+        holder.setPhotoData(feedModels.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return feedModel.size();
+        return feedModels.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    static class FeedViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView1, imageView2, imageView3, imageView4;
-        TextView titleText, priceText, sizeText;
-        public MyViewHolder(@NonNull View itemView) {
+        ImageView imageView1;
+        ImageView imageView2;
+        ImageView imageView3;
+        ImageView imageView4;
+        TextView title, price, size;
+
+        public FeedViewHolder(@NonNull View itemView) {
             super(itemView);
-
             imageView1 = itemView.findViewById(R.id.imageView1);
             imageView2 = itemView.findViewById(R.id.imageView2);
             imageView3 = itemView.findViewById(R.id.imageView3);
             imageView4 = itemView.findViewById(R.id.imageView4);
+            title = itemView.findViewById(R.id.titleText);
+            price = itemView.findViewById(R.id.priceText);
+            size = itemView.findViewById(R.id.sizeText);
+        }
 
-            titleText = itemView.findViewById(R.id.titleText);
-            priceText = itemView.findViewById(R.id.priceText);
-            sizeText = itemView.findViewById(R.id.sizeText);
+        void setPhotoData(FeedModel feedModel) {
+            title.setText(feedModel.getTitle());
+            price.setText(feedModel.getPrice());
+            size.setText(feedModel.getSize());
+
+            Picasso.get().load(feedModel.getImage1URL()).into(imageView1);
+            Picasso.get().load(feedModel.getImage2URL()).into(imageView2);
+            Picasso.get().load(feedModel.getImage3URL()).into(imageView3);
+            Picasso.get().load(feedModel.getImage4URL()).into(imageView4);
         }
     }
 }
+

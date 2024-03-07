@@ -1,27 +1,16 @@
 package com.example.clothingsoftware.Models;
 
 public class FeedModel {
-    String name;
+    String title;
     String price;
     String size;
-    int image1;
-    int image2;
-    int image3;
-    int image4;
+    String image1URL;
+    String image2URL;
+    String image3URL;
+    String image4URL;
 
-    public FeedModel(String name, String price, String size,
-                     int image1, int image2, int image3, int image4) {
-        this.name = name;
-        this.price = price;
-        this.size = size;
-        this.image1 = image1;
-        this.image2 = image2;
-        this.image3 = image3;
-        this.image4 = image4;
-    }
-
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public String getPrice() {
@@ -32,19 +21,47 @@ public class FeedModel {
         return size;
     }
 
-    public int getImage1() {
-        return image1;
+    public String getImage1URL() {
+        return image1URL;
     }
 
-    public int getImage2() {
-        return image2;
+    public String getImage2URL() {
+        return image2URL;
     }
 
-    public int getImage3() {
-        return image3;
+    public String getImage3URL() {
+        return image3URL;
     }
 
-    public int getImage4() {
-        return image4;
+    public String getImage4URL() {
+        return image4URL;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public void setImage1URL(String image1URL) {
+        this.image1URL = image1URL;
+    }
+
+    public void setImage2URL(String image2URL) {
+        this.image2URL = image2URL;
+    }
+
+    public void setImage3URL(String image3URL) {
+        this.image3URL = image3URL;
+    }
+
+    public void setImage4URL(String image4URL) {
+        this.image4URL = image4URL;
     }
 }
