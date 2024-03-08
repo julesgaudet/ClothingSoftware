@@ -45,7 +45,6 @@ public class Feed extends Fragment {
         feedItem2.setImageUrls(Arrays.asList(
                 "https://enchante.co/cdn/shop/files/ENCHANTE9_ff49cdd4-e467-4bfa-8ba0-6676505f553c_1024x1024.jpg?v=1706672576",
                 "https://enchante.co/cdn/shop/files/ENCHANTE9_ff49cdd4-e467-4bfa-8ba0-6676505f553c_1024x1024.jpg?v=1706672576",
-                "https://enchante.co/cdn/shop/files/ENCHANTE9_ff49cdd4-e467-4bfa-8ba0-6676505f553c_1024x1024.jpg?v=1706672576",
                 "https://enchante.co/cdn/shop/files/ENCHANTE9_ff49cdd4-e467-4bfa-8ba0-6676505f553c_1024x1024.jpg?v=1706672576"));
         feedItems.add(feedItem2);
 

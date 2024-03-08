@@ -47,7 +47,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     public void onBindViewHolder(@NonNull FeedViewHolder holder, int position) {
         holder.setPhotoData(feedModels.get(position));
 
-        ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(feedModels.get(position).getImageUrls());
+        ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(feedModels.get(position).getImageUrls(), holder.dotsContainer);
         holder.imageContainer.setAdapter(imagePagerAdapter);
     }
 
@@ -55,6 +55,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
         TextView title, price, size;
         ViewPager2 imageContainer;
+        LinearLayout dotsContainer;
 
         public FeedViewHolder(@NonNull View itemView, ViewPager2 imageContainer) {
             super(itemView);
@@ -62,6 +63,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             title = itemView.findViewById(R.id.titleText);
             price = itemView.findViewById(R.id.priceText);
             size = itemView.findViewById(R.id.sizeText);
+            dotsContainer = itemView.findViewById(R.id.dotsContainer);
         }
 
         void setPhotoData(FeedModel feedModel) {
