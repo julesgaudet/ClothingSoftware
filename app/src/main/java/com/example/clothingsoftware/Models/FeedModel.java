@@ -1,13 +1,15 @@
 package com.example.clothingsoftware.Models;
 
 import java.util.List;
+import java.util.Map;
 
 public class FeedModel {
     private String title;
     private String price;
     private List<String> colors;
-    private List<String> sizes;
     private List<String> imageUrls;
+    private String description;
+    private Map<String, Integer> itemsPerSize;
 
     public String getTitle() {
         return title;
@@ -17,12 +19,10 @@ public class FeedModel {
         return price;
     }
 
+    public String getDescription() { return description; }
+
     public List<String> getColors() {
         return colors;
-    }
-
-    public List<String> getSizes() {
-        return sizes;
     }
 
     public List<String> getImageUrls() {
@@ -41,8 +41,14 @@ public class FeedModel {
         this.colors = colors;
     }
 
-    public void setSizes(List<String> sizes) {
-        this.sizes = sizes;
+    public void setDescription(String description) { this.description = description; }
+
+    public void setItemsPerSize(Map<String, Integer> itemsPerSize) {
+        this.itemsPerSize = itemsPerSize;
+    }
+
+    public Map<String, Integer> getItemsPerSize() {
+        return itemsPerSize;
     }
 
     public void setImageUrls(List<String> imageUrls) {

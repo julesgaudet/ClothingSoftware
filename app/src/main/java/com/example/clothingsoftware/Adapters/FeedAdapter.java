@@ -12,18 +12,23 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.example.clothingsoftware.Models.FeedModel;
 import com.example.clothingsoftware.R;
 
 import java.util.List;
+import java.util.Map;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 
     private final List<FeedModel> feedModels;
+    private OnMoreButtonClickListener onMoreButtonClickListener;
 
     public FeedAdapter(List<FeedModel> feedModels) {
         this.feedModels = feedModels;
+    }
+
+    public void setOnMoreButtonClickListener(OnMoreButtonClickListener listener) {
+        this.onMoreButtonClickListener = listener;
     }
 
     @Override
@@ -45,17 +50,28 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull FeedViewHolder holder, int position) {
-        holder.setPhotoData(feedModels.get(position));
+        holder.setPhotoData(feedModels.get(holder.getAdapterPosition()));
 
-        ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(feedModels.get(position).getImageUrls(), holder.dotsContainer);
+        ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(feedModels.get(holder.getAdapterPosition()).getImageUrls(), holder.dotsContainer); // Corrected usage of holder.getAdapterPosition()
         holder.imageContainer.setAdapter(imagePagerAdapter);
+
+        holder.buttonMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onMoreButtonClickListener != null) {
+                    onMoreButtonClickListener.onMoreButtonClick(holder.getAdapterPosition()); // Corrected usage of holder.getAdapterPosition()
+                }
+            }
+        });
     }
+
 
     public static class FeedViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, price, size;
         ViewPager2 imageContainer;
         LinearLayout dotsContainer;
+        TextView buttonMore;
 
         public FeedViewHolder(@NonNull View itemView, ViewPager2 imageContainer) {
             super(itemView);
@@ -64,6 +80,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             price = itemView.findViewById(R.id.priceText);
             size = itemView.findViewById(R.id.sizeText);
             dotsContainer = itemView.findViewById(R.id.dotsContainer);
+            buttonMore = itemView.findViewById(R.id.buttonMore);
         }
 
         void setPhotoData(FeedModel feedModel) {
@@ -86,19 +103,25 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
                 colorContainer.addView(colorView);
             }
 
-            List<String> sizes = feedModel.getSizes();
+            Map<String, Integer> itemsPerSize = feedModel.getItemsPerSize();
             LinearLayout sizeContainer = itemView.findViewById(R.id.sizeContainer);
             sizeContainer.removeAllViews(); // Clear previous views
 
-            for (String size : sizes) {
+            for (Map.Entry<String, Integer> entry : itemsPerSize.entrySet()) {
                 TextView sizeTextView = (TextView) LayoutInflater.from(itemView.getContext()).inflate(
                         R.layout.size_item, // Layout for each size item
                         sizeContainer,
                         false
                 );
-                sizeTextView.setText(size);
+                String sizeInfo = entry.getKey() + " - " + entry.getValue() + " item(s)";
+                sizeTextView.setText(sizeInfo);
                 sizeContainer.addView(sizeTextView);
             }
         }
+    }
+
+    public interface OnMoreButtonClickListener {
+        void onMoreButtonClick(int position);
+
     }
 }
