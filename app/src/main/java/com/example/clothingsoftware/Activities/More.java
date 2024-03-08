@@ -1,11 +1,12 @@
 package com.example.clothingsoftware.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.clothingsoftware.R;
 
@@ -33,16 +34,15 @@ public class More extends AppCompatActivity {
             Button buttonBack = findViewById(R.id.buttonBack);
             TextView descriptionTextView = findViewById(R.id.descriptionTextView);
 
-            descriptionTextView.setText(String.format("Number of items: %s", description));
+
             titleTextView.setText(title);
-            priceTextView.setText(String.format("Price: %s", price));
-
+            // Set bold for specific parts of text
+            setBoldColorText(priceTextView, "Price: " + price, "Price", ContextCompat.getColor(this, R.color.black));
             if (itemsPerSize != null && !itemsPerSize.isEmpty()) {
-                sizesTextView.setText(String.format("Size(s) - Number of items: %s", itemsPerSize));
+                setBoldColorText(sizesTextView, "Size(s) - Number of items: " + itemsPerSize, "Size(s) - Number of items", ContextCompat.getColor(this, R.color.black));
             }
-
-            String colorsString = colors != null ? "Color(s) (hexadecimal code): " + String.join(", ", colors) : "";
-            colorsTextView.setText(colorsString);
+            setBoldColorText(colorsTextView, "Color(s) (hexadecimal code): " + (colors != null ? String.join(", ", colors) : ""), "Color(s) (hexadecimal code)", ContextCompat.getColor(this, R.color.black));
+            setBoldColorText(descriptionTextView, "Description: " + description, "Description",  ContextCompat.getColor(this, R.color.black));
 
             buttonBack.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -51,5 +51,14 @@ public class More extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public static void setBoldColorText(TextView textView, String fullText, String coloredBoldText, int color) {
+        textView.setText(fullText, TextView.BufferType.SPANNABLE);
+        android.text.Spannable spannable = (android.text.Spannable) textView.getText();
+        int start = fullText.indexOf(coloredBoldText);
+        int end = start + coloredBoldText.length();
+        spannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), start, end, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new android.text.style.ForegroundColorSpan(color), start, end, android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 }
