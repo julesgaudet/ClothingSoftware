@@ -47,16 +47,19 @@
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/inter"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/priceText"
+            android:textColor="@color/colorPrimary"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/inter"
+            android:fontFamily="@font/medium"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -66,6 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/inter"
+        android:textColor="@color/black"
         android:paddingHorizontal="30dp"
         android:text="@string/colors"
         android:textSize="18sp" />
@@ -91,6 +95,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/inter"
         android:paddingHorizontal="30dp"
+        android:textColor="@color/black"
         android:text="@string/sizes"
         android:textSize="18sp" />
 
