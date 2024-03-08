@@ -3,16 +3,16 @@ package com.example.clothingsoftware.Adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.clothingsoftware.Models.FeedModel;
 import com.example.clothingsoftware.R;
-import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder>{
@@ -23,42 +23,37 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         this.feedModels = feedModels;
     }
 
+    @Override
+    public int getItemCount() {
+        return feedModels.size();
+    }
+
     @NonNull
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FeedViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.post_item,
-                        parent,
-                        false
-                )
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.post_item,
+                parent,
+                false
         );
+        ViewPager2 imageContainer = view.findViewById(R.id.imageContainer);
+        return new FeedViewHolder(view, imageContainer);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull FeedViewHolder holder, int position) {
         holder.setPhotoData(feedModels.get(position));
     }
 
-    @Override
-    public int getItemCount() {
-        return feedModels.size();
-    }
-
     static class FeedViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView1;
-        ImageView imageView2;
-        ImageView imageView3;
-        ImageView imageView4;
         TextView title, price, size;
+        ViewPager2 imageContainer;
 
-        public FeedViewHolder(@NonNull View itemView) {
+        public FeedViewHolder(@NonNull View itemView, ViewPager2 imageContainer) {
             super(itemView);
-            imageView1 = itemView.findViewById(R.id.imageView1);
-            imageView2 = itemView.findViewById(R.id.imageView2);
-            imageView3 = itemView.findViewById(R.id.imageView3);
-            imageView4 = itemView.findViewById(R.id.imageView4);
+            this.imageContainer = imageContainer;
             title = itemView.findViewById(R.id.titleText);
             price = itemView.findViewById(R.id.priceText);
             size = itemView.findViewById(R.id.sizeText);
@@ -69,10 +64,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             price.setText(feedModel.getPrice());
             size.setText(feedModel.getSize());
 
-            Picasso.get().load(feedModel.getImage1URL()).into(imageView1);
-            Picasso.get().load(feedModel.getImage2URL()).into(imageView2);
-            Picasso.get().load(feedModel.getImage3URL()).into(imageView3);
-            Picasso.get().load(feedModel.getImage4URL()).into(imageView4);
+            List<String> imageUrls = new ArrayList<>();
+            imageUrls.add(feedModel.getImage1URL());
+            imageUrls.add(feedModel.getImage2URL());
+            imageUrls.add(feedModel.getImage3URL());
+            imageUrls.add(feedModel.getImage4URL());
+
+            ImagePagerAdapter adapter = new ImagePagerAdapter(imageUrls);
+            imageContainer.setAdapter(adapter);
         }
     }
 }

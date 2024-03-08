@@ -61,6 +61,7 @@
     <string name="second_image">Second Image</string>
     <string name="third_image">Third Image</string>
     <string name="fourth_image">Fourth Image</string>
+    <string name="image_for_each_post">Image for each post</string>
 
     <string-array name="feed_txt_name">
         <item>first article</item>

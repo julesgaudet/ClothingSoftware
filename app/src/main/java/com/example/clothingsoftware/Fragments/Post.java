@@ -1,6 +1,4 @@
 package com.example.clothingsoftware.Fragments;
-
-import static com.example.clothingsoftware.Utils.TextUtils.numberOfCharacterMediumInput;
 import static com.example.clothingsoftware.Utils.TextUtils.numberOfCharacterSmallInput;
 
 import android.os.Bundle;
@@ -120,7 +118,7 @@ public class Post extends Fragment {
         linearLayoutImage.removeAllViews();
         editTextListImage.clear();
 
-        createEditTextForImage("Image " + 1 + " URL (Primary Picture");
+        createEditTextForImage("Image " + 1 + " URL (Primary Picture)");
         for (int i = 2; i < numberOfImages + 1; i++) {
             createEditTextForImage("Image " + i + " URL");
         }
