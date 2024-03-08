@@ -46,6 +46,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     @Override
     public void onBindViewHolder(@NonNull FeedViewHolder holder, int position) {
         holder.setPhotoData(feedModels.get(position));
+
+        ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(feedModels.get(position).getImageUrls());
+        holder.imageContainer.setAdapter(imagePagerAdapter);
     }
 
     public static class FeedViewHolder extends RecyclerView.ViewHolder {

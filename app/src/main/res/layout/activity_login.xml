@@ -63,7 +63,8 @@
             android:layout_width="38dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="-6dp"
-            app:buttonTint="@color/colorPrimary" />
+            app:buttonTint="@color/colorPrimary"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:layout_width="wrap_content"

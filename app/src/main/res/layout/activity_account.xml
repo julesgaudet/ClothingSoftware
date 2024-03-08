@@ -30,21 +30,12 @@
             android:layout_height="0.5dp"
             android:background="@color/colorSecondPrimary"/>
 
-        <!-- SwipeRefreshLayout -->
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
+        <!-- FragmentLayout -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
-            android:paddingHorizontal="30dp"
             android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <!-- FragmentLayout -->
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:layout_weight="1" />
 
         <View
             android:id="@+id/viewFooter"

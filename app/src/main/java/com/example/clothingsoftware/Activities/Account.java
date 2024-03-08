@@ -50,7 +50,6 @@ public class Account extends AppCompatActivity {
     Feed feedFragment;
     Orders ordersFragment;
     Post postFragment;
-    SwipeRefreshLayout swipeRefreshLayout;
     LinearLayout searchLinearLayout;
     LinearLayout filterLayout;
     LinearLayout resetLayout;
@@ -106,10 +105,6 @@ public class Account extends AppCompatActivity {
         feedFragment = new Feed();
         postFragment = new Post();
 
-        // Initialize SwipeRefreshLayout
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-
         // Add color to the Feed icon and text
         displayFragment(new Feed());
         setIconAndTextColor(feedIcon, feedText, R.color.colorPrimary);
@@ -157,7 +152,6 @@ public class Account extends AppCompatActivity {
             public void onClick(View v) {
                 resetIconsAndText();
                 displayFragment(postFragment);
-                swipeRefreshLayout.setEnabled(false);
                 setIconAndTextColor(postIcon, postText, R.color.colorPrimary);
 
                 searchLinearLayout.setVisibility(View.GONE);
@@ -173,20 +167,6 @@ public class Account extends AppCompatActivity {
                 resetIconsAndText();
                 setIconAndTextColor(ordersIcon, ordersText, R.color.colorPrimary);
 
-            }
-        });
-
-        // Refresh animation
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Stop refresh animation after 3 seconds
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                }, 1000);
             }
         });
 
@@ -378,7 +358,6 @@ public class Account extends AppCompatActivity {
         postText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
 
         searchLinearLayout.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setEnabled(true);
         resetLayout.setVisibility(View.GONE);
     }
 
