@@ -11,6 +11,7 @@ import com.example.clothingsoftware.Models.FeedModel;
 import com.example.clothingsoftware.R;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class Feed extends Fragment {
 
@@ -24,22 +25,26 @@ public class Feed extends Fragment {
         List<FeedModel> feedItems = new ArrayList<>();
 
         FeedModel feedItem1 = new FeedModel();
-        feedItem1.setImage1URL("https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*");
-        feedItem1.setImage2URL("https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*");
-        feedItem1.setImage3URL("https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*");
-        feedItem1.setImage4URL("https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*");
         feedItem1.setTitle("T-Shirt");
         feedItem1.setPrice("125$");
-        feedItem1.setSize("XL");
+        feedItem1.setSizes(Arrays.asList("S", "M", "L"));
+        feedItem1.setColors(Arrays.asList("#345432", "#222000", "#111444"));
+        feedItem1.setImageUrls(Arrays.asList(
+                "https://image-url-1.jpg",
+                "https://image-url-2.jpg",
+                "https://image-url-3.jpg",
+                "https://image-url-4.jpg"));
 
         FeedModel feedItem2 = new FeedModel();
-        feedItem2.setImage1URL("https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*");
-        feedItem2.setImage2URL("https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*");
-        feedItem2.setImage3URL("https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*");
-        feedItem2.setImage4URL("https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*");
         feedItem2.setTitle("Weird yellow shirt");
         feedItem2.setPrice("222$");
-        feedItem2.setSize("M");
+        feedItem2.setSizes(Arrays.asList("XL", "XLL"));
+        feedItem2.setColors(Arrays.asList("#345432", "#222000", "#000111"));
+        feedItem2.setImageUrls(Arrays.asList(
+                "https://image-url-5.jpg",
+                "https://image-url-6.jpg",
+                "https://image-url-7.jpg",
+                "https://image-url-8.jpg"));
 
         feedItems.add(feedItem1);
         feedItems.add(feedItem2);

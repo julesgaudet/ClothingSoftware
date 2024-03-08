@@ -7,15 +7,15 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginVertical="8dp"
         android:background="@drawable/card_background"
         app:cardElevation="4dp">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/imageContainer"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:orientation="horizontal"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/imageContainer"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:orientation="horizontal" />
 
     </androidx.cardview.widget.CardView>
 
@@ -53,12 +53,14 @@
         android:text="@string/colors"
         android:textSize="18sp" />
 
-    <View
-        android:id="@+id/circleColorView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/circle_shape" />
+    <LinearLayout
+        android:id="@+id/colorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/sizePost"
@@ -69,16 +71,13 @@
         android:text="@string/sizes"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/sizeText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/sizeContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/size_post"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:text="SIZE"
-        android:textColor="@android:color/white" />
+        android:orientation="horizontal">
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonMore"

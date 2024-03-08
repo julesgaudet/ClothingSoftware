@@ -1,13 +1,13 @@
 package com.example.clothingsoftware.Models;
 
+import java.util.List;
+
 public class FeedModel {
-    String title;
-    String price;
-    String size;
-    String image1URL;
-    String image2URL;
-    String image3URL;
-    String image4URL;
+    private String title;
+    private String price;
+    private List<String> colors;
+    private List<String> sizes;
+    private List<String> imageUrls;
 
     public String getTitle() {
         return title;
@@ -17,24 +17,16 @@ public class FeedModel {
         return price;
     }
 
-    public String getSize() {
-        return size;
+    public List<String> getColors() {
+        return colors;
     }
 
-    public String getImage1URL() {
-        return image1URL;
+    public List<String> getSizes() {
+        return sizes;
     }
 
-    public String getImage2URL() {
-        return image2URL;
-    }
-
-    public String getImage3URL() {
-        return image3URL;
-    }
-
-    public String getImage4URL() {
-        return image4URL;
+    public List<String> getImageUrls() {
+        return imageUrls;
     }
 
     public void setTitle(String title) {
@@ -45,23 +37,15 @@ public class FeedModel {
         this.price = price;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setColors(List<String> colors) {
+        this.colors = colors;
     }
 
-    public void setImage1URL(String image1URL) {
-        this.image1URL = image1URL;
+    public void setSizes(List<String> sizes) {
+        this.sizes = sizes;
     }
 
-    public void setImage2URL(String image2URL) {
-        this.image2URL = image2URL;
-    }
-
-    public void setImage3URL(String image3URL) {
-        this.image3URL = image3URL;
-    }
-
-    public void setImage4URL(String image4URL) {
-        this.image4URL = image4URL;
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }

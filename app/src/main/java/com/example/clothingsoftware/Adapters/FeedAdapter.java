@@ -1,9 +1,13 @@
 package com.example.clothingsoftware.Adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,10 +16,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.clothingsoftware.Models.FeedModel;
 import com.example.clothingsoftware.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder>{
+public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 
     private final List<FeedModel> feedModels;
 
@@ -40,13 +43,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         return new FeedViewHolder(view, imageContainer);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull FeedViewHolder holder, int position) {
         holder.setPhotoData(feedModels.get(position));
     }
 
-    static class FeedViewHolder extends RecyclerView.ViewHolder {
+    public static class FeedViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, price, size;
         ViewPager2 imageContainer;
@@ -62,17 +64,36 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         void setPhotoData(FeedModel feedModel) {
             title.setText(feedModel.getTitle());
             price.setText(feedModel.getPrice());
-            size.setText(feedModel.getSize());
 
-            List<String> imageUrls = new ArrayList<>();
-            imageUrls.add(feedModel.getImage1URL());
-            imageUrls.add(feedModel.getImage2URL());
-            imageUrls.add(feedModel.getImage3URL());
-            imageUrls.add(feedModel.getImage4URL());
+            List<String> colors = feedModel.getColors();
+            LinearLayout colorContainer = itemView.findViewById(R.id.colorContainer);
+            colorContainer.removeAllViews(); // Clear previous views
 
-            ImagePagerAdapter adapter = new ImagePagerAdapter(imageUrls);
-            imageContainer.setAdapter(adapter);
+            for (String color : colors) {
+                View colorView = LayoutInflater.from(itemView.getContext()).inflate(
+                        R.layout.color_item, // Layout for each color item
+                        colorContainer,
+                        false
+                );
+                // Set color background or other properties
+                Drawable circleDrawable = colorView.findViewById(R.id.circleColorView).getBackground();
+                circleDrawable.setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC_ATOP);
+                colorContainer.addView(colorView);
+            }
+
+            List<String> sizes = feedModel.getSizes();
+            LinearLayout sizeContainer = itemView.findViewById(R.id.sizeContainer);
+            sizeContainer.removeAllViews(); // Clear previous views
+
+            for (String size : sizes) {
+                TextView sizeTextView = (TextView) LayoutInflater.from(itemView.getContext()).inflate(
+                        R.layout.size_item, // Layout for each size item
+                        sizeContainer,
+                        false
+                );
+                sizeTextView.setText(size);
+                sizeContainer.addView(sizeTextView);
+            }
         }
     }
 }
-
