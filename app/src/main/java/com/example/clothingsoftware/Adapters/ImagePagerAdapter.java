@@ -22,6 +22,7 @@ public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.Im
     public ImagePagerAdapter(List<String> imageUrls, LinearLayout dotsContainer) {
         this.imageUrls = imageUrls;
         this.dotsContainer = dotsContainer;
+        initDots(); // Initialize dots
     }
 
     @NonNull
@@ -35,16 +36,8 @@ public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.Im
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         String imageUrl = imageUrls.get(position);
         Picasso.get().load(imageUrl).into(holder.imageView);
-
-        // Clear previous dots
-        dotsContainer.removeAllViews();
-
-        // Add dots dynamically
-        for (int i = 0; i < imageUrls.size(); i++) {
-            View dotView = LayoutInflater.from(holder.itemView.getContext()).inflate(R.layout.dot_image, dotsContainer, false);
-            dotsContainer.addView(dotView);
-        }
     }
+
 
     @Override
     public int getItemCount() {
@@ -57,6 +50,17 @@ public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.Im
         ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
+        }
+    }
+
+    private void initDots() {
+        // Clear previous dots
+        dotsContainer.removeAllViews();
+
+        // Add dots dynamically
+        for (int i = 0; i < imageUrls.size(); i++) {
+            View dotView = LayoutInflater.from(dotsContainer.getContext()).inflate(R.layout.dot_image, dotsContainer, false);
+            dotsContainer.addView(dotView);
         }
     }
 }
