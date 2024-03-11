@@ -33,6 +33,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         FeedModel feedItem1 = new FeedModel();
         feedItem1.setTitle("Enchanté T-Shirt ");
         feedItem1.setPrice("125$");
+        feedItem1.setBrand("Nike");
         feedItem1.setDescription("Lorem ipsum dolor sit amet, vix ut nullam noster. Vis " +
                                 "timeam alterum ne, ad minim ponderum senserit sit. Et per nihil " +
                                 "quaerendum. Mea clita mentitum definitionem ea, erat mentitum antiopam eu quo. " +
@@ -55,6 +56,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         FeedModel feedItem2 = new FeedModel();
         feedItem2.setTitle("Enchanté T-Shirt ");
         feedItem2.setPrice("125$");
+        feedItem2.setBrand("Nike");
         feedItem2.setDescription("Lorem ipsum dolor sit amet, vix ut nullam noster. Vis " +
                 "timeam alterum ne, ad minim ponderum senserit sit. Et per nihil " +
                 "quaerendum. Mea clita mentitum definitionem ea, erat mentitum antiopam eu quo. " +
@@ -75,6 +77,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         FeedModel feedItem3 = new FeedModel();
         feedItem3.setTitle("Enchanté T-Shirt ");
         feedItem3.setPrice("125$");
+        feedItem3.setBrand("Nike");
         feedItem3.setDescription("Lorem ipsum dolor sit amet, vix ut nullam noster. Vis " +
                 "timeam alterum ne, ad minim ponderum senserit sit. Et per nihil " +
                 "quaerendum. Mea clita mentitum definitionem ea, erat mentitum antiopam eu quo. " +
@@ -96,6 +99,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         FeedModel feedItem4 = new FeedModel();
         feedItem4.setTitle("Enchanté T-Shirt ");
         feedItem4.setPrice("125$");
+        feedItem4.setBrand("Nike");
         feedItem4.setDescription("Lorem ipsum dolor sit amet, vix ut nullam noster. Vis " +
                 "timeam alterum ne, ad minim ponderum senserit sit. Et per nihil " +
                 "quaerendum. Mea clita mentitum definitionem ea, erat mentitum antiopam eu quo. " +
@@ -117,6 +121,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         FeedModel feedItem5 = new FeedModel();
         feedItem5.setTitle("Enchanté T-Shirt ");
         feedItem5.setPrice("125$");
+        feedItem5.setBrand("Nike");
         feedItem5.setDescription("Lorem ipsum dolor sit amet, vix ut nullam noster. Vis " +
                 "timeam alterum ne, ad minim ponderum senserit sit. Et per nihil " +
                 "quaerendum. Mea clita mentitum definitionem ea, erat mentitum antiopam eu quo. " +
@@ -138,6 +143,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         FeedModel feedItem6 = new FeedModel();
         feedItem6.setTitle("Enchanté T-Shirt ");
         feedItem6.setPrice("125$");
+        feedItem6.setBrand("Nike");
         feedItem6.setDescription("Lorem ipsum dolor sit amet, vix ut nullam noster. Vis " +
                 "timeam alterum ne, ad minim ponderum senserit sit. Et per nihil " +
                 "quaerendum. Mea clita mentitum definitionem ea, erat mentitum antiopam eu quo. " +
@@ -159,6 +165,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         FeedModel feedItem7 = new FeedModel();
         feedItem7.setTitle("Enchanté T-Shirt ");
         feedItem7.setPrice("125$");
+        feedItem7.setBrand("Nike");
         feedItem7.setDescription("Lorem ipsum dolor sit amet, vix ut nullam noster. Vis " +
                 "timeam alterum ne, ad minim ponderum senserit sit. Et per nihil " +
                 "quaerendum. Mea clita mentitum definitionem ea, erat mentitum antiopam eu quo. " +
@@ -180,6 +187,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         FeedModel feedItem8 = new FeedModel();
         feedItem8.setTitle("Enchanté T-Shirt ");
         feedItem8.setPrice("125$");
+        feedItem8.setBrand("Nike");
         feedItem8.setDescription("Lorem ipsum dolor sit amet, vix ut nullam noster. Vis " +
                 "timeam alterum ne, ad minim ponderum senserit sit. Et per nihil " +
                 "quaerendum. Mea clita mentitum definitionem ea, erat mentitum antiopam eu quo. " +
@@ -201,6 +209,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         FeedModel feedItem9 = new FeedModel();
         feedItem9.setTitle("Enchanté T-Shirt ");
         feedItem9.setPrice("125$");
+        feedItem9.setBrand("Nike");
         feedItem9.setDescription("Lorem ipsum dolor sit amet, vix ut nullam noster. Vis " +
                 "timeam alterum ne, ad minim ponderum senserit sit. Et per nihil " +
                 "quaerendum. Mea clita mentitum definitionem ea, erat mentitum antiopam eu quo. " +
@@ -222,6 +231,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         FeedModel feedItem10 = new FeedModel();
         feedItem10.setTitle("Enchanté T-Shirt ");
         feedItem10.setPrice("125$");
+        feedItem10.setBrand("Nike");
         feedItem10.setDescription("Lorem ipsum dolor sit amet, vix ut nullam noster. Vis " +
                 "timeam alterum ne, ad minim ponderum senserit sit. Et per nihil " +
                 "quaerendum. Mea clita mentitum definitionem ea, erat mentitum antiopam eu quo. " +
@@ -255,6 +265,7 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         bundle.putString("title", feedItem.getTitle());
         bundle.putString("price", feedItem.getPrice());
         bundle.putString("description", feedItem.getDescription());
+        bundle.putString("brand", feedItem.getBrand());
 
         Map<String, Integer> itemsPerSize = feedItem.getItemsPerSize();
         if (itemsPerSize != null && !itemsPerSize.isEmpty()) {

@@ -26,6 +26,7 @@ public class More extends AppCompatActivity {
             String itemsPerSize = bundle.getString("itemsPerSize");
             ArrayList<String> colors = bundle.getStringArrayList("colors");
             String description = bundle.getString("description");
+            String brand = bundle.getString("brand");
 
             TextView titleTextView = findViewById(R.id.titleTextView);
             TextView priceTextView = findViewById(R.id.priceTextView);
@@ -33,7 +34,7 @@ public class More extends AppCompatActivity {
             TextView colorsTextView = findViewById(R.id.colorsTextView);
             Button buttonBack = findViewById(R.id.buttonBack);
             TextView descriptionTextView = findViewById(R.id.descriptionTextView);
-
+            TextView brandTextView = findViewById(R.id.brandTextView);
 
             titleTextView.setText(title);
             // Set bold for specific parts of text
@@ -43,6 +44,7 @@ public class More extends AppCompatActivity {
             }
             setBoldColorText(colorsTextView, "Color(s) (hexadecimal code): " + (colors != null ? String.join(", ", colors) : ""), "Color(s) (hexadecimal code)", ContextCompat.getColor(this, R.color.black));
             setBoldColorText(descriptionTextView, "Description: " + description, "Description",  ContextCompat.getColor(this, R.color.black));
+            setBoldColorText(brandTextView, "Brand: " + brand, "Brand", ContextCompat.getColor(this, R.color.black));
 
             buttonBack.setOnClickListener(new View.OnClickListener() {
                 @Override

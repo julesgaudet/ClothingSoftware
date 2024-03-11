@@ -145,4 +145,5 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="back">Back</string>
+    <string name="Delete">Delete Article</string>
 </resources>

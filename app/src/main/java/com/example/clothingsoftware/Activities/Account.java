@@ -5,7 +5,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -117,7 +116,6 @@ public class Account extends AppCompatActivity {
                 displayFragment(feedFragment);
                 resetIconsAndText();
                 setIconAndTextColor(feedIcon, feedText, R.color.colorPrimary);
-
             }
         });
 
@@ -166,7 +164,6 @@ public class Account extends AppCompatActivity {
                 displayFragment(ordersFragment);
                 resetIconsAndText();
                 setIconAndTextColor(ordersIcon, ordersText, R.color.colorPrimary);
-
             }
         });
 
@@ -254,7 +251,9 @@ public class Account extends AppCompatActivity {
 
     // Show the Sheet Dialog for the more Menu of the Feed Fragment (menu when you click on More)
     private void showDialogFeed() {
-        if (isDialogShowing) return; // Do nothing if the menu is open
+        if (isDialogShowing) {
+            return;
+        }
         isDialogShowing = true;
 
         final Dialog dialog = new Dialog(this);

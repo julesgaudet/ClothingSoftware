@@ -10,6 +10,7 @@ public class FeedModel {
     private List<String> imageUrls;
     private String description;
     private Map<String, Integer> itemsPerSize;
+    private String brand;
 
     public String getTitle() {
         return title;
@@ -19,6 +20,7 @@ public class FeedModel {
         return price;
     }
 
+    public String getBrand() { return brand; }
     public String getDescription() { return description; }
 
     public List<String> getColors() {
@@ -46,7 +48,9 @@ public class FeedModel {
     public void setItemsPerSize(Map<String, Integer> itemsPerSize) {
         this.itemsPerSize = itemsPerSize;
     }
-
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
     public Map<String, Integer> getItemsPerSize() {
         return itemsPerSize;
     }
