@@ -1,10 +1,12 @@
 package com.example.clothingsoftware.Class;
 
 import android.util.Patterns;
+
 public class AccountValidator {
     public static boolean isValidEmail(CharSequence target) {
         return Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
+
     public static boolean isValidPassword(CharSequence password) {
         if (password.length() < 8) {
             return false;
@@ -26,6 +28,7 @@ public class AccountValidator {
         }
         return hasDigit && hasUppercase && hasLowercase;
     }
+
     public static boolean isValidUsername(CharSequence username) {
         if (username.length() < 6) {
             return false;
@@ -33,4 +36,3 @@ public class AccountValidator {
         return username.toString().matches("^[a-zA-Z0-9]*$");
     }
 }
-//TEST
