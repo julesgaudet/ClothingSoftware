@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingHorizontal="30dp"
+    android:paddingTop="40dp"
+    tools:context=".Activities.Signup">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/goBackIcon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/go_back_actionable"
+            android:src="@drawable/left_actionable" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/regular"
+            android:text="@string/create_a_new_admin"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:textColorHint="@color/colorSecondPrimary"
+        android:id="@+id/signupUsername"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:autofillHints="username"
+        android:background="@drawable/input_border"
+        android:fontFamily="@font/regular"
+        android:hint="@string/user_name"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingStart="20dp"
+        android:textSize="16sp"
+        tools:ignore="RtlSymmetry" />
+
+
+    <EditText
+        android:textColorHint="@color/colorSecondPrimary"
+        android:id="@+id/signupEmail"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:autofillHints="emailAddress"
+        android:background="@drawable/input_border"
+        android:fontFamily="@font/regular"
+        android:hint="@string/e_mail_address"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:paddingStart="20dp"
+        android:textSize="16sp"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:textColorHint="@color/colorSecondPrimary"
+        android:id="@+id/signupPassword"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:autofillHints="password"
+        android:background="@drawable/input_border"
+        android:fontFamily="@font/regular"
+        android:hint="@string/passport"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:paddingStart="20dp"
+        android:textColorHighlight="@android:color/transparent"
+        android:textSize="16sp"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:textColorHint="@color/colorSecondPrimary"
+        android:id="@+id/signupPassword2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:autofillHints="password"
+        android:background="@drawable/input_border"
+        android:fontFamily="@font/regular"
+        android:hint="@string/re_enter_password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:paddingStart="20dp"
+        android:textColorHighlight="@android:color/transparent"
+        android:textSize="16sp"
+        tools:ignore="RtlSymmetry" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:layout_width="38dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-6dp"
+            app:buttonTint="@color/colorPrimary"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/regular"
+            android:text="@string/remember_me"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/colorPrimary"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/principal_button"
+        android:enabled="false"
+        android:fontFamily="@font/medium"
+        android:text="@string/create_a_new_admin"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_login" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/regular"
+            android:text="@string/or"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_login" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/linkTermsOfUse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/regular"
+        android:gravity="center"
+        android:text="@string/by_continuing_you_agree_to_our_terms_of_use"
+        android:textColor="@color/colorSecondPrimary"
+        android:textSize="16sp" />
+
+</LinearLayout>

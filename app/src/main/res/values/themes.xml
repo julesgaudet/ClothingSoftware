@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ClothingSoftware" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="InputText_Overlay">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+    </style>
+
+    <style name="Theme.ClothingSoftware" parent="Base.Theme.ClothingSoftware" />
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+</resources>

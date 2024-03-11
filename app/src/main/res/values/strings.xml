@@ -1,0 +1,149 @@
+<resources>
+    <string name="app_name">ClothingSoftware</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="icon_for_the_feed_section">Icon for the feed section</string>
+    <string name="feed">Feed</string>
+    <string name="icon_for_the_post_section">Icon for the post section</string>
+    <string name="posts">Posts</string>
+    <string name="icon_for_the_orders_section">Icon for the orders section</string>
+    <string name="orders">Orders</string>
+    <string name="or">Or</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an Account? Sign Up</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="passport">Passport</string>
+    <string name="e_mail_address">E-mail Address</string>
+    <string name="go_back_actionable">Go back actionable</string>
+    <string name="create_a_new_admin">Create a new Admin</string>
+    <string name="user_name">User Name</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="by_continuing_you_agree_to_our_terms_of_use">By continuing, you agree to Our Terms of Use</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="search">Search</string>
+    <string name="filter_icon">Filter Icon</string>
+    <string name="filter">Filter</string>
+    <string name="post">Post</string>
+    <string name="more">More</string>
+    <string name="article_name">Article Name</string>
+    <string name="type_of_article">Type of Article</string>
+    <string name="price">Price</string>
+    <string name="description">Description…</string>
+    <string name="add_a_size">Add a Size</string>
+    <string name="add_a_picture">Add a Picture</string>
+    <string name="post_an_article">Post an Article</string>
+    <string name="sort_your_posts_by_price">Sort your Posts by Price</string>
+    <string name="sort_your_posts_by_date">Sort your Posts by Date</string>
+    <string name="sort_your_posts_by_popularity">Sort your Posts by Popularity</string>
+    <string name="signout">Sign-out</string>
+    <string name="sort_posts_according_to">Sort posts according to</string>
+    <string name="sort_orders_according_to">Sort orders according to</string>
+    <string name="search_for_a_post">Search for a post</string>
+    <string name="search_for_an_order">Search for an order</string>
+    <string name="confirm_sign_out">Confirm Sign-out?</string>
+    <string name="cancel">Cancel</string>
+    <string name="first_image_url">First image URL</string>
+    <string name="fourth_image_url">Fourth image URL</string>
+    <string name="third_image_url">Third image URL</string>
+    <string name="second_image_url">Second image URL</string>
+    <string name="number_of_images_for_the_post">Number of Images</string>
+    <string name="number_of_size_for_the_post">Number of Sizes</string>
+    <string name="reset_icon">Reset Icon</string>
+    <string name="reset">Reset</string>
+    <string name="brand_name">Brand Name</string>
+    <string name="number_of_colors">Number of Colors</string>
+    <string name="primary_image_in_a_post">Primary image in a post</string>
+    <string name="image_for_a_post">Image for a post</string>
+    <string name="raincoat_spring_edition_85_39">Raincoat Spring Edition $</string>
+    <string name="colors">Colors</string>
+    <string name="sizes">Sizes</string>
+    <string name="more_details">More Details</string>
+    <string name="second_image">Second Image</string>
+    <string name="third_image">Third Image</string>
+    <string name="fourth_image">Fourth Image</string>
+    <string name="image_for_each_post">Image for each post</string>
+
+    <string-array name="feed_txt_name">
+        <item>first article</item>
+        <item>second article</item>
+        <item>third article</item>
+        <item>fourth article</item>
+        <item>fifth article</item>
+        <item>six article</item>
+        <item>seven article</item>
+        <item>height article</item>
+        <item>nine article</item>
+        <item>ten article</item>
+    </string-array>
+
+    <string-array name="feed_txt_price">
+        <item>12.0</item>
+        <item>12.0</item>
+        <item>12.0</item>
+        <item>12.0</item>
+        <item>100.0</item>
+        <item>100.0</item>
+        <item>100.0</item>
+        <item>100.0</item>
+        <item>100.0</item>
+        <item>200.0</item>
+    </string-array>
+
+    <string-array name="feed_txt_size">
+        <item>S</item>
+        <item>S</item>
+        <item>L</item>
+        <item>L</item>
+        <item>XL</item>
+        <item>XL</item>
+        <item>XL</item>
+        <item>XXL</item>
+        <item>XXL</item>
+        <item>XXL</item>
+    </string-array>
+    <string name="title_activity_more">More</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+    <string name="back">Back</string>
+    <string name="Delete">Delete Article</string>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical"
+    android:paddingHorizontal="30dp"
+    android:paddingTop="25dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/medium"
+        android:gravity="center"
+        android:text="@string/search"
+        android:textSize="18sp" />
+
+    <EditText
+        android:textColorHint="@color/colorSecondPrimary"
+        android:id="@+id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:drawableEnd="@drawable/search"
+        android:drawableTint="@color/colorSecondPrimary"
+        android:paddingEnd="20dp"
+        android:layout_marginTop="25dp"
+        android:autofillHints="username"
+        android:background="@drawable/input_border"
+        android:fontFamily="@font/regular"
+        android:hint="@string/search_for_an_order"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingStart="20dp"
+        android:textSize="16sp"
+        tools:ignore="RtlSymmetry" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSearch"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/form_button"
+        android:enabled="false"
+        android:fontFamily="@font/medium"
+        android:text="@string/search"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:ignore="DuplicateSpeakableTextCheck"
+        android:layout_marginBottom="30dp"/>
+
+</LinearLayout>

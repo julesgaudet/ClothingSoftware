@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.Post"
+    android:layout_marginHorizontal="30dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarFadeDuration="@integer/material_motion_duration_short_1"
+        android:scrollbarSize="5dip"
+        android:scrollbars="vertical"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/articleNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="25dp"
+                android:autofillHints=""
+                android:background="@drawable/input_border"
+                android:fontFamily="@font/regular"
+                android:hint="@string/article_name"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingStart="20dp"
+                android:textColorHint="@color/colorSecondPrimary"
+                android:textSize="16sp"
+                tools:ignore="RtlSymmetry" />
+
+            <EditText
+                android:id="@+id/brandEditText"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="25dp"
+                android:autofillHints=""
+                android:background="@drawable/input_border"
+                android:fontFamily="@font/regular"
+                android:hint="@string/brand_name"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:textColorHint="@color/colorSecondPrimary"
+                android:textSize="16sp"
+                tools:ignore="RtlSymmetry" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/typeOfArticle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:hint="@string/type_of_article"
+                android:textAppearance="@font/inter"
+                android:textColorHint="@color/colorSecondPrimary"
+                android:theme="@style/InputText_Overlay"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/colorSecondPrimary"
+                app:boxStrokeWidth="1dp"
+                app:endIconTint="@color/colorSecondPrimary"
+                app:hintTextColor="@color/colorSecondPrimary">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_complete_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:id="@+id/priceEditText"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="25dp"
+                android:autofillHints=""
+                android:background="@drawable/input_border"
+                android:drawableEnd="@drawable/money_icon"
+                android:fontFamily="@font/regular"
+                android:hint="@string/price"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:textColorHint="@color/colorSecondPrimary"
+                android:textSize="16sp"
+                tools:ignore="RtlSymmetry" />
+
+            <EditText
+                android:id="@+id/descriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="25dp"
+                android:autofillHints=""
+                android:background="@drawable/input_border"
+                android:fontFamily="@font/regular"
+                android:gravity="top"
+                android:hint="@string/description"
+                android:minHeight="48dp"
+                android:paddingStart="20dp"
+                android:inputType="textMultiLine"
+                android:paddingTop="22dp"
+                android:paddingEnd="10dp"
+                android:textColorHint="@color/colorSecondPrimary"
+                android:textSize="16sp"
+                tools:ignore="RtlSymmetry" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/numberOfImage"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:hint="@string/number_of_images_for_the_post"
+                android:textAppearance="@font/inter"
+                android:textColorHint="@color/colorSecondPrimary"
+                android:theme="@style/InputText_Overlay"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/colorSecondPrimary"
+                app:boxStrokeWidth="1dp"
+                app:endIconTint="@color/colorSecondPrimary"
+                app:hintTextColor="@color/colorSecondPrimary">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_complete_text_add_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutforNewImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/numberOfType"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:hint="@string/number_of_size_for_the_post"
+                android:textAppearance="@font/inter"
+                android:textColorHint="@color/colorSecondPrimary"
+                android:theme="@style/InputText_Overlay"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/colorSecondPrimary"
+                app:boxStrokeWidth="1dp"
+                app:endIconTint="@color/colorSecondPrimary"
+                app:hintTextColor="@color/colorSecondPrimary">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_complete_text_add_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutforNewSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/numberOfColors"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:hint="@string/number_of_colors"
+                android:textAppearance="@font/inter"
+                android:textColorHint="@color/colorSecondPrimary"
+                android:theme="@style/InputText_Overlay"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/colorSecondPrimary"
+                app:boxStrokeWidth="1dp"
+                app:endIconTint="@color/colorSecondPrimary"
+                app:hintTextColor="@color/colorSecondPrimary">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_complete_text_add_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutforNewColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonPost"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/form_button"
+                android:enabled="true"
+                android:fontFamily="@font/medium"
+                android:text="@string/post_an_article"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
