@@ -5,25 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Orders">
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewOrders"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        tools:ignore="UselessParent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center">
-
-            <TextView
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="fragment pour Orders" />
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

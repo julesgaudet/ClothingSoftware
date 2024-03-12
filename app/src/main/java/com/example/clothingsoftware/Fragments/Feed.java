@@ -281,5 +281,4 @@ public class Feed extends Fragment implements FeedAdapter.OnMoreButtonClickListe
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
 }

@@ -146,4 +146,10 @@
     </string>
     <string name="back">Back</string>
     <string name="Delete">Delete Article</string>
+    <string name="status">Status</string>
+    <string name="not_shipped">Not Shipped</string>
+    <string name="order_number">Order Number</string>
+    <string name="client_address">Client Address</string>
+    <string name="total">Total</string>
+    <string name="client_order_picture">Client order picture</string>
 </resources>
