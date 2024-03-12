@@ -1,6 +1,6 @@
 package com.example.clothingsoftware.Models;
 
-public class OrdersModel {
+public class ClientModel {
     private String email;
     private String address;
     private String first_name;
@@ -10,8 +10,4 @@ public class OrdersModel {
     private String region_state;
     private String zip_code;
     private String payment_option;
-    private String article_name;
-    private String article_price;
-
-
 }

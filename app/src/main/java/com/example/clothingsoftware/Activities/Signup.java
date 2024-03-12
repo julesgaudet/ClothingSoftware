@@ -28,7 +28,7 @@ public class Signup extends AppCompatActivity {
     ImageView goBackIcon;
     TextView linkTermsOfUse;
 
-    //J'ai laissé progressBar car elle va être utile plus tard quand on va faire un login
+    //TODO
     ProgressBar progressBar;
 
     @Override

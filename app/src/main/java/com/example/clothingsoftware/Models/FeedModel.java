@@ -21,6 +21,7 @@ public class FeedModel {
     }
 
     public String getBrand() { return brand; }
+
     public String getDescription() { return description; }
 
     public List<String> getColors() {
@@ -48,6 +49,7 @@ public class FeedModel {
     public void setItemsPerSize(Map<String, Integer> itemsPerSize) {
         this.itemsPerSize = itemsPerSize;
     }
+
     public void setBrand(String brand) {
         this.brand = brand;
     }
