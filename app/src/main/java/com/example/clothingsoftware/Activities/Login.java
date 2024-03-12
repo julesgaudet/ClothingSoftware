@@ -19,6 +19,7 @@ import com.example.clothingsoftware.R;
 
 public class Login extends AppCompatActivity {
 
+    //test noah hihi
     CheckBox checkbox;
     EditText loginEmail;
     EditText loginPassword;
