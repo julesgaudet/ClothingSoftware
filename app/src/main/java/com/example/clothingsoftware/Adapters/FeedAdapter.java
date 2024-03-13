@@ -65,7 +65,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         });
     }
 
-
     public static class FeedViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, price, size;

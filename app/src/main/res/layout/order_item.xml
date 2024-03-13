@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#80E1F6F8"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         tools:ignore="UselessParent">
 
@@ -19,7 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:fontFamily="@font/inter"
+            android:singleLine="true"
             android:text="@string/status"
             android:textColor="@color/black"
             android:textSize="18sp" />
@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/medium"
             android:gravity="end"
-            android:text="@string/not_shipped"
+            android:singleLine="true"
             android:textColor="@color/red"
             android:textSize="18sp" />
     </LinearLayout>
@@ -48,7 +48,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:fontFamily="@font/inter"
+            android:singleLine="true"
             android:text="@string/order_number"
             android:textColor="@color/black"
             android:textSize="18sp" />
@@ -58,9 +60,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:fontFamily="@font/medium"
             android:gravity="end"
-            android:text="#224183-EU"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="18sp" />
     </LinearLayout>
@@ -77,7 +80,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:fontFamily="@font/inter"
+            android:singleLine="true"
             android:text="@string/client_address"
             android:textColor="@color/black"
             android:textSize="18sp" />
@@ -87,9 +92,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:fontFamily="@font/medium"
             android:gravity="end"
-            android:text="10 rue lapointe..."
+            android:singleLine="true"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
     </LinearLayout>
@@ -106,7 +112,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:fontFamily="@font/inter"
+            android:singleLine="true"
             android:text="@string/total"
             android:textColor="@color/black"
             android:textSize="18sp" />
@@ -116,9 +124,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:fontFamily="@font/medium"
             android:gravity="end"
-            android:text="$224.32"
+            android:singleLine="true"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
     </LinearLayout>
@@ -132,168 +141,33 @@
         android:background="@color/colorSecondPrimary" />
 
     <LinearLayout
+        android:id="@+id/articleLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:orientation="vertical" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewArticlePicture"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_gravity="start"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/card_background"
-            app:cardElevation="8dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewArticleName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/medium"
-                android:text="Raincoat Sprin..."
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textViewArticleSize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter"
-                android:text="Size: XL"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textViewArticleColor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter"
-                android:text="Color: Beige"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textViewArticlePrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter"
-                android:text="$78.08"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewNumberOfArticle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/medium"
-                android:text="3x"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/orderSettingsButton"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewArticlePicture2"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_gravity="start"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/card_background"
-            app:cardElevation="8dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewArticleName2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/medium"
-                android:text="Raincoat Sprin..."
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textViewArticleSize2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter"
-                android:text="Size: XL"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textViewArticleColor2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter"
-                android:text="Color: Beige"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textViewArticlePrice2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter"
-                android:text="$78.08"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewNumberOfArticle2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/medium"
-                android:text="3x"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-    </LinearLayout>
+        android:layout_marginTop="5dp"
+        android:background="@drawable/principal_button"
+        android:enabled="true"
+        android:fontFamily="@font/medium"
+        android:text="@string/order_settings"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <View
         android:id="@+id/viewEnd"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:background="@color/colorSecondPrimary" />
 
 </LinearLayout>

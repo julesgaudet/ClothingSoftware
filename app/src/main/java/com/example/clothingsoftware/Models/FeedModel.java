@@ -53,6 +53,7 @@ public class FeedModel {
     public void setBrand(String brand) {
         this.brand = brand;
     }
+
     public Map<String, Integer> getItemsPerSize() {
         return itemsPerSize;
     }

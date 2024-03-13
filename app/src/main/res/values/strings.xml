@@ -152,4 +152,7 @@
     <string name="client_address">Client Address</string>
     <string name="total">Total</string>
     <string name="client_order_picture">Client order picture</string>
+    <string name="marked_completed">Marked Completed</string>
+    <string name="back_icon">Back icon</string>
+    <string name="order_settings">Order Settings</string>
 </resources>
