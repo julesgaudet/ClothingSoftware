@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clothingsoftware.Models.ArticleOrderModel;
@@ -61,8 +62,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         // Set order details
         holder.textViewStatus.setText(order.getStatus());
+
+        // Set status text and color based on status
+        String status = order.getStatus();
+        holder.textViewStatus.setText(status);
+        int statusColor = R.color.black; // Default color
+        if (status.equalsIgnoreCase("Processing")) {
+            statusColor = R.color.red; // Set to red for "Processing"
+        } else if (status.equalsIgnoreCase("Shipped")) {
+            statusColor = R.color.green; // Set to green for "Shipped"
+        }
+        holder.textViewStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), statusColor));
         holder.textViewOrderNumber.setText(order.getOrder_code());
+
         holder.textViewClientAddress.setText(clientModel.getAddress());
+
 
         // Clear previous articles
         holder.articleLinearLayout.removeAllViews();
@@ -89,7 +103,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             // Three dots at the end of the text if the text doesn't fit horizontally
             textViewArticleName.setSingleLine(true);
             textViewArticleName.setEllipsize(TextUtils.TruncateAt.END);
-            textViewArticleSize.setSingleLine(true);
+            textViewArticleName.setSingleLine(true);
             textViewArticleSize.setEllipsize(TextUtils.TruncateAt.END);
             textViewArticleColor.setSingleLine(true);
             textViewArticleColor.setEllipsize(TextUtils.TruncateAt.END);
