@@ -8,13 +8,16 @@ function Cercle({ couleur }) {
 }
 
 export default function ApercuCouleurs() {
-  const couleurs = ["#ff5733", "#ffc846"];
+  const couleurs = [
+    { id: 1, nom: "#ff5733" },
+    { id: 2, nom: "#ffc846" },
+  ];
 
   return (
     <ul className="flex gap-2">
-      {couleurs.map((couleur, index) => (
-        <li key={index}>
-          <Cercle couleur={couleur} />
+      {couleurs.map((couleur) => (
+        <li key={couleur.id}>
+          <Cercle couleur={couleur.nom} />
         </li>
       ))}
     </ul>
