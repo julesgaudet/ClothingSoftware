@@ -326,9 +326,7 @@ public class Post extends Fragment {
             EditText editText1 = (EditText) linearLayout.getChildAt(0);
             EditText editText2 = (EditText) linearLayout.getChildAt(1);
 
-            String editText1Text = editText1.getText().toString().
-
-                    trim();
+            String editText1Text = editText1.getText().toString().trim();
             String editText2Text = editText2.getText().toString().trim();
 
             if (editText1Text.isEmpty() || editText2Text.isEmpty()) {

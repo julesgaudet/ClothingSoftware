@@ -1,14 +1,11 @@
-import ApercuCouleurs from "./ApercuCouleurs";
+"use client"; // important!!!!
+import React, { useState } from "react";
+
 import ApercuArticle from "./ApercuArticle";
+import Filtres from "./Filtres";
 
 export default function Articles() {
-  const photo = {
-    nom: "Nom de l'article",
-    photoSrc:
-      "https://media.gq.com/photos/56cb52771388833772dbc5ea/master/pass/GettyImages-465384280.jpg",
-    prix: "19.99",
-  };
-
+  const dataNull = [];
   const dataArticles = [
     {
       id_article: "1",
@@ -117,21 +114,35 @@ export default function Articles() {
     },
   ];
 
+  let categorieSelect = "All";
+
   return (
     <>
-      <div className="gird grid-cols-4 gap-10">
-        <div className="col-span-1">
-          <h1>allo</h1>
+      <div className="mx-40 my-2">
+        <div className="flex flex-col my-10">
+          <h1 className="font-black text-5xl">EKO Clothing Shop</h1>
+          <h3 className="font-bold text-lg text-gray-500">
+            EKO/{categorieSelect}
+          </h3>
         </div>
-        <div className="col-span-4 flex flex-wrap gap-x-10 justify-left align-top">
-          {dataArticles.map((article) => (
-            <ApercuArticle
-              key={article.id_article}
-              nom={article.name}
-              photoSrc={photo.photoSrc}
-              prix={article.price}
-            />
-          ))}
+
+        <div className=" grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="block">
+            <Filtres />
+          </div>
+          {dataArticles.length === 0 ? (
+            <div className="mx-auto grid h-40 w-full place-items-center rounded-md border-2 border-dashed bg-gray-50 py-10 text-center dark:bg-gray-900">
+              <div>
+                <h1 className="mt-2 text-xl font-bold tracking-tight text-gray-500 dark:text-gray-200 sm:text-2xl">
+                  No products found
+                </h1>
+              </div>
+            </div>
+          ) : (
+            dataArticles.map((article, index) => (
+              <ApercuArticle key={index} vetement={article} />
+            ))
+          )}
         </div>
       </div>
     </>
