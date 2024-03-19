@@ -20,7 +20,7 @@ export default function ApercuArticle({ vetement }) {
       <div>
         <div>
           <a
-            href={`./brand=${vetement.brand}`}
+            href={`Articles?brand=${vetement.brand}`}
             className="text-gray-600 font-black"
           >
             {vetement.brand}
@@ -30,7 +30,7 @@ export default function ApercuArticle({ vetement }) {
           <div className="flex justify-between">
             <a
               className="text-xl font-bold"
-              href={`./id=${vetement.id_article}`}
+              href={`Article?id=${vetement.id_article}`}
             >
               {vetement.name.length > nbMaxChar
                 ? vetement.name.substring(0, nbMaxChar) + "..."

@@ -3,6 +3,26 @@ import React, { useState } from "react";
 
 import ApercuArticle from "./ApercuArticle";
 import Filtres from "./Filtres";
+import getBrand from "./getBrand";
+import getType from "./getType";
+
+function typeSelect() {
+  if (getBrand() === null && getType() === null) {
+    return "/All";
+  } else if (getType() === null) {
+    return "";
+  } else {
+    return "/" + getType();
+  }
+}
+
+function brandSelect() {
+  if ((getBrand() === null && getType() === null) || getBrand() === null) {
+    return "";
+  } else {
+    return "/" + getBrand();
+  }
+}
 
 export default function Articles() {
   const dataNull = [];
@@ -114,15 +134,14 @@ export default function Articles() {
     },
   ];
 
-  let categorieSelect = "All";
-
   return (
     <>
       <div className="mx-40 my-2">
         <div className="flex flex-col my-10">
           <h1 className="font-black text-5xl">EKO Clothing Shop</h1>
           <h3 className="font-bold text-lg text-gray-500">
-            EKO/{categorieSelect}
+            EKO{typeSelect()}
+            {brandSelect()}
           </h3>
         </div>
 
