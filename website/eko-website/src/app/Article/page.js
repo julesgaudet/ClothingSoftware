@@ -1,6 +1,7 @@
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
 
+
 export default function Article() {
   
   
@@ -40,14 +41,44 @@ export default function Article() {
         photoSrc: "https://media.gq.com/photos/56cb52771388833772dbc5ea/master/pass/GettyImages-465384280.jpg",
         prix: "19.99",
       },
+      {
+        nom: "Nom de l'article",
+        photoSrc: "https://media.gq.com/photos/56cb52771388833772dbc5ea/master/pass/GettyImages-465384280.jpg",
+        prix: "19.99",
+      },
       ]
     }];
 
   return (
+  
 
     <>
-    <div className="col-span-1">
-          <h1>allo la page d'un article</h1>
+   
+      <header className="p-4 flex items-center justify-between">
+        <div className="flex-grow">
+        <div className="flex items-center">
+      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-2">
+        {/* Insérez le lien pour le logo <img src="" className="w-6 h-6" alt="Logo" /> */}
+        E
+      </div>
+      <h1 className="text-2xl font-bold text-blue-600">EKO Clothing Shop</h1>
+    </div>
+        </div>
+        <nav className="flex-grow">
+          <ul className="flex justify-center space-x-4">
+             {/*j'ai mit seulement des ? pour l'instant, pour lien vers les autres pages */}
+            <li><a href="?" className="text-gray-600 hover:text-black">Woman</a></li>
+            <li><a href="?" className="text-gray-600 hover:text-black">Men</a></li>
+            <li><a href="?" className="text-gray-600 hover:text-black">About</a></li>
+          </ul>
+        </nav>
+        <div className="flex-grow flex justify-end">
+          <a href="?" className="text-gray-600 hover:text-black">My Cart</a>
+        </div>
+      </header>
+
+      <div className="col-span-1">
+          
         </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         
