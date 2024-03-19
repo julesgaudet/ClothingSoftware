@@ -46,38 +46,43 @@ export default function Article() {
   return (
 
     <>
-      <div className="gird grid-cols-4 gap-10">
-        <div className="col-span-1">
+    <div className="col-span-1">
           <h1>allo la page d'un article</h1>
         </div>
-        <div className="col-span-3 grid grid-cols-template-[75%,1fr] gap-4">
-
-          <div className="col-span-2 flex flex-wrap gap-x-10 justify-left align-top">
-            {dataArticle.map((article) => (
-              article.photo.map((photo) => (
-                <ApercuArticle1
-                  key={article.id_article}
-                  nom={article.name}
-                  photoSrc={photo.photoSrc}
-                  prix={article.price}
-                />
-              ))
-            ))}
-            <div className="col-span-1 grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        
+        <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
+          
+            
               {dataArticle.map((article) => (
-                <div key={article.id_article}>
-                  <div className="bg-white p-4 rounded">
-                    <h2 className="text-xl font-bold">{article.name}</h2>
-                    <h2 className="text-xl font-bold">{article.price}$</h2>
-                  </div>
-                </div>
+                article.photo.map((photo) => (
+                  <ApercuArticle1
+                    key={article.id_article}
+                    nom={article.name}
+                    photoSrc={photo.photoSrc}
+                    prix={article.price}
+                    
+                  />
+                ))
               ))}
             </div>
-          </div>
+          
+            <div className="col-span-1 row-span-1 grid grid-cols-1 gap-4">
+            {dataArticle.map((article) => (
+              <div key={article.id_article}className="bg-white p-4 rounded">
+                  <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
+                  <h2 className="text-xl font-bold">{article.name}</h2>
+                  <h2 className="text-l font-semibold text-blue-800">{article.price}$</h2>
+                  </div>
+                  <ApercuCouleurs1/>
+                </div>
+              
+            ))}
+          
+
         </div>
       </div>
     </>
   );
-
-
 }
+
