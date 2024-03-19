@@ -3,11 +3,11 @@ function CategoriesFiltres() {
 }
 
 export default function Filtres({ filtre }) {
-  let nbItems = 1234;
+  let nbItems = 674;
   return (
     <>
       <div className="flex  space-y-5 flex-col ">
-        <p className="font-semibold">{nbItems} Products</p>
+        <p className="font-semibold">{nbItems} items</p>
       </div>
     </>
   );

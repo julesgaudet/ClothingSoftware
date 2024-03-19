@@ -126,8 +126,8 @@ export default function Articles() {
           </h3>
         </div>
 
-        <div className=" grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-          <div className="hidden lg:block">
+        <div className=" grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="block">
             <Filtres />
           </div>
           {dataArticles.length === 0 ? (
