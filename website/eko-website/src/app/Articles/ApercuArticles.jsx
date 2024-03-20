@@ -31,7 +31,7 @@ function ApercuArticle({ vetement }) {
     <div className="flex justify-between space-y-5 flex-col">
       <a
         href={`Article?id=${vetement.id}`}
-        className="aspect-h-1 aspect-w-1 w-80 h-96 overflow-hidden border-gray-200 bg-gray-100 ease-in-out duration-300 hover:scale-110"
+        className="aspect-h-1 aspect-w-1 max-w-80 h-96 overflow-hidden items-center justify-center border-gray-200 bg-gray-100 ease-in-out duration-300 hover:scale-110"
       >
         <img
           src={photosArticles[Math.floor(Math.random() * 37)].url} //a changer
@@ -76,7 +76,7 @@ export default function ApercuArticles({ dataArticles }) {
   return (
     <>
       {dataArticles.length === 0 ? (
-        <div className="mx-auto grid h-40 w-full place-items-center rounded-md border-2 border-dashed bg-gray-50 py-10 text-center dark:bg-gray-900">
+        <div className="mx-auto grid h-40 w-full place-items-center rounded-md border-2 border-dashed bg-gray-50 py-10 text-center">
           <div>
             <h1 className="mt-2 text-xl font-bold tracking-tight text-gray-500 dark:text-gray-200 sm:text-2xl">
               No products found

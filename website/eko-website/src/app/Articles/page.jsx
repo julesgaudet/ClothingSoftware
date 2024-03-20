@@ -63,7 +63,7 @@ export default function Articles() {
   return (
     <>
       <div className="bg-[#F5F5F7] pt-4">
-        <div className="mx-40 my-2 ">
+        <div className="mx-20 my-2  md:mx-40">
           <div className="flex flex-col my-10">
             <h1 className="font-black text-5xl text-[#3858D6]">
               EKO Clothing Shop
@@ -75,7 +75,7 @@ export default function Articles() {
           </div>
 
           <div className=" grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            <div className="block">
+            <div className="block max-w-80">
               <Filtres articles={data} />
             </div>
             <ApercuArticles dataArticles={data} />
