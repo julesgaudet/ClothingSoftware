@@ -13,7 +13,7 @@ function Accordion({ items }) {
       {items.map((item, index) => (
         <div key={index} className="accordion-item border-b border-gray-300">
           <div
-            className={`accordion-title font- text-l py-2 cursor-pointer flex justify-between items-center ${
+            className={`accordion-title font-bold text-l py-2 cursor-pointer flex justify-between items-center ${
               index === activeIndex ? "bg-gray-200" : ""
             }`}
             onClick={() => onItemClick(index)}
