@@ -1,3 +1,5 @@
+//==========================================================================================//
+//==========================================================================================//
 function Cercle({ couleur }) {
   return (
     <div
@@ -7,22 +9,10 @@ function Cercle({ couleur }) {
   );
 }
 
-export default function ApercuCouleurs() {
-  const couleurs = [
-    { id: 1, nom: "#ff5733" },
-    { id: 2, nom: "#ffc846" },
-    { id: 3, nom: "#33ff57" },
-    { id: 4, nom: "#336cff" },
-    { id: 5, nom: "#cc33ff" },
-    { id: 6, nom: "#ff33e6" },
-    { id: 1, nom: "#ff5733" },
-    { id: 2, nom: "#ffc846" },
-    { id: 3, nom: "#33ff57" },
-    { id: 4, nom: "#336cff" },
-    { id: 5, nom: "#cc33ff" },
-    { id: 6, nom: "#ff33e6" },
-  ];
-  const maxCouleur = 5;
+//==========================================================================================//
+//==========================================================================================//
+export default function ApercuCouleurs({ couleurs }) {
+  const maxCouleur = 3; //maximum de couleur a afficher
   const affichageCouleurs = couleurs.slice(0, maxCouleur); // Limite à  maxCouleurs
   const plusDeCouleurs = couleurs.length - maxCouleur; // Calcule le nombre de couleurs en plus
 

@@ -9,18 +9,18 @@ function Cercle({ couleur }) {
 
 export default function ApercuCouleurs() {
   const couleurs = [
-    { id: 1, nom: "#ff5733" },
-    { id: 2, nom: "#ffc846" },
-    { id: 3, nom: "#33ff57" },
-    { id: 4, nom: "#336cff" },
-    { id: 5, nom: "#cc33ff" },
-    { id: 6, nom: "#ff33e6" },
-    { id: 1, nom: "#ff5733" },
-    { id: 2, nom: "#ffc846" },
-    { id: 3, nom: "#33ff57" },
-    { id: 4, nom: "#336cff" },
-    { id: 5, nom: "#cc33ff" },
-    { id: 6, nom: "#ff33e6" },
+    { id: 1, nom: "#ff5733" ,name:"Vivid red" },
+    { id: 2, nom: "#ffc846" ,name:"Light orange" },
+    { id: 3, nom: "#33ff57" ,name:"Vivid lime green"},
+    { id: 4, nom: "#336cff" ,name:"Vivid blue"},
+    { id: 5, nom: "#cc33ff" ,name:"Vivid magenta"},
+    { id: 6, nom: "#ff33e6" ,name:"Vivid magenta"},
+    { id: 1, nom: "#ff5733" ,name:"Vivid red"},
+    { id: 2, nom: "#ffc846" ,name:"Light orange"},
+    { id: 3, nom: "#33ff57" ,name:"Vivid lime green"},
+    { id: 4, nom: "#336cff" ,name:"Vivid blue"},
+    { id: 5, nom: "#cc33ff" ,name:"Vivid magenta"},
+    { id: 6, nom: "#ff33e6" ,name:"Vivid magenta"},
   ];
   const maxCouleur = 5;
   const affichageCouleurs = couleurs.slice(0, maxCouleur); // Limite à  maxCouleurs

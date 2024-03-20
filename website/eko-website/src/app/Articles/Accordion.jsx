@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 function Accordion({ items }) {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const onItemClick = (index) => {
     setActiveIndex(index === activeIndex ? null : index);
@@ -26,7 +26,7 @@ function Accordion({ items }) {
             />
           </div>
           {index === activeIndex && (
-            <div className="accordion-content p-4">{item.content}</div>
+            <div className="accordion-content">{item.content}</div>
           )}
         </div>
       ))}
