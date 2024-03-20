@@ -1,6 +1,6 @@
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
-
+import React, { useState } from 'react';
 
 export default function Article() {
   
@@ -12,6 +12,7 @@ export default function Article() {
       description:
         "100% French terry cotton Dyed buttons with Dime logo on the front Ribbed finish on the cuffs and waist Embroidered logo on the left chest The model is 167 cm tall and wears size Small",
       price: "135.00",
+      quantiter:"23",
       type: "Shirt",
       brand: "Dime",
       upload_date: "2024-03-14 21:41:21",
@@ -105,7 +106,12 @@ export default function Article() {
                   <h2 className="text-xl font-bold">{article.name}</h2>
                   <h2 className="text-l font-semibold text-blue-800">{article.price}$</h2>
                   </div>
+                  <p className="font-bold size-10">color:{Couleur.name} </p>
                   <ApercuCouleurs1/>
+                  <p className="font-bold size-10">Size </p>
+                  <p className="font-bold size-10">Quantity left: {article.quantiter} </p>
+                  
+                  
                 </div>
               
             ))}
