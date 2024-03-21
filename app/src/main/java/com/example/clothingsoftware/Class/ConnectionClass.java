@@ -6,8 +6,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionClass {
-    protected static String db = "equipe405";
-    protected static String ip = "equipe405.tch099.ovh";
+    protected static String db = "equipe405@localhost";
+    protected static String ip = "pma.tch099.ovh";
     protected static String port = "3306";
     protected static String username = "equipe405";
     protected static String password = "HJ2EPsR7+KQBbCPC";
@@ -21,7 +21,6 @@ public class ConnectionClass {
         } catch (ClassNotFoundException | SQLException e) {
             Log.e("ERROR", "ERROR IN CONNECTIONCLASS: " + e.getMessage());
         }
-        Log.d("OK","THE DATABASE CONNECTION IS WORKING");
         return conn;
     }
 }
