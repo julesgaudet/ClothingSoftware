@@ -155,50 +155,5 @@
         android:textSize="16sp"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_login" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/regular"
-            android:text="@string/or"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_login" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/linkTermsOfUse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/regular"
-        android:gravity="center"
-        android:text="@string/by_continuing_you_agree_to_our_terms_of_use"
-        android:textColor="@color/colorSecondPrimary"
-        android:textSize="16sp" />
 
 </LinearLayout>

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clothingsoftware.Class.AccountValidator;
+import com.example.clothingsoftware.Class.LoginManager;
 import com.example.clothingsoftware.R;
 
 public class Login extends AppCompatActivity {
@@ -25,11 +26,14 @@ public class Login extends AppCompatActivity {
     TextView linkSignUp;
     Button button;
     ProgressBar progressBar;
+    LoginManager loginManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        loginManager = new LoginManager(this);
 
         checkbox = findViewById(R.id.checkbox);
         loginEmail = findViewById(R.id.loginEmail);
@@ -80,13 +84,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Login.this, Account.class);
-                startActivity(intent);
-                progressBar.setVisibility(View.INVISIBLE);
-                finish();
+                String email = loginEmail.getText().toString();
+                String password = loginPassword.getText().toString();
+                loginManager.login(email, password, progressBar);
             }
         });
+
     }
 
     private final TextWatcher textWatcher = new TextWatcher() {

@@ -1,7 +1,5 @@
 package com.example.clothingsoftware.Activities;
 
-import static com.example.clothingsoftware.Utils.TextUtils.setBoldColorText;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,12 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.clothingsoftware.Class.AccountValidator;
+import com.example.clothingsoftware.Class.SignupManager;
 import com.example.clothingsoftware.R;
 
 public class Signup extends AppCompatActivity {
@@ -26,9 +24,7 @@ public class Signup extends AppCompatActivity {
     EditText signupEmail;
     Button button;
     ImageView goBackIcon;
-    TextView linkTermsOfUse;
-
-    //TODO
+    private SignupManager signupManager;
     ProgressBar progressBar;
 
     @Override
@@ -36,6 +32,7 @@ public class Signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        signupManager = new SignupManager(this);
         // Initialize views
         signupPassword = findViewById(R.id.signupPassword);
         signupPassword2 = findViewById(R.id.signupPassword2);
@@ -44,10 +41,6 @@ public class Signup extends AppCompatActivity {
         button = findViewById(R.id.button);
         progressBar = findViewById(R.id.progressbar);
         goBackIcon = findViewById(R.id.goBackIcon);
-        linkTermsOfUse = findViewById(R.id.linkTermsOfUse);
-
-        //Put the link in bold for the conditions of use
-        setBoldColorText(linkTermsOfUse, "By continuing, you agree to Our Terms of Use", "Terms of Use", R.color.colorPrimary);
 
         goBackIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,9 +149,11 @@ public class Signup extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(Signup.this, Account.class);
-                startActivity(intent);
+                String username = signupUsername.getText().toString();
+                String email = signupEmail.getText().toString();
+                String password = signupPassword.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
+                signupManager.signUp(username, email, password, progressBar);
             }
         });
     }
