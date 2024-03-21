@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,13 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.clothingsoftware.Class.AccountValidator;
-import com.example.clothingsoftware.Class.ConnectionClass;
 import com.example.clothingsoftware.R;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Login extends AppCompatActivity {
     
@@ -32,9 +25,6 @@ public class Login extends AppCompatActivity {
     TextView linkSignUp;
     Button button;
     ProgressBar progressBar;
-    Connection con;
-    String str;
-    ConnectionClass connectionClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +40,6 @@ public class Login extends AppCompatActivity {
 
         loginEmail.addTextChangedListener(textWatcher);
         loginPassword.addTextChangedListener(textWatcher);
-
-        // Connection with the database
-        connectionClass = new ConnectionClass();
-        connect();
 
         // Set up text change listener for enabling/disabling button
         linkSignUp.setOnClickListener(new View.OnClickListener() {
@@ -121,38 +107,4 @@ public class Login extends AppCompatActivity {
 
         }
     };
-
-    public void connect() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Log.d("Connect", "Attempting database connection...");
-                    con = ConnectionClass.getConnection();
-                    if (con == null) {
-                        str = "Error in connection with MySQL server";
-                    } else {
-                        str = "Connected with MySQL server";
-                    }
-                    Log.d("Connect", str); // Log the connection status
-                } catch (Exception e) {
-                    Log.e("Connect", "Error during database connection", e); // Log any exceptions
-                    throw new RuntimeException(e);
-                }
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(Login.this, str, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-    }
 }

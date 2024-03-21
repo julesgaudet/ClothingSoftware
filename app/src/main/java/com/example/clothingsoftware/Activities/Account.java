@@ -54,11 +54,9 @@ public class Account extends AppCompatActivity {
     LinearLayout resetLayout;
     View shadowOverlay;
     String[] stateFeed = {"Lowest to highest price", "Highest to lowest price",
-            "Recent to distant post", "Distant to recent post",
-            "Less to most popular", "Most to less popular"};
+            "Recent to distant post", "Distant to recent post"};
 
-    String[] stateOrders = {"Lowest to highest price", "Highest to lowest price",
-            "Recent to distant order", "Distant to recent order",
+    String[] stateOrders = {"Recent to distant order", "Distant to recent order",
             "Orders Finished", "Orders not finished"};
     AutoCompleteTextView autoCompleteTextViewFeed;
     ArrayAdapter<String> adapterItemsFeed;
