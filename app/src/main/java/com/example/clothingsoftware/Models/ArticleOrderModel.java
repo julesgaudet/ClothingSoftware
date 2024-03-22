@@ -5,7 +5,7 @@ public class ArticleOrderModel {
     private String price;
     private String color;
     private String imageUrl;
-    private String Size;
+    private String size;
     private String brand;
 
 
@@ -26,7 +26,7 @@ public class ArticleOrderModel {
     }
 
     public void setSize(String size) {
-        Size = size;
+        size = size;
     }
 
     public void setBrand(String brand) {
@@ -50,7 +50,7 @@ public class ArticleOrderModel {
     }
 
     public String getSize() {
-        return Size;
+        return size;
     }
 
     public String getBrand() {
