@@ -17,43 +17,43 @@ export default function Article() {
   const queryString = window.location.search;
   const parametresURL = new URLSearchParams(queryString);
   const id = parametresURL.get("id");
-    // Utiliser id_route dans la suite de votre code
-    //----------------------------------------------------------------------------------------//
-    let dataArticle = {};
-const article = articleJSON.find(item => item.id_article === id);
-// Vérifier si l'article a été trouvé
-if (article) {
+  // Utiliser id_route dans la suite de votre code
+  //----------------------------------------------------------------------------------------//
+  let dataArticle = {};
+  const article = articleJSON.find(item => item.id_article === id);
+  // Vérifier si l'article a été trouvé
+  if (article) {
     // Créer un objet contenant les détails de l'article
     dataArticle = {
-        id: article.id_article || '',
-        nom: article.name || '',
-        description: article.description || '',
-        prix: article.price || '',
-        marque: article.brand || '',
-        date: article.upload_date || '',
-        type: article.type || '',
+      id: article.id_article || '',
+      nom: article.name || '',
+      description: article.description || '',
+      prix: article.price || '',
+      marque: article.brand || '',
+      date: article.upload_date || '',
+      type: article.type || '',
     };
   }
 
 
   const dataColor = colorsJSON.map((color) => ({
-    id_color:color.id_color,
-    color_code:color.color_code,
-    id:color.id_article,
+    id_color: color.id_color,
+    color_code: color.color_code,
+    id: color.id_article,
   }));
 
   return (
-    
+
 
     <>
       <header className="p-4 flex items-center justify-between">
         <div className="flex-grow">
-        <div className="flex items-center">
-      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-2">
-        E
-      </div>
-      <h1 className="text-2xl font-bold text-blue-600">EKO</h1>
-    </div>
+          <div className="flex items-center">
+            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-2">
+              E
+            </div>
+            <h1 className="text-2xl font-bold text-blue-600">EKO</h1>
+          </div>
         </div>
         <nav className="flex-grow">
           <ul className="flex justify-center space-x-4">
@@ -62,17 +62,17 @@ if (article) {
           </ul>
         </nav>
         <div className="flex-grow flex justify-end">
-        <div className="w-8 h-8 justify-center mr-2">
-                <img src="https://www.svgrepo.com/show/363038/shopping-cart-simple-bold.svg" className="w-6 h-6 space-x-2" alt="Panier" ></img>
+          <div className="w-8 h-8 justify-center mr-2">
+            <img src="https://www.svgrepo.com/show/363038/shopping-cart-simple-bold.svg" className="w-6 h-6 space-x-2" alt="Panier" ></img>
 
-      </div>
+          </div>
           <a href="/Cart" className="text-gray-600 hover:text-black">My Cart</a>
         </div>
       </header>
 
-      <div className="col-span-1">
-          
-        </div>
+      <div className="col-span-2">
+
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         
         <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4">               

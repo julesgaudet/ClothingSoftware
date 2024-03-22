@@ -41,6 +41,7 @@ public class LoginManager {
         }
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
         OkHttpClient client = new OkHttpClient();
 
         RequestBody body = RequestBody.create(jsonObject.toString(), JSON);
