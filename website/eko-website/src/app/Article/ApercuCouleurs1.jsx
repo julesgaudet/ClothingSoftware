@@ -1,3 +1,9 @@
+'use client'
+import colorsJSON from "../dataJSON/colorsJSON.json";
+import { useRouter } from 'next/navigation';
+// import { getColorName } from '../utils/utils';
+
+
 function Cercle({ couleur }) {
   return (
     <div
@@ -8,36 +14,24 @@ function Cercle({ couleur }) {
 }
 
 export default function ApercuCouleurs() {
-  const couleurs = [
-    { id: 1, nom: "#ff5733" ,name:"Vivid red" },
-    { id: 2, nom: "#ffc846" ,name:"Light orange" },
-    { id: 3, nom: "#33ff57" ,name:"Vivid lime green"},
-    { id: 4, nom: "#336cff" ,name:"Vivid blue"},
-    { id: 5, nom: "#cc33ff" ,name:"Vivid magenta"},
-    { id: 6, nom: "#ff33e6" ,name:"Vivid magenta"},
-    { id: 1, nom: "#ff5733" ,name:"Vivid red"},
-    { id: 2, nom: "#ffc846" ,name:"Light orange"},
-    { id: 3, nom: "#33ff57" ,name:"Vivid lime green"},
-    { id: 4, nom: "#336cff" ,name:"Vivid blue"},
-    { id: 5, nom: "#cc33ff" ,name:"Vivid magenta"},
-    { id: 6, nom: "#ff33e6" ,name:"Vivid magenta"},
-  ];
-  const maxCouleur = 5;
-  const affichageCouleurs = couleurs.slice(0, maxCouleur); // Limite à  maxCouleurs
-  const plusDeCouleurs = couleurs.length - maxCouleur; // Calcule le nombre de couleurs en plus
+
+  const router = useRouter();
+  const queryString = window.location.search;
+  const parametresURL = new URLSearchParams(queryString);
+  const id = parametresURL.get("id");
+ 
+const couleurs = colorsJSON.filter(item => item.id_article === id);
 
   return (
+    <>
+      <p className="font-bold size-10">colors:</p>    
     <ul className="flex gap-2 items-center justify-start">
-      {affichageCouleurs.map((couleur) => (
-        <li key={couleur.id}>
-          <Cercle couleur={couleur.nom} />
+      {couleurs.map((couleur) => (
+        <li key={couleur.id_color}>
+          <button><Cercle couleur={couleur.color_code} /></button>
         </li>
       ))}
-      {plusDeCouleurs > 0 && (
-        <li key="plus">
-          <div>+{plusDeCouleurs}</div>
-        </li>
-      )}
     </ul>
+    </>
   );
 }
