@@ -14,11 +14,13 @@ const photo = pictureJSON.filter(item => item.id_article === id);
 
   console.log("url: ",photo.url );
  return (
-
-   <div className="col-span-1">
+<>
     {photo.map((photo) =>(
-       <img key={photo.id} src={photo.url} alt={vetement.nom} className="w-full h-auto" />))}
-   </div>
+      <div className="col-span-1">
+        <img key={photo.id} src={photo.url} alt={vetement.nom} className="w-full h-auto" />
+    </div>
+   ))}
+</>
    
  );
 }
