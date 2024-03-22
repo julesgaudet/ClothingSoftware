@@ -1,8 +1,13 @@
 'use client'
+import React, { useState } from "react";
+
+
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
 import articleJSON from "../dataJSON/articleJSON.json";
 import colorsJSON from "../dataJSON/colorsJSON.json";
+import getType from "./getId";
+
 
 import { useRouter } from 'next/navigation';
 
@@ -85,7 +90,9 @@ if (article) {
                   <p className="font-bold size-10">Size </p>
                   {/* quantiter n'ai pas dans articleJSON */}
                   {/* <p className="font-bold size-10">Quantity left: {dataArticle.quantiter} </p> */}
-                  
+                  <button className="px-6 py-2 mt-4 text-white bg-blue-600 rounded hover:bg-blue-700">
+                   Add to Cart
+                  </button>
                   
                 </div> 
               
