@@ -16,21 +16,16 @@ let dataPhoto = {};
     // Utiliser id_route dans la suite de votre code
     //----------------------------------------------------------------------------------------//
     
-const photo = pictureJSON.find(item => item.id_article === id);
-// Vérifier si l'article a été trouvé
-if (photo) {
-    // Créer un objet contenant les détails de l'article
-    dataPhoto = {
-        id: photo.id_picture || '',
-        url: photo.url || '',
-        idArticle: photo.id_article || '',
-    };
-  }
+const photo = pictureJSON.filter(item => item.id_article === id);
+
   console.log("url: ",dataPhoto.url );
  return (
 
    <div className="col-span-1">
-       <img key={dataPhoto.id} src={dataPhoto.url} alt={vetement.nom} className="w-full h-auto" />
+    
+    {photo.map((photo) =>(
+       <img key={photo.id} src={photo.url} alt={vetement.nom} className="w-full h-auto" />))}
    </div>
+   
  );
 }

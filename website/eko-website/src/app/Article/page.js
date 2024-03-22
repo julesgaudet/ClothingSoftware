@@ -37,53 +37,6 @@ if (article) {
     id:color.id_article,
   }));
 
-
-  
-  // const dataArticle = [
-  //   {
-  //     id_article: "1",
-  //     name: "Wave Rugby Sweater",
-  //     description:
-  //       "100% French terry cotton Dyed buttons with Dime logo on the front Ribbed finish on the cuffs and waist Embroidered logo on the left chest The model is 167 cm tall and wears size Small",
-  //     price: "135.00",
-  //     quantiter:"23",
-  //     type: "Shirt",
-  //     brand: "Dime",
-  //     upload_date: "2024-03-14 21:41:21",
-  //     id_employee: "1",
-  //     photo: [{
-  //       nom: "Nom de l'article",
-  //       photoSrc: "https://media.gq.com/photos/56cb52771388833772dbc5ea/master/pass/GettyImages-465384280.jpg",
-  //       prix: "19.99",
-  //     },
-  //     {
-  //       nom: "Nom de l'article",
-  //       photoSrc: "https://media.gq.com/photos/56cb52771388833772dbc5ea/master/pass/GettyImages-465384280.jpg",
-  //       prix: "19.99",
-  //     },
-  //     {
-  //       nom: "Nom de l'article",
-  //       photoSrc: "https://media.gq.com/photos/56cb52771388833772dbc5ea/master/pass/GettyImages-465384280.jpg",
-  //       prix: "19.99",
-  //     },
-  //     {
-  //       nom: "Nom de l'article",
-  //       photoSrc: "https://media.gq.com/photos/56cb52771388833772dbc5ea/master/pass/GettyImages-465384280.jpg",
-  //       prix: "19.99",
-  //     },
-  //     {
-  //       nom: "Nom de l'article",
-  //       photoSrc: "https://media.gq.com/photos/56cb52771388833772dbc5ea/master/pass/GettyImages-465384280.jpg",
-  //       prix: "19.99",
-  //     },
-  //     {
-  //       nom: "Nom de l'article",
-  //       photoSrc: "https://media.gq.com/photos/56cb52771388833772dbc5ea/master/pass/GettyImages-465384280.jpg",
-  //       prix: "19.99",
-  //     },
-  //     ]
-  //   }];
-
   return (
     
 
@@ -128,10 +81,10 @@ if (article) {
                   <h2 className="text-xl font-bold">{dataArticle.nom}</h2>
                   <h2 className="text-l font-semibold text-blue-800">{dataArticle.prix}$</h2>
                   </div>
-                  
                   <ApercuCouleurs1/>
                   <p className="font-bold size-10">Size </p>
-                  <p className="font-bold size-10">Quantity left: {article.quantiter} </p>
+                  {/* quantiter n'ai pas dans articleJSON */}
+                  {/* <p className="font-bold size-10">Quantity left: {dataArticle.quantiter} </p> */}
                   
                   
                 </div> 
