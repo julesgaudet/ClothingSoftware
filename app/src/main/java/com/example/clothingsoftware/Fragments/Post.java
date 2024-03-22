@@ -21,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+
+import com.example.clothingsoftware.Class.PostManager;
+import com.example.clothingsoftware.Models.PostModel;
 import com.example.clothingsoftware.R;
 import com.example.clothingsoftware.Utils.TextUtils;
 
@@ -300,11 +303,27 @@ public class Post extends Fragment {
             return;
         }
 
+        PostModel postModel = new PostModel(
+                stringArticleName,
+                stringDescription,
+                stringPrice,
+                autoCompleteTextView.getText().toString().trim(),
+                stringBrand,
+                extractSizes(),
+                extractColors(),
+                extractPictures()
+        );
+
+        // Send data using PostManager
+        PostManager postManager = new PostManager(requireContext());
+        postManager.postArticleAsync(postModel);
+
         // Reset all fields if the post is accepted
         resetFields();
 
         // Display success message
         Toast.makeText(getContext(), "New post successful", Toast.LENGTH_SHORT).show();
+
     }
 
     private boolean isAnyFieldEmpty(String articleName, String price, String description, String stringBrand) {
@@ -366,7 +385,7 @@ public class Post extends Fragment {
 
     private boolean validateHexadecimalCode() {
         for (EditText editText : editTextListColor) {
-            String code = editText.getText().toString().trim();
+            String code = editText.getText().toString().trim().toLowerCase();
             if (code.isEmpty()) {
                 Toast.makeText(getContext(), "Enter hexadecimal code for all colors", Toast.LENGTH_SHORT).show();
                 return false;
@@ -418,4 +437,46 @@ public class Post extends Fragment {
         linearLayoutSize.removeAllViews();
         linearLayoutColor.removeAllViews();
     }
+
+    private List<PostModel.Size> extractSizes() {
+        List<PostModel.Size> sizes = new ArrayList<>();
+
+        for (int i = 0; i < linearLayoutSize.getChildCount(); i++) {
+            LinearLayout linearLayout = (LinearLayout) linearLayoutSize.getChildAt(i);
+            EditText editText1 = (EditText) linearLayout.getChildAt(0);
+            EditText editText2 = (EditText) linearLayout.getChildAt(1);
+
+            String sizeName = editText1.getText().toString().trim();
+            int numberOfSize = Integer.parseInt(editText2.getText().toString().trim());
+
+            sizes.add(new PostModel.Size(sizeName, numberOfSize));
+        }
+
+        return sizes;
+    }
+
+    private List<PostModel.Color> extractColors() {
+        List<PostModel.Color> colors = new ArrayList<>();
+
+        for (EditText editText : editTextListColor) {
+            String colorCode = editText.getText().toString().trim();
+            if (!colorCode.startsWith("#")) {
+                colorCode = "#" + colorCode;
+            }
+            colors.add(new PostModel.Color(colorCode));
+        }
+        return colors;
+    }
+
+    private List<PostModel.Picture> extractPictures() {
+        List<PostModel.Picture> pictures = new ArrayList<>();
+
+        for (EditText editText : editTextListImage) {
+            String url = editText.getText().toString().trim();
+            pictures.add(new PostModel.Picture(url));
+        }
+
+        return pictures;
+    }
+
 }

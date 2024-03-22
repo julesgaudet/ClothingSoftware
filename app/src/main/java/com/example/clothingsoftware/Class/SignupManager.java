@@ -45,7 +45,7 @@ public class SignupManager {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();
 
-        RequestBody body = RequestBody.create(jsonObject.toString(), JSON);
+        RequestBody body = RequestBody.create(JSON, jsonObject.toString());
 
         Request request = new Request.Builder()
                 .url("http://10.0.2.2:80/api/signin")
