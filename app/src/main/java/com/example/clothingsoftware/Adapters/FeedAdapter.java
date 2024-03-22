@@ -65,6 +65,25 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         });
     }
 
+    public void setFeedItems(List<FeedModel> feedItems) {
+        int previousSize = feedModels.size();
+        feedModels.clear(); // Clear existing data
+        feedModels.addAll(feedItems); // Add new data
+
+        // Calculate the range of changed items
+        int newSize = feedModels.size();
+        int changeRange = Math.max(previousSize, newSize);
+
+        // Notify the adapter about the data changes
+        if (previousSize > newSize) {
+            notifyItemRangeRemoved(newSize, previousSize - newSize); // Items removed
+        } else if (previousSize < newSize) {
+            notifyItemRangeInserted(previousSize, newSize - previousSize); // Items added
+        }
+        notifyItemRangeChanged(0, changeRange); // Items changed or moved
+    }
+
+
     public static class FeedViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, price, size;
@@ -121,6 +140,5 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
     public interface OnMoreButtonClickListener {
         void onMoreButtonClick(int position);
-
     }
 }

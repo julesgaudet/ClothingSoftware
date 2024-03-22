@@ -38,8 +38,8 @@
     <string name="signout">Sign-out</string>
     <string name="sort_posts_according_to">Sort posts according to</string>
     <string name="sort_orders_according_to">Sort orders according to</string>
-    <string name="search_for_a_post">Search for a post</string>
-    <string name="search_for_an_order">Search for an order</string>
+    <string name="search_for_a_post">Search by a name</string>
+    <string name="search_for_an_order">Search for an order number</string>
     <string name="confirm_sign_out">Confirm Sign-out?</string>
     <string name="cancel">Cancel</string>
     <string name="first_image_url">First image URL</string>
