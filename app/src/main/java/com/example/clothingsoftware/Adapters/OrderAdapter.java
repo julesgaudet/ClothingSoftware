@@ -77,7 +77,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         holder.textViewClientAddress.setText(clientModel.getAddress());
 
-
         // Clear previous articles
         holder.articleLinearLayout.removeAllViews();
 
@@ -129,8 +128,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             }
         });
     }
-
-
 
     // Get total number of items in the data set
     @Override
