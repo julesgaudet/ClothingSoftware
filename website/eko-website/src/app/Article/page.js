@@ -1,8 +1,13 @@
 'use client'
+import React, { useState } from "react";
+
+
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
 import articleJSON from "../dataJSON/articleJSON.json";
 import colorsJSON from "../dataJSON/colorsJSON.json";
+import getType from "./getId";
+
 
 import { useRouter } from 'next/navigation';
 
