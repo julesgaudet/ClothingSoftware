@@ -48,7 +48,7 @@ export default function Article() {
 
 
     <>
-     {headr}
+     {headr} 
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-l-20 ">
             
