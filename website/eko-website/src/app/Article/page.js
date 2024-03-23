@@ -75,7 +75,7 @@ export default function Article() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
 
-        <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
+        <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4 border-r-20 ">
           <ApercuArticle1 vetement={dataArticle} />
         </div>
 
