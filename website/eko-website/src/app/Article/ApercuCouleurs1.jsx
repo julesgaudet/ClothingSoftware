@@ -9,38 +9,13 @@ function Cercle({ couleur, isSelected, onClick }) {
 
   return (
     <div
-      className={`w-4 h-4 rounded-full cursor-pointer border-4 ${isSelected ? "border-black" : "border-transparent"
+      className={`w-8 h-8 rounded-full cursor-pointer border-4 ${isSelected ? "border-black" : "border-transparent"
         }`}
       style={{ backgroundColor: couleur }}
       onClick={onClick}
     ></div>
   );
 };
-
-
-//   return (
-//     <div className="flex flex-col justify-center items-center px-3 py-2">
-//       <div className="w-full justify-start">
-//         <h1 className="text-lg font-semibold">Clothing</h1>
-//       </div>
-//       <div className="flex flex-wrap gap-3 mb-3">
-//         {sizes.map((size, index) => (
-//           <div
-//             key={index}
-//             className={`flex items-center justify-center cursor-pointer border-4 font-bold py-1 px-2 ${
-//               selectedSizes.includes(size)
-//                 ? "border-[#3858D6] bg-[#3858D6] text-white"
-//                 : "border-[#3858D6]"
-//             }`}
-//             onClick={() => handleSizeClick(size)}
-//           >
-//             {size}
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
 
 
 

@@ -70,7 +70,7 @@ export default function Article() {
         </div>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-l-20 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160" style={{ borderRight:  '160px solid transparent', borderLeft:  '160px solid transparent' }}>
             
         <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4 " style={{ borderLeft:  '25px solid transparent' }}>
           <ApercuArticle1 vetement={dataArticle} />
@@ -83,17 +83,18 @@ export default function Article() {
               <h2 className="text-xl font-bold">{dataArticle.nom}</h2>
               <h2 className="text-l font-semibold text-blue-800">{dataArticle.prix}$</h2>
             </div>
-            <p>description: {dataArticle.description}</p>
+            
+            <p>{dataArticle.description}</p>
             <ApercuCouleurs1 />            
             <div className="flex flex-wrap items-center">
               <a  
               href={`./Cart`}
-              className="inline-block text-white font-bold py-2 px-24 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2">
+              className="inline-block text-white font-bold py-4 px-24 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2">
                 Add to Cart
               </a>
             </div>
             <p className="font-bold size-10">Sustainability</p>
-            <img src="https://as1.ftcdn.net/v2/jpg/00/49/96/80/1000_F_49968019_k7ViQn2cSWXKzFcprrUyg7D2nPFv7zWh.jpg" alt="Photo écoresponsable" className="w-20 h-20 space-x-2" />
+            <img src="https://i0.wp.com/bleausard.com/wp-content/uploads/2019/04/bleausard_s_engage.png?fit=700%2C700&ssl=1" alt="Photo écoresponsable" className="w-auto h-40 space-x-2" />
             {/* quantiter n'ai pas dans articleJSON */}
             {/* <p className="font-bold size-10">Quantity left: {dataArticle.quantiter} </p> */}
           </div>
