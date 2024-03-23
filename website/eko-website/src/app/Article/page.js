@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
 
-
+import footer from "./footer";
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
 import articleJSON from "../dataJSON/articleJSON.json";
@@ -35,7 +35,7 @@ export default function Article() {
     };
   }
 
-
+  const footr = footer();
   const dataColor = colorsJSON.map((color) => ({
     id_color: color.id_color,
     color_code: color.color_code,
@@ -70,12 +70,9 @@ export default function Article() {
         </div>
       </header>
 
-      <div className="col-span-2">
-
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-
-        <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4 border-r-20 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-l-20 ">
+            
+        <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4 " style={{ borderLeft:  '25px solid transparent' }}>
           <ApercuArticle1 vetement={dataArticle} />
         </div>
 
@@ -102,6 +99,7 @@ export default function Article() {
           </div>
         </div>
       </div>
+      {footr}
     </>
   );
 }
