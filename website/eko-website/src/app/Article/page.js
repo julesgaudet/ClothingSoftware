@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
 
-
+import footer from "./footer";
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
 import articleJSON from "../dataJSON/articleJSON.json";
@@ -35,7 +35,7 @@ export default function Article() {
     };
   }
 
-
+  const footr = footer();
   const dataColor = colorsJSON.map((color) => ({
     id_color: color.id_color,
     color_code: color.color_code,
@@ -99,6 +99,7 @@ export default function Article() {
           </div>
         </div>
       </div>
+      {footr}
     </>
   );
 }
