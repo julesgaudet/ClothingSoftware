@@ -71,6 +71,8 @@ export default function ApercuCouleurs() {
     setSelectedSizes(size);
   };
   return (
+    // peut etre utiliser si on ajoute le nom de la couleur
+    /* <p className="font-bold size-10">colors: {colors.color_name ?? ""}</p> */
     <>
       <p className="font-bold size-10">colors:</p>
       <ul className="flex gap-2 items-center justify-start">
