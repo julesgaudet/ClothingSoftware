@@ -1,7 +1,8 @@
 'use client'
 import React, { useState } from "react";
 
-
+import footer from "./footer";
+import header from "./header";
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
 import articleJSON from "../dataJSON/articleJSON.json";
@@ -35,7 +36,8 @@ export default function Article() {
     };
   }
 
-
+  const headr = header();
+  const footr = footer();
   const dataColor = colorsJSON.map((color) => ({
     id_color: color.id_color,
     color_code: color.color_code,
@@ -46,29 +48,7 @@ export default function Article() {
 
 
     <>
-      <header className="p-4 flex items-center justify-between">
-        <div className="flex-grow">
-          <div className="flex items-center">
-            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-2">
-              E
-            </div>
-            <h1 className="text-2xl font-bold text-blue-600">EKO</h1>
-          </div>
-        </div>
-        <nav className="flex-grow">
-          <ul className="flex justify-center space-x-4">
-            <li><a href="/Articles" className="text-gray-600 hover:text-black">Clothing</a></li>
-            <li><a href="?" className="text-gray-600 hover:text-black">About</a></li>
-          </ul>
-        </nav>
-        <div className="flex-grow flex justify-end">
-          <div className="w-8 h-8 justify-center mr-2">
-            <img src="https://www.svgrepo.com/show/363038/shopping-cart-simple-bold.svg" className="w-6 h-6 space-x-2" alt="Panier" ></img>
-
-          </div>
-          <a href="/Cart" className="text-gray-600 hover:text-black">My Cart</a>
-        </div>
-      </header>
+     {headr} 
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160" style={{ borderRight:  '160px solid transparent', borderLeft:  '160px solid transparent' }}>
             
@@ -100,6 +80,7 @@ export default function Article() {
           </div>
         </div>
       </div>
+      {footr}
     </>
   );
 }
