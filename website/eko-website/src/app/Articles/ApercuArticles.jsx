@@ -47,7 +47,7 @@ async function getColors(id) {
   }
 }
 
-function ApercuArticle({ vetement }) {
+function ApercuArticle({ vetement, handleBrandClick }) {
   const nbMaxChar = 20;
   const [colors, setColors] = useState([]);
   const [pictureUrl, setPictureUrl] = useState(null);
@@ -74,13 +74,11 @@ function ApercuArticle({ vetement }) {
         />
       </a>
       <div>
-        <div>
-          <a
-            href={`Articles?brand=${vetement.marque}`}
-            className="text-gray-500 text-base font-black hover:underline"
-          >
-            {vetement.marque}
-          </a>
+        <div
+          className="text-gray-500 text-base font-black hover:underline cursor-pointer"
+          onClick={() => handleBrandClick(vetement.marque)}
+        >
+          {vetement.marque}
         </div>
         <div className="flex justify-between items-center mb-3">
           <a
@@ -101,7 +99,7 @@ function ApercuArticle({ vetement }) {
   );
 }
 
-export default function ApercuArticles({ dataArticles }) {
+export default function ApercuArticles({ dataArticles, handleBrandClick }) {
   return (
     <>
       {dataArticles.length === 0 ? (
@@ -112,7 +110,11 @@ export default function ApercuArticles({ dataArticles }) {
         </div>
       ) : (
         dataArticles.map((article) => (
-          <ApercuArticle key={article.id_article} vetement={article} />
+          <ApercuArticle
+            key={article.id_article}
+            vetement={article}
+            handleBrandClick={handleBrandClick}
+          />
         ))
       )}
     </>

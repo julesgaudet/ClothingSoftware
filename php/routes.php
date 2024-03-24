@@ -304,6 +304,40 @@ get('/api/article/$id_article', function($id_article) use ($pdo){
     }
 });
 
+//sélectioner toutes les couleurs uniques
+get('/api/uniqueColors', function() use ($pdo){
+
+        $uniqueColors = $pdo->prepare(
+            'SELECT DISTINCT color_code 
+            FROM color
+'
+        );
+        $uniqueColors->execute();
+        $allUniqueColors = $uniqueColors->fetchAll(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+
+        http_response_code(200);
+        echo json_encode($allUniqueColors);
+});
+
+//sélectioner toutes les types uniques
+get('/api/uniqueTypes', function() use ($pdo){
+
+        $uniqueTypes = $pdo->prepare(
+            'SELECT DISTINCT type 
+            FROM article
+'
+        );
+        $uniqueTypes->execute();
+        $allUniqueTypes = $uniqueTypes->fetchAll(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+
+        http_response_code(200);
+        echo json_encode($allUniqueTypes);
+});
+
 /**********************************************************
                 USED APIS FOR THE APP
  **********************************************************/

@@ -3,30 +3,9 @@ import React, { useState, useEffect } from "react";
 
 import ApercuArticles from "./ApercuArticles";
 import Filtres from "./Filtres";
-import getBrand from "./getBrand";
-import getType from "./getType";
-import articleJSON from "../dataJSON/articleJSON.json";
-
-//==========================================================================================//
-//==========================================================================================//
-function typeSelect() {
-  if (getBrand() === null && getType() === null) {
-    return "/All";
-  } else if (getType() === null) {
-    return "";
-  } else {
-    return "/" + getType();
-  }
-}
-//==========================================================================================//
-//==========================================================================================//
-function brandSelect() {
-  if ((getBrand() === null && getType() === null) || getBrand() === null) {
-    return "";
-  } else {
-    return "/" + getBrand();
-  }
-}
+import Header from "../Article/header";
+import Footer from "../Article/footer";
+import DropdownMenu from "./DropdownMenu";
 
 //==========================================================================================//
 //==========================================================================================//
@@ -66,41 +45,131 @@ export default function Articles() {
   }, []); // Assure que ce code ne s'exécute qu'une seule fois après le premier rendu
 
   //----------------------------------------------------------------------------------------//
-  //Catégorie select
-  const [slectedType, setSelectedType] = useState(null);
-  const [slectedColor, setSelectedColor] = useState(null);
-  const [slectedSize, setSelectedSize] = useState(null);
+  //gestion de l'état des sizes
+  const [selectedSizes, setSelectedSizes] = useState([]);
 
-  const handleChange = (event) => {
-    setSelectedType(event.target.value);
+  //----------------------------------------------------------------------------------------//
+  //gestion d'un click sur une taille
+  const handleSizeClick = (size) => {
+    if (selectedSizes.includes(size)) {
+      // Si la taille est déjà sélectionnée, la retirer de la liste des sélections
+      setSelectedSizes(selectedSizes.filter((selected) => selected !== size));
+    } else {
+      // Sinon, ajouter la taille à la liste des sélections
+      setSelectedSizes([...selectedSizes, size]);
+    }
   };
 
   //----------------------------------------------------------------------------------------//
-  //Data filtrée
-  function datafiltree(produits, evenement, recherche) {}
+  //état des couleurs sélectionnées
+  const [selectedColors, setSelectedColors] = useState([]);
+
+  //----------------------------------------------------------------------------------------//
+  //gestion d'un click sur une couleur
+  const handleColorClick = (color) => {
+    if (selectedColors.includes(color)) {
+      // Si la couleur est déjà sélectionnée, la retirer de la liste des sélections
+      setSelectedColors(
+        selectedColors.filter((selected) => selected !== color)
+      );
+    } else {
+      // Sinon, ajouter la couleur à la liste des sélections
+      setSelectedColors([...selectedColors, color]);
+    }
+  };
+
+  //----------------------------------------------------------------------------------------//
+  //état du sort sélectionné
+  const [selectedSort, setSelectedSort] = useState(0);
+
+  //----------------------------------------------------------------------------------------//
+  //gestion d'un click sur un sort
+  const handleSortClick = (num) => {
+    setSelectedSort(num);
+  };
+
+  //----------------------------------------------------------------------------------------//
+  //état du type sélectionné
+  const [selectedType, setSelectedType] = useState(null);
+
+  //----------------------------------------------------------------------------------------//
+  //gestion d'un click sur un type
+  const handleTypeClick = (type) => {
+    setSelectedType(type);
+  };
+
+  //----------------------------------------------------------------------------------------//
+  const typeSelect = () => {
+    if (selectedType == null && selectedBrand == null) {
+      return "/All";
+    } else if (selectedType == null) {
+      return "";
+    } else {
+      return "/" + selectedType;
+    }
+  };
+
+  //----------------------------------------------------------------------------------------//
+  //état du brand sélectionné
+  const [selectedBrand, setSelectedBrand] = useState(null);
+
+  //----------------------------------------------------------------------------------------//
+  //gestion d'un click sur un brand
+  const handleBrandClick = (brand) => {
+    setSelectedBrand(brand);
+  };
+  //----------------------------------------------------------------------------------------//
+  const BrandSelect = () => {
+    if (selectedBrand == null) {
+      return "";
+    } else {
+      return "/" + selectedBrand;
+    }
+  };
+
+  //----------------------------------------------------------------------------------------//
+  //console.log
+  console.log("les sizes sélectionées", selectedSizes);
+  console.log("les colors sélectionées", selectedColors);
+  console.log("le sort slectioné", selectedSort);
+  console.log("le type slectioné", selectedType);
+  console.log("le brand slectioné", selectedBrand);
 
   //----------------------------------------------------------------------------------------//
   return (
     <>
       <div className="bg-[#F5F5F7] min-h-screen pt-4">
+        <Header />
         <div className="mx-20 my-2  md:mx-40">
-          <div className="flex flex-col my-10">
-            <h1 className="font-black text-5xl text-[#3858D6]">
-              EKO Clothing Shop
-            </h1>
-            <h3 className="font-bold text-lg text-gray-500">
-              EKO{typeSelect()}
-              {brandSelect()}
-            </h3>
+          <div className="flex justify-between my-10 items-end">
+            <div className="flex flex-col ">
+              <h1 className="font-black text-5xl text-[#3858D6]">Clothing</h1>
+              <h3 className="font-bold text-lg text-gray-500">
+                EKO{typeSelect()}
+                {BrandSelect()}
+              </h3>
+            </div>
+            <DropdownMenu handleSortClick={handleSortClick} />
           </div>
 
           <div className=" grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <div className="block max-w-80">
-              <Filtres articles={data} />
+              <Filtres
+                articles={data}
+                handleSizeClick={handleSizeClick}
+                selectedSizes={selectedSizes}
+                handleColorClick={handleColorClick}
+                selectedColors={selectedColors}
+                handleTypeClick={handleTypeClick}
+              />
             </div>
-            <ApercuArticles dataArticles={dataNull} />
+            <ApercuArticles
+              dataArticles={data}
+              handleBrandClick={handleBrandClick}
+            />
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );

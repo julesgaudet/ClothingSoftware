@@ -18,8 +18,8 @@ export default function ApercuCouleurs({ couleurs }) {
 
   return (
     <ul className="flex gap-2 items-center justify-start">
-      {affichageCouleurs.map((couleur) => (
-        <li key={couleur.id}>
+      {affichageCouleurs.map((couleur, index) => (
+        <li key={index}>
           <Cercle couleur={couleur.nom} />
         </li>
       ))}
