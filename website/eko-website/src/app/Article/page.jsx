@@ -3,8 +3,6 @@ import footer from "./footer";
 import header from "./header";
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
-import articleJSON from "../dataJSON/articleJSON.json";
-import colorsJSON from "../dataJSON/colorsJSON.json";
 import getType from "./getId";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
@@ -69,7 +67,7 @@ export default function Article() {
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
   console.log(dataArticle);
-  console.log(articleJSON);
+
 
   const headr = header();
   const footr = footer();
