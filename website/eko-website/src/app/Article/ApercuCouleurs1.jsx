@@ -2,7 +2,7 @@
 import colorsJSON from "../dataJSON/colorsJSON.json";
 import { useRouter } from 'next/navigation';
 // import { getColorName } from '../utils/utils';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Cercle({ couleur, isSelected, onClick }) {
 
@@ -17,6 +17,32 @@ function Cercle({ couleur, isSelected, onClick }) {
   );
 };
 
+async function fetchData(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+}
+
+
+async function getColors(id) {
+  try {
+    const couleurJSON = await fetchData(`http://localhost/api/color/${id}`);
+    if (couleurJSON.length > 0) {
+      return couleurJSON.map((couleur) => ({
+        id: couleur.id_color,
+        nom: couleur.color_code,
+        idArticle: couleur.id_article,
+      }));
+    } else {
+      throw new Error("No colors were found for the given id");
+    }
+  } catch (error) {
+    console.error("Error fetching colors:", error);
+    throw error;
+  }
+}
 
 
 export default function ApercuCouleurs() {
@@ -26,7 +52,16 @@ export default function ApercuCouleurs() {
   const parametresURL = new URLSearchParams(queryString);
   const id = parametresURL.get("id");
 
-  const couleurs = colorsJSON.filter(item => item.id_article === id);
+  const [couleurs, setColors] = useState([]);
+  
+
+  useEffect(() => {
+    getColors(id)
+      .then(setColors)
+      .catch((error) => console.error("Error fetching colors:", error));
+  }, [id]);
+  
+
   //état des couleurs sélectionnées
   const [selectedColors, setSelectedColors] = useState(null);
 
@@ -53,7 +88,7 @@ export default function ApercuCouleurs() {
       <ul className="flex gap-2 items-center justify-start">
         {couleurs.map((couleur) => (
           <li key={couleur.id_color}>
-            <Cercle couleur={couleur.color_code}
+            <Cercle couleur={couleur.nom}
               isSelected={couleur === selectedColors} // Passer si la couleur est sélectionnée
               onClick={() => handleColorClick(couleur)} // Passer la fonction de gestion de clic 
             />

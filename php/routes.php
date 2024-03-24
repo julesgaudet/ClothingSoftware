@@ -285,6 +285,25 @@ get('/api/allOrders/oldest', function () use ($pdo) {
     echo json_encode($allArticles);
 });
 
+//sélectioner un article
+get('/api/article/$id_article', function($id_article) use ($pdo){
+    if(isset($id_article)){
+        $article = $pdo->prepare(
+            'SELECT * 
+            FROM Article
+            WHERE Article.id_article = :id_article'
+        );
+        $article->bindValue(':id_article', $id_article, PDO::PARAM_INT);
+        $article->execute();
+        $allArticles = $article->fetchAll(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+
+        http_response_code(200);
+        echo json_encode($allArticles);
+    }
+});
+
 /**********************************************************
                 USED APIS FOR THE APP
  **********************************************************/
