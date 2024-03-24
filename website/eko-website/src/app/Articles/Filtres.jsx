@@ -38,6 +38,12 @@ function CategoriesFiltres({ handleTypeClick }) {
   //----------------------------------------------------------------------------------------//
   return (
     <div className="flex flex-wrap px-1 py-2">
+      <div
+        className="inline-block text-white font-bold py-2 px-4 cursor-pointer rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 transition-transform duration-3000 ease-in-out mr-2 mb-2"
+        onClick={() => handleTypeClick("All")}
+      >
+        All
+      </div>
       {uniqueTypes.map((type, index) => (
         <div
           key={index}
