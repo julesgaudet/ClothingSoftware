@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function Footer() {
+export default function footer() {
   return (
-    <footer className="bg-black text-white text-center p-8 mt-24">
+    <footer class="bg-gradient-to-br from-black via-black to-blue-900 text-white text-center p-8">
       <p>
         Merci d'etre venu a{" "}
-        <a className="text-blue-700" href="http://localhost:3000/">
+        <a class="text-blue-700" href="http://localhost:3000/">
           notre site
         </a>
       </p>
