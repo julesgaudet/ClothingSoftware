@@ -50,7 +50,7 @@ export default function ApercuArticle1({vetement}) {
 <>
 {pictureUrl.map((url) => (
       <div className="col-span-1">
-        <img src={url} alt={vetement.nom} className="w-full h-auto" />
+        <img src={url} alt={vetement} className="w-full h-auto" />
     </div>
     ))} 
 </>
