@@ -12,15 +12,7 @@ export default function footer() {
         </ul>
         <ul className="w-1/2">
           <li className="text-blue-500 mb-5">Our products</li>
-          <li>
-            <a href="http://localhost:3000/Articles?type=Shirt">Shirts</a>
-          </li>
-          <li>
-            <a href="http://localhost:3000/Articles?type=T-Shirt">T-Shirts</a>
-          </li>
-          <li>
-            <a href="http://localhost:3000/Articles?type=Hoodie">Hoodies</a>
-          </li>
+          <makeLinks />
         </ul>
       </div>
       <p>
@@ -31,4 +23,23 @@ export default function footer() {
       </p>
     </footer>
   );
+}
+
+
+async function makeLinks(){
+  try {
+    const typesJSON = await fetchData(`http://localhost/api/uniqueTypes`);
+    if (typesJSON.length > 0) {
+      return typesJSON.map((type) => (
+      <li>
+        <a href={"http://localhost:3000/Articles?type=${type}" + type}>{type}</a>
+      </li>
+      ));
+    } else {
+      throw new Error("No types were found");
+    }
+  } catch (error) {
+    console.error("Error fetching types:", error);
+    throw error;
+  }
 }
