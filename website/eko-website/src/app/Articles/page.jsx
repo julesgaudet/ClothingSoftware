@@ -14,19 +14,48 @@ export default function Articles() {
   const dataNull = [];
 
   //----------------------------------------------------------------------------------------//
-  //obtention d'un tableau des articles
-
   const [data, setData] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [selectedColors, setSelectedColors] = useState([]);
+  const [selectedSort, setSelectedSort] = useState(0);
+  const [selectedType, setSelectedType] = useState(null);
+  const [selectedBrand, setSelectedBrand] = useState(null);
 
   //----------------------------------------------------------------------------------------//
   // Effect pour récupérer les données depuis l'API
   useEffect(() => {
-    fetch("http://localhost/api/article/oldestArticle")
-      .then((response) => {
-        console.log("Response before parsing JSON:", response);
-        return response.json();
-      })
-      .then((articleJSON) => {
+    const fetchData = async () => {
+      try {
+        let url = `http://localhost/api/articles?order=${selectedSort}`;
+
+        if (selectedType !== null) {
+          url += `&type=${selectedType}`;
+        }
+        if (selectedBrand !== null) {
+          url += `&brand=${selectedBrand}`;
+        }
+        if (selectedSizes.length > 0) {
+          const sizesParam = selectedSizes
+            .map((size) => `sizes[]=${size}`)
+            .join("&");
+          url += `&${sizesParam}`;
+        }
+        if (selectedColors.length > 0) {
+          const colorsParam = selectedColors
+            .map(
+              (color) =>
+                `colors[]=${encodeURIComponent(color.replace("#", ""))}`
+            )
+            .join("&");
+          url += `&${colorsParam}`;
+        }
+
+        console.log("L'url:", url);
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const articleJSON = await response.json();
         const formattedData = articleJSON.map((item) => ({
           id: item.id_article,
           nom: item.name,
@@ -37,17 +66,22 @@ export default function Articles() {
           type: item.type,
         }));
         setData(formattedData);
-        console.log(formattedData);
-        console.log(articleJSON);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Une erreur s'est produite:", error);
-      });
-  }, []); // Assure que ce code ne s'exécute qu'une seule fois après le premier rendu
+      }
+    };
+
+    fetchData();
+  }, [
+    selectedType,
+    selectedBrand,
+    selectedSizes,
+    selectedColors,
+    selectedSort,
+  ]);
 
   //----------------------------------------------------------------------------------------//
   //gestion de l'état des sizes
-  const [selectedSizes, setSelectedSizes] = useState([]);
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur une taille
@@ -63,7 +97,6 @@ export default function Articles() {
 
   //----------------------------------------------------------------------------------------//
   //état des couleurs sélectionnées
-  const [selectedColors, setSelectedColors] = useState([]);
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur une couleur
@@ -81,7 +114,6 @@ export default function Articles() {
 
   //----------------------------------------------------------------------------------------//
   //état du sort sélectionné
-  const [selectedSort, setSelectedSort] = useState(0);
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un sort
@@ -91,7 +123,6 @@ export default function Articles() {
 
   //----------------------------------------------------------------------------------------//
   //état du type sélectionné
-  const [selectedType, setSelectedType] = useState(null);
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un type
@@ -101,7 +132,10 @@ export default function Articles() {
 
   //----------------------------------------------------------------------------------------//
   const typeSelect = () => {
-    if (selectedType == null && selectedBrand == null) {
+    if (
+      (selectedType == null && selectedBrand == null) ||
+      selectedType == "All"
+    ) {
       return "/All";
     } else if (selectedType == null) {
       return "";
@@ -112,7 +146,6 @@ export default function Articles() {
 
   //----------------------------------------------------------------------------------------//
   //état du brand sélectionné
-  const [selectedBrand, setSelectedBrand] = useState(null);
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un brand
@@ -135,13 +168,14 @@ export default function Articles() {
   console.log("le sort slectioné", selectedSort);
   console.log("le type slectioné", selectedType);
   console.log("le brand slectioné", selectedBrand);
+  console.log("la data:", data);
 
   //----------------------------------------------------------------------------------------//
   return (
     <>
-      <div className="bg-[#F5F5F7] min-h-screen pt-4">
+      <div className="bg-[#F5F5F7] min-h-screen">
         <Header />
-        <div className="mx-20 my-2  md:mx-40">
+        <div className="mx-20 my-2  md:mx-40 min-h-screen">
           <div className="flex justify-between my-10 items-end">
             <div className="flex flex-col ">
               <h1 className="font-black text-5xl text-[#3858D6]">Clothing</h1>
