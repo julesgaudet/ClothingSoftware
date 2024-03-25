@@ -1,6 +1,6 @@
 "use client";
-import footer from "./footer";
-import header from "./header";
+import footer from "./Footer";
+import header from "./Header";
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
 import getType from "./getId";
@@ -43,44 +43,6 @@ export default function Article() {
   const parametresURL = new URLSearchParams(queryString);
   const id = parametresURL.get("id");
 
-  // const [data, setData] = useState([]);
-  // const [selectedSizes, setSelectedSizes] = useState([]);
-  // const [selectedColors, setSelectedColors] = useState([]);
-  // const [selectedSort, setSelectedSort] = useState(0);
-  // const [selectedType, setSelectedType] = useState(null);
-  // const [selectedBrand, setSelectedBrand] = useState(null);
-  // //----------------------------------------------------------------------------------------//
-  // // Effect pour récupérer les données depuis l'API
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       let url = `http://localhost/api/articles?order=${selectedSort}`;
-
-  //       console.log("L'url:", url);
-  //       const response = await fetch(url);
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       const articleJSON = await response.json();
-  //       const formattedData = articleJSON.map((item) => ({
-  //         id: item.id_article,
-  //         nom: item.name,
-  //         description: item.description,
-  //         prix: item.price,
-  //         marque: item.brand,
-  //         date: item.upload_date,
-  //         type: item.type,
-  //       }));
-  //       setData(formattedData);
-  //     } catch (error) {
-  //       console.error("Une erreur s'est produite:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // console.log("la data:", data.);
   const [dataArticle, setArticle] = useState([]);
 
 
@@ -126,12 +88,12 @@ export default function Article() {
             <div className="flex flex-wrap items-center">
               <a
                 href={`./Cart`}
-                className="inline-block text-white font-bold py-4 px-24 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
+                className="mt-6 inline-block text-white font-bold py-4 px-24 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
               >
                 Add to Cart
               </a>
             </div>
-            <p className="font-bold size-10 text-xl">Sustainability</p>
+            <p className="mt-6 font-bold size-10 text-xl">Sustainability</p>
             <img
               src="https://i0.wp.com/bleausard.com/wp-content/uploads/2019/04/bleausard_s_engage.png?fit=700%2C700&ssl=1"
               alt="Photo écoresponsable"
@@ -139,10 +101,11 @@ export default function Article() {
             />
             {/* quantiter n'ai pas dans articleJSON */}
             {/* <p className="font-bold size-10">Quantity left: {dataArticle.quantiter} </p> */}
+             
           </div>
         </div>
       </div>
-      {footr}
+     {footr}
     </>
   );
 }

@@ -84,7 +84,7 @@ export default function ApercuCouleurs() {
     // peut etre utiliser si on ajoute le nom de la couleur
     /* <p className="font-bold size-10">colors: {colors.color_name ?? ""}</p> */
     <>
-      <p className="font-bold size-10">colors:</p>
+      <p className="mt-6 font-bold size-10">colors:</p>
       <ul className="flex gap-2 items-center justify-start">
         {couleurs.map((couleur) => (
           <li key={couleur.id_color}>
@@ -94,7 +94,7 @@ export default function ApercuCouleurs() {
             />
           </li>))}
           </ul>
-          <p className="font-bold size-10">Size </p>
+          <p className="mt-6 font-bold size-10">Size: </p>
           <ul className="flex gap-2 items-center justify-start">
         <li>
           <div className="flex flex-wrap gap-3 mb-3">
