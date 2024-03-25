@@ -75,11 +75,11 @@ export default function Article() {
             <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
               <h2 className="text-xl font-bold">{dataArticle.nom}</h2>
               <h2 className="text-xl font-semibold text-blue-800">
-                {dataArticle.prix}
+                {dataArticle.prix + " $"}
               </h2>
             </div>
 
-            <p className="text-xl">{dataArticle.description}</p>
+            <p className="mt-6 text-xl">{dataArticle.description}</p>
             <ApercuCouleurs1 />
             <div className="flex flex-wrap items-center">
               <a
