@@ -51,6 +51,7 @@ async function getSize(id) {
       return tailleJSON.map((taille) => ({
         id: taille.id_size,
         nom: taille.size_name,
+        number: taille.number_of_size,
         idArticle: taille.id_article,
       }));
     } else {
@@ -72,19 +73,37 @@ export default function ApercuCouleurs() {
 
   const [couleurs, setColors] = useState([]);
   const [sizes, setSize] = useState([]);
-
+  //gestion de l'état des sizes
+  const [selectedSizes, setSelectedSizes] = useState(null);
+  //état des couleurs sélectionnées
+  const [selectedColors, setSelectedColors] = useState(null);
   useEffect(() => {
     getColors(id)
-      .then(setColors)
+      .then((couleurs) => {
+        setColors(couleurs);
+        // Sélectionner la première couleur par défaut si disponible
+        if (couleurs.length > 0) {
+          setSelectedColors(couleurs[0]);
+        }
+      })
       .catch((error) => console.error("Error fetching colors:", error));
     getSize(id)
-      .then(setSize)
+      .then((sizes) => {
+        setSize(sizes);
+         // Sélectionner la première taille avec number > 0 par défaut si disponible
+  const sizeZero = sizes.find(size => size.number > 0);
+  if (sizeZero) {
+    setSelectedSizes(sizeZero);
+  }
+      })
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
   console.log(sizes);
 
-  //état des couleurs sélectionnées
-  const [selectedColors, setSelectedColors] = useState(null);
+ 
+
+ 
+
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click
@@ -95,11 +114,12 @@ export default function ApercuCouleurs() {
   // const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
   //----------------------------------------------------------------------------------------//
-  //gestion de l'état des sizes
-  const [selectedSizes, setSelectedSizes] = useState(null);
+  
   //gestion d'un click
   const handleSizeClick = (size) => {
-    setSelectedSizes(size);
+    if (size.number > 0) {
+      setSelectedSizes(size);
+    }
   };
   return (
     // peut etre utiliser si on ajoute le nom de la couleur
@@ -121,7 +141,8 @@ export default function ApercuCouleurs() {
           <div className="flex flex-wrap gap-3 mb-3">
             {sizes.map((sizes) => (
               <div
-                className={`flex items-center justify-center cursor-pointer border-4 font-bold py-1 px-2 ${sizes === selectedSizes ? "border-[#3858D6] bg-[#3858D6] text-white" : "border-[#3858D6]"
+                className={`flex items-center justify-center cursor-pointer border-4 font-bold py-1 px-2 ${
+                  sizes.number > 0 ? (sizes === selectedSizes ? "border-[#3858D6] bg-[#3858D6] text-white" : "border-[#3858D6]") : "border-[#808080] bg-[#808080]"
                   }`}
                 onClick={() => handleSizeClick(sizes)}
               >
