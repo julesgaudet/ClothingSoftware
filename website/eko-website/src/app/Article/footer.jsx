@@ -4,7 +4,6 @@ export default function footer() {
   return (
     <footer className="bg-gradient-to-br from-black via-black to-blue-900 text-white text-center p-8 mt-11">
       <div class="flex justify-center">
-        
         <ul class="w-1/2">
           <li class="text-blue-500 mb-5">Our Contacts</li>
           <li>ekoclothings@gmail.com</li>
@@ -19,9 +18,9 @@ export default function footer() {
         </ul>
       </div>
       <p>
-        Merci d'etre venu a{" "}
+        Thank you for coming to {" "}
         <a class="text-blue-700" href="http://localhost:3000/">
-          notre site
+        our site
         </a>
       </p>
     </footer>
