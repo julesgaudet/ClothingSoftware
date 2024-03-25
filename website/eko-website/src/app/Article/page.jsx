@@ -43,44 +43,6 @@ export default function Article() {
   const parametresURL = new URLSearchParams(queryString);
   const id = parametresURL.get("id");
 
-  // const [data, setData] = useState([]);
-  // const [selectedSizes, setSelectedSizes] = useState([]);
-  // const [selectedColors, setSelectedColors] = useState([]);
-  // const [selectedSort, setSelectedSort] = useState(0);
-  // const [selectedType, setSelectedType] = useState(null);
-  // const [selectedBrand, setSelectedBrand] = useState(null);
-  // //----------------------------------------------------------------------------------------//
-  // // Effect pour récupérer les données depuis l'API
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       let url = `http://localhost/api/articles?order=${selectedSort}`;
-
-  //       console.log("L'url:", url);
-  //       const response = await fetch(url);
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       const articleJSON = await response.json();
-  //       const formattedData = articleJSON.map((item) => ({
-  //         id: item.id_article,
-  //         nom: item.name,
-  //         description: item.description,
-  //         prix: item.price,
-  //         marque: item.brand,
-  //         date: item.upload_date,
-  //         type: item.type,
-  //       }));
-  //       setData(formattedData);
-  //     } catch (error) {
-  //       console.error("Une erreur s'est produite:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // console.log("la data:", data.);
   const [dataArticle, setArticle] = useState([]);
 
 
