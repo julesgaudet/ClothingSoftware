@@ -79,12 +79,12 @@ export default function Article() {
               </h2>
             </div>
 
-            <p className="mt-6 text-xl">{dataArticle.description}</p>
+            <p className="mt-6 text-l">{dataArticle.description}</p>
             <ApercuCouleurs1 />
             <div className="flex flex-wrap items-center">
               <a
                 href={`./Cart`}
-                className="mt-6 inline-block text-white font-bold py-4 px-20 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
+                className="m-6 inline-block text-white font-bold py-4 px-20 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
               >
                 Add to Cart
               </a>
