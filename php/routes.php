@@ -608,5 +608,3 @@ post('/api/postArticle', function () use ($pdo) {
         echo json_encode(array('message' => 'Method Not Allowed'));
     }
 });
-
-//test noah
