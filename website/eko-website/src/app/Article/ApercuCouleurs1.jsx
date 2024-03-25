@@ -51,6 +51,7 @@ async function getSize(id) {
       return tailleJSON.map((taille) => ({
         id: taille.id_size,
         nom: taille.size_name,
+        number: taille.number_of_size,
         idArticle: taille.id_article,
       }));
     } else {
@@ -99,7 +100,9 @@ export default function ApercuCouleurs() {
   const [selectedSizes, setSelectedSizes] = useState(null);
   //gestion d'un click
   const handleSizeClick = (size) => {
-    setSelectedSizes(size);
+    if (size.number > 0) {
+      setSelectedSizes(size);
+    }
   };
   return (
     // peut etre utiliser si on ajoute le nom de la couleur
@@ -121,7 +124,8 @@ export default function ApercuCouleurs() {
           <div className="flex flex-wrap gap-3 mb-3">
             {sizes.map((sizes) => (
               <div
-                className={`flex items-center justify-center cursor-pointer border-4 font-bold py-1 px-2 ${sizes === selectedSizes ? "border-[#3858D6] bg-[#3858D6] text-white" : "border-[#3858D6]"
+                className={`flex items-center justify-center cursor-pointer border-4 font-bold py-1 px-2 ${
+                  sizes.number > 0 ? (sizes === selectedSizes ? "border-[#3858D6] bg-[#3858D6] text-white" : "border-[#3858D6]") : "border-[#808080] bg-[#808080]"
                   }`}
                 onClick={() => handleSizeClick(sizes)}
               >
