@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 
 import ApercuArticles from "./ApercuArticles";
 import Filtres from "./Filtres";
-import Header from "../Article/header";
-import Footer from "../Article/footer";
+import Header from "../Article/Header";
+import Footer from "../Article/Footer";
 import DropdownMenu from "./DropdownMenu";
 
 //==========================================================================================//

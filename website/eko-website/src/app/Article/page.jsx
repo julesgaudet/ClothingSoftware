@@ -1,11 +1,9 @@
 "use client";
-import footer from "./footer";
-import header from "./header";
+import footer from "./Footer";
+import header from "./Header";
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
-import articleJSON from "../dataJSON/articleJSON.json";
-import colorsJSON from "../dataJSON/colorsJSON.json";
-import getType from "./getId";
+
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
@@ -68,8 +66,8 @@ export default function Article() {
       .then(setArticle)
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
-  console.log(dataArticle);
-  console.log(articleJSON);
+  // console.log(dataArticle);
+  // console.log(articleJSON);
 
   const headr = header();
   const footr = footer();
@@ -106,12 +104,12 @@ export default function Article() {
             <div className="flex flex-wrap items-center">
               <a
                 href={`./Cart`}
-                className="inline-block text-white font-bold py-4 px-24 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
+                className="mt-6 inline-block text-white font-bold py-4 px-24 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
               >
                 Add to Cart
               </a>
             </div>
-            <p className="font-bold size-10 text-xl">Sustainability</p>
+            <p className="mt-6 font-bold size-10 text-xl">Sustainability</p>
             <img
               src="https://i0.wp.com/bleausard.com/wp-content/uploads/2019/04/bleausard_s_engage.png?fit=700%2C700&ssl=1"
               alt="Photo écoresponsable"
@@ -119,10 +117,11 @@ export default function Article() {
             />
             {/* quantiter n'ai pas dans articleJSON */}
             {/* <p className="font-bold size-10">Quantity left: {dataArticle.quantiter} </p> */}
+             
           </div>
         </div>
       </div>
-      {footr}
+     {footr}
     </>
   );
 }
