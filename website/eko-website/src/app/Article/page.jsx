@@ -1,6 +1,6 @@
 "use client";
-import footer from "./Footer";
-import header from "./Header";
+import Footer from "./Footer";
+import Header from "./Header";
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
 import getType from "./getId";
@@ -19,15 +19,15 @@ async function getArticles(id) {
   try {
     const articleJSON = await fetchData(`http://localhost/api/article/${id}`);
     if (articleJSON.length > 0) {
-      return articleJSON.map((articleJSON) => ({
-        id: articleJSON.id_article,
-        nom: articleJSON.name,
-        description: articleJSON.description,
-        prix: articleJSON.price,
-        marque: articleJSON.brand,
-        date: articleJSON.upload_date,
-        type: articleJSON.type,
-      }));
+      return {
+        id: articleJSON[0].id_article,
+        nom: articleJSON[0].name,
+        description: articleJSON[0].description,
+        prix: articleJSON[0].price,
+        marque: articleJSON[0].brand,
+        date: articleJSON[0].upload_date,
+        type: articleJSON[0].type,
+      };
     } else {
       throw new Error("No colors were found for the given id");
     }
@@ -51,15 +51,11 @@ export default function Article() {
       .then(setArticle)
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
-  console.log(dataArticle);
- 
-  const headr = header();
-  const footr = footer();
 
+ 
   return (
     <>
-      {headr}
-
+      <Header />
       <div
         className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160  mb-11 min-h-screen"
         style={{
@@ -68,7 +64,7 @@ export default function Article() {
         }}
       >
         <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4 ">
-          <ApercuArticle1 vetement={dataArticle.nom} />
+          <ApercuArticle1 vetement={dataArticle} />
         </div>
 
         <div className="col-span-1 row-span-1 grid grid-cols-1 gap-4">
@@ -79,16 +75,16 @@ export default function Article() {
             <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
               <h2 className="text-xl font-bold">{dataArticle.nom}</h2>
               <h2 className="text-xl font-semibold text-blue-800">
-                {dataArticle.prix}$
+                {dataArticle.prix + " $"}
               </h2>
             </div>
 
-            <p className="text-xl">{dataArticle.description}</p>
+            <p className="mt-6 text-xl">{dataArticle.description}</p>
             <ApercuCouleurs1 />
             <div className="flex flex-wrap items-center">
               <a
                 href={`./Cart`}
-                className="mt-6 inline-block text-white font-bold py-4 px-24 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
+                className="mt-6 inline-block text-white font-bold py-4 px-20 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
               >
                 Add to Cart
               </a>
@@ -105,46 +101,7 @@ export default function Article() {
           </div>
         </div>
       </div>
-     {footr}
+      <Footer />
     </>
   );
 }
-
-  // const [data, setData] = useState([]);
-  // const [selectedSizes, setSelectedSizes] = useState([]);
-  // const [selectedColors, setSelectedColors] = useState([]);
-  // const [selectedSort, setSelectedSort] = useState(0);
-  // const [selectedType, setSelectedType] = useState(null);
-  // const [selectedBrand, setSelectedBrand] = useState(null);
-  // //----------------------------------------------------------------------------------------//
-  // // Effect pour récupérer les données depuis l'API
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       let url = `http://localhost/api/articles?order=${selectedSort}`;
-        
-  //       console.log("L'url:", url);
-  //       const response = await fetch(url);
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       const articleJSON = await response.json();
-  //       const formattedData = articleJSON.map((item) => ({
-  //         id: item.id_article,
-  //         nom: item.name,
-  //         description: item.description,
-  //         prix: item.price,
-  //         marque: item.brand,
-  //         date: item.upload_date,
-  //         type: item.type,
-  //       }));
-  //       setData(formattedData);
-  //     } catch (error) {
-  //       console.error("Une erreur s'est produite:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // console.log("la data:", data);
