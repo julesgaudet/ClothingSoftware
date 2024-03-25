@@ -1,5 +1,26 @@
 import React from "react";
 
+function makeLinks() {
+  try {
+    const typesJSON = fetchData('http://localhost/api/uniqueTypes');
+    
+      return (
+        <>
+          {typesJSON.map((type) => (
+            <li key={type}>
+              <a href={'http://localhost:3000/Articles?type=' + type}>{type}</a>
+            </li>
+          ))}
+        </>
+      );
+    
+  } catch (error) {
+    console.error('Error fetching types:', error);
+    throw error;
+  }
+}
+
+
 export default function footer() {
   return (
     <footer className="bg-gradient-to-br from-black via-black to-blue-900 text-white text-center p-8 mt-11">
@@ -23,23 +44,4 @@ export default function footer() {
       </p>
     </footer>
   );
-}
-
-
-async function makeLinks(){
-  try {
-    const typesJSON = await fetchData(`http://localhost/api/uniqueTypes`);
-    if (typesJSON.length > 0) {
-      return typesJSON.map((type) => (
-      <li>
-        <a href={"http://localhost:3000/Articles?type=${type}" + type}>{type}</a>
-      </li>
-      ));
-    } else {
-      throw new Error("No types were found");
-    }
-  } catch (error) {
-    console.error("Error fetching types:", error);
-    throw error;
-  }
 }
