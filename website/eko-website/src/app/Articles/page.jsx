@@ -28,7 +28,7 @@ export default function Articles() {
       try {
         let url = `http://localhost/api/articles?order=${selectedSort}`;
 
-        if (selectedType !== null) {
+        if (selectedType !== null && selectedType !== "All") {
           url += `&type=${selectedType}`;
         }
         if (selectedBrand !== null) {
@@ -96,9 +96,6 @@ export default function Articles() {
   };
 
   //----------------------------------------------------------------------------------------//
-  //état des couleurs sélectionnées
-
-  //----------------------------------------------------------------------------------------//
   //gestion d'un click sur une couleur
   const handleColorClick = (color) => {
     if (selectedColors.includes(color)) {
@@ -113,16 +110,10 @@ export default function Articles() {
   };
 
   //----------------------------------------------------------------------------------------//
-  //état du sort sélectionné
-
-  //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un sort
   const handleSortClick = (num) => {
     setSelectedSort(num);
   };
-
-  //----------------------------------------------------------------------------------------//
-  //état du type sélectionné
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un type

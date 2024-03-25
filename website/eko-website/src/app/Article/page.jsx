@@ -45,6 +45,7 @@ export default function Article() {
 
   const [dataArticle, setArticle] = useState([]);
 
+  const articleJSON = fetchData(`http://localhost/api/article/${id}`);
 
   useEffect(() => {
     getArticles(id)
@@ -55,7 +56,8 @@ export default function Article() {
  
   return (
     <>
-      <Header />
+      <Header />      
+       
       <div
         className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160  mb-11 min-h-screen"
         style={{
