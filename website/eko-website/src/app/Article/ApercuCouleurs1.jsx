@@ -44,6 +44,24 @@ async function getColors(id) {
   }
 }
 
+async function getSize(id) {
+  try {
+    const tailleJSON = await fetchData(`http://localhost/api/size/${id}`);
+    if (tailleJSON.length > 0) {
+      return tailleJSON.map((taille) => ({
+        id: taille.id_size,
+        nom: taille.size_name,
+        idArticle: taille.id_article,
+      }));
+    } else {
+      throw new Error("No colors were found for the given id");
+    }
+  } catch (error) {
+    console.error("Error fetching colors:", error);
+    throw error;
+  }
+}
+
 
 export default function ApercuCouleurs() {
 
@@ -53,14 +71,17 @@ export default function ApercuCouleurs() {
   const id = parametresURL.get("id");
 
   const [couleurs, setColors] = useState([]);
-  
+  const [sizes, setSize] = useState([]);
 
   useEffect(() => {
     getColors(id)
       .then(setColors)
       .catch((error) => console.error("Error fetching colors:", error));
+    getSize(id)
+      .then(setSize)
+      .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
-  
+  console.log(sizes);
 
   //état des couleurs sélectionnées
   const [selectedColors, setSelectedColors] = useState(null);
@@ -71,7 +92,7 @@ export default function ApercuCouleurs() {
     setSelectedColors(couleur);
   }
   // tableau de size clothing statique
-  const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
+  // const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
   //----------------------------------------------------------------------------------------//
   //gestion de l'état des sizes
@@ -98,14 +119,13 @@ export default function ApercuCouleurs() {
           <ul className="flex gap-2 items-center justify-start">
         <li>
           <div className="flex flex-wrap gap-3 mb-3">
-            {sizes.map((size, index) => (
+            {sizes.map((sizes) => (
               <div
-                key={index}
-                className={`flex items-center justify-center cursor-pointer border-4 font-bold py-1 px-2 ${size === selectedSizes ? "border-[#3858D6] bg-[#3858D6] text-white" : "border-[#3858D6]"
+                className={`flex items-center justify-center cursor-pointer border-4 font-bold py-1 px-2 ${sizes === selectedSizes ? "border-[#3858D6] bg-[#3858D6] text-white" : "border-[#3858D6]"
                   }`}
-                onClick={() => handleSizeClick(size)}
+                onClick={() => handleSizeClick(sizes)}
               >
-                {size}
+                {sizes.nom}
               </div>
             ))}
           </div>
