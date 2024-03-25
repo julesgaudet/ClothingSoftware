@@ -1,7 +1,8 @@
 <?php
 
 // Fonction pour ajouter les en-têtes CORS
-function addCorsHeaders() {
+function addCorsHeaders()
+{
     // Autoriser l'accès depuis n'importe quelle origine
     header("Access-Control-Allow-Origin: *");
     // Autoriser les méthodes HTTP spécifiées
@@ -286,8 +287,8 @@ get('/api/allOrders/oldest', function () use ($pdo) {
 });
 
 //sélectioner un article
-get('/api/article/$id_article', function($id_article) use ($pdo){
-    if(isset($id_article)){
+get('/api/article/$id_article', function ($id_article) use ($pdo) {
+    if (isset($id_article)) {
         $article = $pdo->prepare(
             'SELECT * 
             FROM Article
@@ -305,41 +306,41 @@ get('/api/article/$id_article', function($id_article) use ($pdo){
 });
 
 //sélectioner toutes les couleurs uniques
-get('/api/uniqueColors', function() use ($pdo){
+get('/api/uniqueColors', function () use ($pdo) {
 
-        $uniqueColors = $pdo->prepare(
-            'SELECT DISTINCT color_code 
+    $uniqueColors = $pdo->prepare(
+        'SELECT DISTINCT color_code 
             FROM color
 '
-        );
-        $uniqueColors->execute();
-        $allUniqueColors = $uniqueColors->fetchAll(PDO::FETCH_ASSOC);
+    );
+    $uniqueColors->execute();
+    $allUniqueColors = $uniqueColors->fetchAll(PDO::FETCH_ASSOC);
 
-        header('Content-Type: application/json');
+    header('Content-Type: application/json');
 
-        http_response_code(200);
-        echo json_encode($allUniqueColors);
+    http_response_code(200);
+    echo json_encode($allUniqueColors);
 });
 
 //sélectioner toutes les types uniques
-get('/api/uniqueTypes', function() use ($pdo){
+get('/api/uniqueTypes', function () use ($pdo) {
 
-        $uniqueTypes = $pdo->prepare(
-            'SELECT DISTINCT type 
+    $uniqueTypes = $pdo->prepare(
+        'SELECT DISTINCT type 
             FROM article
 '
-        );
-        $uniqueTypes->execute();
-        $allUniqueTypes = $uniqueTypes->fetchAll(PDO::FETCH_ASSOC);
+    );
+    $uniqueTypes->execute();
+    $allUniqueTypes = $uniqueTypes->fetchAll(PDO::FETCH_ASSOC);
 
-        header('Content-Type: application/json');
+    header('Content-Type: application/json');
 
-        http_response_code(200);
-        echo json_encode($allUniqueTypes);
+    http_response_code(200);
+    echo json_encode($allUniqueTypes);
 });
 
 //api pour obtenir les articles selon les filtres
-get('/api/articles', function() use ($pdo) {
+get('/api/articles', function () use ($pdo) {
     $type = isset($_GET['type']) ? $_GET['type'] : null;
     $colors = isset($_GET['colors']) ? $_GET['colors'] : [];
     $brand = isset($_GET['brand']) ? $_GET['brand'] : null;
@@ -360,14 +361,14 @@ get('/api/articles', function() use ($pdo) {
     }
 
     if (!empty($colors)) {
-    // Ajouter "#" devant chaque couleur
-    $colorsWithHash = array_map(function($color) {
-        return '#' . $color;
-    }, $colors);
-    
-    // Construire la requête SQL avec les couleurs modifiées
-    $query .= " AND Color.color_code IN ('" . implode("','", $colorsWithHash) . "')";
-}
+        // Ajouter "#" devant chaque couleur
+        $colorsWithHash = array_map(function ($color) {
+            return '#' . $color;
+        }, $colors);
+
+        // Construire la requête SQL avec les couleurs modifiées
+        $query .= " AND Color.color_code IN ('" . implode("','", $colorsWithHash) . "')";
+    }
 
 
     if (!empty($sizes)) {
@@ -437,21 +438,18 @@ post('/api/login', function () use ($pdo) {
         if ($user && isset($user['password'])) {
             // Verify the password
             if (password_verify($password, $user['password'])) {
-                // Password is correct, login successful
+
                 http_response_code(200);
                 echo json_encode(array('message' => 'Login successful'));
             } else {
-                // Password is incorrect, return error
                 http_response_code(401);
                 echo json_encode(array('message' => 'Invalid email or password'));
             }
         } else {
-            // User not found, return error
             http_response_code(401);
             echo json_encode(array('message' => 'Invalid email or password'));
         }
     } else {
-        // Missing email or password, return error
         http_response_code(400);
         echo json_encode(array('message' => 'Missing email or password'));
     }
@@ -459,6 +457,7 @@ post('/api/login', function () use ($pdo) {
 
 // Api for the signin
 post('/api/signin', function () use ($pdo) {
+
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
 
@@ -500,6 +499,9 @@ post('/api/signin', function () use ($pdo) {
         $query = $pdo->prepare('INSERT INTO Employee (username, email, password) VALUES (?, ?, ?)');
         $query->execute([$username, $email, $hashed_password]);
 
+        // Get the ID of the newly inserted user
+        $id_employee = $pdo->lastInsertId();
+
         // Respond with a success message
         http_response_code(201);
         echo json_encode(array('message' => 'User created successfully'));
@@ -509,6 +511,7 @@ post('/api/signin', function () use ($pdo) {
         echo json_encode(array('message' => 'Missing username, email, or password'));
     }
 });
+
 
 // Show every articles with size, color, and picture details
 get('/api/articles', function () use ($pdo) {
@@ -539,4 +542,69 @@ get('/api/articles', function () use ($pdo) {
     header('Content-Type: application/json');
     http_response_code(200);
     echo json_encode($allArticles);
+});
+
+// Api when you post an article
+post('/api/postArticle', function () use ($pdo) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+
+        if (isset($data['name'], $data['description'], $data['price'], $data['type'], $data['brand'], $data['sizes'], $data['colors'], $data['pictures'])) {
+            $name = $data['name'];
+            $description = $data['description'];
+            $price = $data['price'];
+            $type = $data['type'];
+            $brand = $data['brand'];
+            $employeeId = 1;
+            $sizes = $data['sizes'];
+            $colors = $data['colors'];
+            $pictures = $data['pictures'];
+
+            date_default_timezone_set('America/Montreal');
+            $uploadDate = date('Y-m-d H:i:s');
+
+            // Prepare the SQL query to insert a new article
+            $stmt = $pdo->prepare('INSERT INTO Article (name, description, price, type, brand, upload_date, id_employee) VALUES (?, ?, ?, ?, ?, ?, ?)');
+            $stmt->execute([$name, $description, $price, $type, $brand, $uploadDate, $employeeId]);
+            $articleId = $pdo->lastInsertId(); // Get the inserted article ID
+
+            // Insert the sizes of the article
+            foreach ($sizes as $size) {
+                if (isset($size['size_name'], $size['number_of_size'])) {
+                    $sizeName = $size['size_name'];
+                    $numberOfSize = $size['number_of_size'];
+                    $stmt = $pdo->prepare('INSERT INTO Size (size_name, number_of_size, id_article) VALUES (?, ?, ?)');
+                    $stmt->execute([$sizeName, $numberOfSize, $articleId]);
+                }
+            }
+
+            // Insert the colors of the article
+            foreach ($colors as $color) {
+                if (isset($color['color_code'])) {
+                    $colorCode = $color['color_code'];
+                    $stmt = $pdo->prepare('INSERT INTO Color (color_code, id_article) VALUES (?, ?)');
+                    $stmt->execute([$colorCode, $articleId]);
+                }
+            }
+
+            // Insert the pictures of the article
+            foreach ($pictures as $picture) {
+                if (isset($picture['url'])) {
+                    $url = $picture['url'];
+                    $stmt = $pdo->prepare('INSERT INTO Picture (url, id_article) VALUES (?, ?)');
+                    $stmt->execute([$url, $articleId]);
+                }
+            }
+            http_response_code(201);
+            echo json_encode(array('message' => 'Article created successfully'));
+        } else {
+            http_response_code(400);
+            echo json_encode(array('message' => 'Missing required data'));
+        }
+    } else {
+        http_response_code(405);
+        echo json_encode(array('message' => 'Method Not Allowed'));
+    }
 });
