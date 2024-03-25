@@ -1,6 +1,6 @@
 "use client";
-import footer from "./Footer";
-import header from "./Header";
+import Footer from "./Footer";
+import Header from "./Header";
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
 import getType from "./getId";
@@ -51,15 +51,13 @@ export default function Article() {
       .then(setArticle)
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
+
   console.log(dataArticle);
  
-  const headr = header();
-  const footr = footer();
 
   return (
     <>
-      {headr}
-
+      <Header />
       <div
         className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160  mb-11 min-h-screen"
         style={{
@@ -79,7 +77,7 @@ export default function Article() {
             <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
               <h2 className="text-xl font-bold">{dataArticle.nom}</h2>
               <h2 className="text-xl font-semibold text-blue-800">
-                {dataArticle.prix}$
+                {dataArticle.prix}
               </h2>
             </div>
 
@@ -88,7 +86,7 @@ export default function Article() {
             <div className="flex flex-wrap items-center">
               <a
                 href={`./Cart`}
-                className="mt-6 inline-block text-white font-bold py-4 px-24 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
+                className="mt-6 inline-block text-white font-bold py-4 px-20 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
               >
                 Add to Cart
               </a>
@@ -105,7 +103,7 @@ export default function Article() {
           </div>
         </div>
       </div>
-     {footr}
+      <Footer />
     </>
   );
 }
