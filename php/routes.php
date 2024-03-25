@@ -114,6 +114,25 @@ get('/api/color/$id_article', function ($id_article) use ($pdo) {
     }
 });
 
+//Select the size for an article
+get('/api/size/$id_article', function ($id_article) use ($pdo) {
+    if (isset($id_article)) {
+        $article = $pdo->prepare(
+            'SELECT size_name 
+            FROM Size
+            WHERE id_article = :id_article'
+        );
+        $article->bindValue(':id_article', $id_article, PDO::PARAM_INT);
+        $article->execute();
+        $allArticles = $article->fetchAll(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+
+        http_response_code(200);
+        echo json_encode($allArticles);
+    }
+});
+
 // Select all of the urls (pictures) for an article
 get('/api/picture/$id_article', function ($id_article) use ($pdo) {
     if (isset($id_article)) {
