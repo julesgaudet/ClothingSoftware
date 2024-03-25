@@ -3,41 +3,39 @@ import footer from "./footer";
 import header from "./header";
 import ApercuCouleurs1 from "./ApercuCouleurs1";
 import ApercuArticle1 from "./ApercuArticle1";
-//import articleJSON from "../dataJSON/articleJSON.json";
-//import colorsJSON from "../dataJSON/colorsJSON.json";
 import getType from "./getId";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
-async function fetchData(url) {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-  return response.json();
-}
+// async function fetchData(url) {
+//   const response = await fetch(url);
+//   if (!response.ok) {
+//     throw new Error("Network response was not ok");
+//   }
+//   return response.json();
+// }
 
-async function getArticles(id) {
-  try {
-    const articleJSON = await fetchData(`http://localhost/api/article/${id}`);
-    if (articleJSON.length > 0) {
-      return articleJSON.map((articleJSON) => ({
-        id: articleJSON.id_article,
-        nom: articleJSON.name,
-        description: articleJSON.description,
-        prix: articleJSON.price,
-        marque: articleJSON.brand,
-        date: articleJSON.upload_date,
-        type: articleJSON.type,
-      }));
-    } else {
-      throw new Error("No colors were found for the given id");
-    }
-  } catch (error) {
-    console.error("Error fetching colors:", error);
-    throw error;
-  }
-}
+// async function getArticles(id) {
+//   try {
+//     const articleJSON = await fetchData(`http://localhost/api/article/${id}`);
+//     if (articleJSON.length > 0) {
+//       return articleJSON.map((articleJSON) => ({
+//         id: articleJSON.id_article,
+//         nom: articleJSON.name,
+//         description: articleJSON.description,
+//         prix: articleJSON.price,
+//         marque: articleJSON.brand,
+//         date: articleJSON.upload_date,
+//         type: articleJSON.type,
+//       }));
+//     } else {
+//       throw new Error("No colors were found for the given id");
+//     }
+//   } catch (error) {
+//     console.error("Error fetching colors:", error);
+//     throw error;
+//   }
+// }
 
 export default function Article() {
   const router = useRouter();
@@ -61,16 +59,158 @@ export default function Article() {
   //     type: article.type || '',
   //   };
   // }
-  const [dataArticle, setArticle] = useState([]);
-
+  const [data, setData] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [selectedColors, setSelectedColors] = useState([]);
+  const [selectedSort, setSelectedSort] = useState(0);
+  const [selectedType, setSelectedType] = useState(null);
+  const [selectedBrand, setSelectedBrand] = useState(null);
+  //----------------------------------------------------------------------------------------//
+  // Effect pour récupérer les données depuis l'API
   useEffect(() => {
-    getArticles(id)
-      .then(setArticle)
-      .catch((error) => console.error("Error fetching colors:", error));
-  }, [id]);
-  console.log(dataArticle);
-  console.log(articleJSON);
+    const fetchData = async () => {
+      try {
+        let url = `http://localhost/api/articles?order=${selectedSort}`;
 
+        if (selectedType !== null) {
+          url += `&type=${selectedType}`;
+        }
+        if (selectedBrand !== null) {
+          url += `&brand=${selectedBrand}`;
+        }
+        if (selectedSizes.length > 0) {
+          const sizesParam = selectedSizes
+            .map((size) => `sizes[]=${size}`)
+            .join("&");
+          url += `&${sizesParam}`;
+        }
+        if (selectedColors.length > 0) {
+          const colorsParam = selectedColors
+            .map(
+              (color) =>
+                `colors[]=${encodeURIComponent(color.replace("#", ""))}`
+            )
+            .join("&");
+          url += `&${colorsParam}`;
+        }
+
+        console.log("L'url:", url);
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const articleJSON = await response.json();
+        const formattedData = articleJSON.map((item) => ({
+          id: item.id_article,
+          nom: item.name,
+          description: item.description,
+          prix: item.price,
+          marque: item.brand,
+          date: item.upload_date,
+          type: item.type,
+        }));
+        setData(formattedData);
+      } catch (error) {
+        console.error("Une erreur s'est produite:", error);
+      }
+    };
+
+    fetchData();
+  }, [
+    selectedType,
+    selectedBrand,
+    selectedSizes,
+    selectedColors,
+    selectedSort,
+  ]);
+
+  //----------------------------------------------------------------------------------------//
+  //gestion de l'état des sizes
+
+  //----------------------------------------------------------------------------------------//
+  //gestion d'un click sur une taille
+  const handleSizeClick = (size) => {
+    if (selectedSizes.includes(size)) {
+      // Si la taille est déjà sélectionnée, la retirer de la liste des sélections
+      setSelectedSizes(selectedSizes.filter((selected) => selected !== size));
+    } else {
+      // Sinon, ajouter la taille à la liste des sélections
+      setSelectedSizes([...selectedSizes, size]);
+    }
+  };
+
+  //----------------------------------------------------------------------------------------//
+  //état des couleurs sélectionnées
+
+  //----------------------------------------------------------------------------------------//
+  //gestion d'un click sur une couleur
+  const handleColorClick = (color) => {
+    if (selectedColors.includes(color)) {
+      // Si la couleur est déjà sélectionnée, la retirer de la liste des sélections
+      setSelectedColors(
+        selectedColors.filter((selected) => selected !== color)
+      );
+    } else {
+      // Sinon, ajouter la couleur à la liste des sélections
+      setSelectedColors([...selectedColors, color]);
+    }
+  };
+
+  //----------------------------------------------------------------------------------------//
+  //état du sort sélectionné
+
+  //----------------------------------------------------------------------------------------//
+  //gestion d'un click sur un sort
+  const handleSortClick = (num) => {
+    setSelectedSort(num);
+  };
+
+  //----------------------------------------------------------------------------------------//
+  //état du type sélectionné
+
+  //----------------------------------------------------------------------------------------//
+  //gestion d'un click sur un type
+  const handleTypeClick = (type) => {
+    setSelectedType(type);
+  };
+
+  //----------------------------------------------------------------------------------------//
+  const typeSelect = () => {
+    if (
+      (selectedType == null && selectedBrand == null) ||
+      selectedType == "All"
+    ) {
+      return "/All";
+    } else if (selectedType == null) {
+      return "";
+    } else {
+      return "/" + selectedType;
+    }
+  };
+
+  //----------------------------------------------------------------------------------------//
+  //état du brand sélectionné
+
+  //----------------------------------------------------------------------------------------//
+  //gestion d'un click sur un brand
+  const handleBrandClick = (brand) => {
+    setSelectedBrand(brand);
+  };
+  //----------------------------------------------------------------------------------------//
+  const BrandSelect = () => {
+    if (selectedBrand == null) {
+      return "";
+    } else {
+      return "/" + selectedBrand;
+    }
+  };
+
+  console.log("les sizes sélectionées", selectedSizes);
+  console.log("les colors sélectionées", selectedColors);
+  console.log("le sort slectioné", selectedSort);
+  console.log("le type slectioné", selectedType);
+  console.log("le brand slectioné", selectedBrand);
+  console.log("la data:", data[id-1]);
   const headr = header();
   const footr = footer();
 
@@ -86,22 +226,22 @@ export default function Article() {
         }}
       >
         <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4 ">
-          <ApercuArticle1 vetement={dataArticle} />
+          <ApercuArticle1 vetement={data} />
         </div>
 
         <div className="col-span-1 row-span-1 grid grid-cols-1 gap-4">
-          <div key={dataArticle.id} className="bg-white p-4 rounded">
+          <div key={data.id} className="bg-white p-4 rounded">
             <small class="text-gray-500 text-base font-black">
-              {dataArticle.marque}
+              {data.marque}
             </small>
             <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
-              <h2 className="text-xl font-bold">{dataArticle.nom}</h2>
+              <h2 className="text-xl font-bold">{data.nom}</h2>
               <h2 className="text-xl font-semibold text-blue-800">
-                {dataArticle.prix}$
+                {data.prix}$
               </h2>
             </div>
 
-            <p className="text-xl">{dataArticle.description}</p>
+            <p className="text-xl">{data.description}</p>
             <ApercuCouleurs1 />
             <div className="flex flex-wrap items-center">
               <a

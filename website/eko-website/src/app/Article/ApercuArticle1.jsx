@@ -1,5 +1,4 @@
 'use client'
-import pictureJSON from "../dataJSON/pictureJSON.json";
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from "react";
 

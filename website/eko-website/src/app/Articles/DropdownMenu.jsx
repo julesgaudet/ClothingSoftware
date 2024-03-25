@@ -28,13 +28,13 @@ export default function DropdownMenu({ handleSortClick }) {
               className="py-2 px-4 hover:bg-gray-100 cursor-pointer"
               onClick={() => handleSortClick(2)}
             >
-              Price: Low to High
+              Price: High to Low
             </li>
             <li
               className="py-2 px-4 hover:bg-gray-100 cursor-pointer"
               onClick={() => handleSortClick(3)}
             >
-              Price: High to Low
+              Price: Low to High
             </li>
           </ul>
         </div>
