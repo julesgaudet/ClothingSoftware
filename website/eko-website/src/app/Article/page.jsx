@@ -99,7 +99,7 @@ export default function Article() {
       {headr}
 
       <div
-        className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160"
+        className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160  mb-11 min-h-screen"
         style={{
           borderRight: "160px solid transparent",
           borderLeft: "160px solid transparent",
