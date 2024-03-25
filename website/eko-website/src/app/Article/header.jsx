@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className="p-4 flex items-center justify-between">
+    <header className="py-10 mx-40 flex items-center justify-between">
       <div className="flex-grow">
         <div className="flex items-center">
           <div className="w-8 h-8 text-white font-black text-xl bg-blue-600 rounded-full flex items-center justify-center mr-2">

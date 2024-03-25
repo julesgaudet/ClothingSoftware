@@ -175,8 +175,8 @@ export default function Articles() {
     <>
       <div className="bg-[#F5F5F7] min-h-screen">
         <Header />
-        <div className="mx-20 my-2  md:mx-40 min-h-screen">
-          <div className="flex justify-between my-10 items-end">
+        <div className="mx-20 md:mx-40 min-h-screen">
+          <div className="flex justify-between mb-10 items-end">
             <div className="flex flex-col ">
               <h1 className="font-black text-5xl text-[#3858D6]">Clothing</h1>
               <h3 className="font-bold text-lg text-gray-500">
