@@ -96,9 +96,6 @@ export default function Articles() {
   };
 
   //----------------------------------------------------------------------------------------//
-  //état des couleurs sélectionnées
-
-  //----------------------------------------------------------------------------------------//
   //gestion d'un click sur une couleur
   const handleColorClick = (color) => {
     if (selectedColors.includes(color)) {
@@ -113,16 +110,10 @@ export default function Articles() {
   };
 
   //----------------------------------------------------------------------------------------//
-  //état du sort sélectionné
-
-  //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un sort
   const handleSortClick = (num) => {
     setSelectedSort(num);
   };
-
-  //----------------------------------------------------------------------------------------//
-  //état du type sélectionné
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un type
