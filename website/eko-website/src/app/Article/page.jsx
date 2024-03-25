@@ -110,6 +110,7 @@ export default function Article() {
           type: item.type,
         }));
         setData(formattedData);
+        
       } catch (error) {
         console.error("Une erreur s'est produite:", error);
       }
@@ -217,7 +218,13 @@ export default function Article() {
   return (
     <>
       {headr}
-
+      {articleJSON.length == 0 ? (
+        <div className="mx-auto grid h-40 w-full place-items-center rounded-md border-2 border-dashed bg-gray-50 py-10 text-center min-h-screen">
+          <h1 className="mt-2 text-2xl font-bold tracking-tight text-gray-400">
+            No products found
+          </h1>
+        </div>
+      ) : (
       <div
         className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160  mb-11 min-h-screen"
         style={{
@@ -261,7 +268,7 @@ export default function Article() {
             {/* <p className="font-bold size-10">Quantity left: {dataArticle.quantiter} </p> */}
           </div>
         </div>
-      </div>
+      </div>)}
       {footr}
     </>
   );

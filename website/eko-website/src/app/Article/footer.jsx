@@ -20,7 +20,7 @@ export default function footer() {
       </div>
       <p>
         Merci d'etre venu a{" "}
-        <a className="text-blue-700" href="http://localhost:3000/">
+        <a className="text-blue-700 mt-5" href="http://localhost:3000/">
           notre site
         </a>
       </p>
