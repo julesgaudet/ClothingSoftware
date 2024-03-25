@@ -52,9 +52,7 @@ export default function Article() {
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
 
-  console.log(dataArticle);
  
-
   return (
     <>
       <Header />
