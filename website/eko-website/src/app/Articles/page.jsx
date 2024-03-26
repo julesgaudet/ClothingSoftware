@@ -28,7 +28,7 @@ export default function Articles() {
       try {
         let url = `http://localhost/api/articles?order=${selectedSort}`;
 
-        if (selectedType !== null && selectedType !== "All") {
+        if (selectedType !== null) {
           url += `&type=${selectedType}`;
         }
         if (selectedBrand !== null) {

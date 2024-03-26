@@ -168,14 +168,7 @@ function SizeSelector({ handleSizeClick, selectedSizes }) {
 
 //==========================================================================================//
 //==========================================================================================//
-export default function Filtres({
-  articles,
-  handleSizeClick,
-  selectedSizes,
-  handleColorClick,
-  selectedColors,
-  handleTypeClick,
-}) {
+export default function Filtres({articles,handleSizeClick,selectedSizes,handleColorClick,selectedColors,handleTypeClick,}) {
   //----------------------------------------------------------------------------------------//
   //le nb d'items
   let nbItems = 674; //A CHANGER
