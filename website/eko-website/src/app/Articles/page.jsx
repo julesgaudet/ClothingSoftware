@@ -28,7 +28,7 @@ export default function Articles() {
       try {
         let url = `http://localhost/api/articles?order=${selectedSort}`;
 
-        if (selectedType !== null) {
+        if (selectedType !== null && selectedType !== "All") {
           url += `&type=${selectedType}`;
         }
         if (selectedBrand !== null) {
@@ -81,9 +81,6 @@ export default function Articles() {
   ]);
 
   //----------------------------------------------------------------------------------------//
-  //gestion de l'état des sizes
-
-  //----------------------------------------------------------------------------------------//
   //gestion d'un click sur une taille
   const handleSizeClick = (size) => {
     if (selectedSizes.includes(size)) {
@@ -94,9 +91,6 @@ export default function Articles() {
       setSelectedSizes([...selectedSizes, size]);
     }
   };
-
-  //----------------------------------------------------------------------------------------//
-  //état des couleurs sélectionnées
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur une couleur
@@ -113,16 +107,10 @@ export default function Articles() {
   };
 
   //----------------------------------------------------------------------------------------//
-  //état du sort sélectionné
-
-  //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un sort
   const handleSortClick = (num) => {
     setSelectedSort(num);
   };
-
-  //----------------------------------------------------------------------------------------//
-  //état du type sélectionné
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un type
@@ -145,13 +133,15 @@ export default function Articles() {
   };
 
   //----------------------------------------------------------------------------------------//
-  //état du brand sélectionné
-
-  //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un brand
   const handleBrandClick = (brand) => {
-    setSelectedBrand(brand);
+    if (selectedBrand === brand) {
+      setSelectedBrand(null);
+    } else {
+      setSelectedBrand(brand);
+    }
   };
+
   //----------------------------------------------------------------------------------------//
   const BrandSelect = () => {
     if (selectedBrand == null) {
