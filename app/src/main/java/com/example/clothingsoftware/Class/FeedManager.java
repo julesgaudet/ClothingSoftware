@@ -34,7 +34,7 @@ public class FeedManager {
     }
 
     public void getAllArticles(final FeedAdapter feedAdapter, Feed fragment) {
-        String url = "http://10.0.2.2:80/api/articles";
+        String url = "http://10.0.2.2:80/api/app/articles";
 
         Request request = new Request.Builder()
                 .url(url)
@@ -111,5 +111,4 @@ public class FeedManager {
             }
         });
     }
-
 }

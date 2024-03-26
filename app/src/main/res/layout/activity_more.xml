@@ -77,18 +77,4 @@
         android:textColor="@color/white"
         android:textSize="16sp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonDelete"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/signout_button"
-        android:layout_marginTop="20dp"
-        android:enabled="true"
-        android:fontFamily="@font/medium"
-        android:text="@string/Delete"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
 </LinearLayout>

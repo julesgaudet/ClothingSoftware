@@ -514,7 +514,7 @@ post('/api/signin', function () use ($pdo) {
 
 
 // Show every articles with size, color, and picture details
-get('/api/articles', function () use ($pdo) {
+get('/api/app/articles', function () use ($pdo) {
     $articles = $pdo->prepare('SELECT * FROM Article');
     $articles->execute();
     $allArticles = $articles->fetchAll(PDO::FETCH_ASSOC);
