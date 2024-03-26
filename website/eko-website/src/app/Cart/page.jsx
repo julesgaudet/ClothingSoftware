@@ -7,7 +7,16 @@ export default function Cart(){
     <>
     <Header />
         <p className="min-h-screen bg-grey-400">content</p>
+        <div>
+            <h1>CART
+
+                COOKIE, ID DE SESSION
+
+                
+            </h1>
+        </div>
     <Footer />
     </>
      );
+
 }
