@@ -37,7 +37,7 @@ function makeLink() {
     return (
       <div>
         {types.map((type, index) => (
-          <li key={index} /*onClick={() => handleClick(type)}*/>
+          <li key={index} >
             <a href={`http://localhost:3000/Articles?type=${type}`}>{type}</a>
           </li>
         ))}
@@ -81,87 +81,4 @@ export default function Footer() {
     </footer>
   );
 }
-
-/*export default function Footer(){
-  const [selectedType, setSelectedType] = useState(null);
-
-  const handleClick = (type) => {setSelectedType(type);};
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let url = `http://localhost/api/articles?order=${selectedSort}`;
-
-        if (selectedType !== null && selectedType !== "All") {
-          url += `&type=${selectedType}`;
-        }
-        if (selectedBrand !== null) {
-          url += `&brand=${selectedBrand}`;
-        }
-        if (selectedSizes.length > 0) {
-          const sizesParam = selectedSizes
-            .map((size) => `sizes[]=${size}`)
-            .join("&");
-          url += `&${sizesParam}`;
-        }
-        if (selectedColors.length > 0) {
-          const colorsParam = selectedColors
-            .map(
-              (color) =>
-                `colors[]=${encodeURIComponent(color.replace("#", ""))}`
-            )
-            .join("&");
-          url += `&${colorsParam}`;
-        }
-
-        console.log("L'url:", url);
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const articleJSON = await response.json();
-        const formattedData = articleJSON.map((item) => ({
-          id: item.id_article,
-          nom: item.name,
-          description: item.description,
-          prix: item.price,
-          marque: item.brand,
-          date: item.upload_date,
-          type: item.type,
-        }));
-        setData(formattedData);
-      } catch (error) {
-        console.error("Une erreur s'est produite:", error);
-      }
-    };);
-
-  return(makeFooter(handleClick));
-
-}*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
