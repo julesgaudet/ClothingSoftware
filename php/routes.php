@@ -533,7 +533,7 @@ post('/api/signin', function () use ($pdo) {
 
 
 // Show every articles with size, color, and picture details
-get('/api/articles', function () use ($pdo) {
+get('/api/app/articles', function () use ($pdo) {
     $articles = $pdo->prepare('SELECT * FROM Article');
     $articles->execute();
     $allArticles = $articles->fetchAll(PDO::FETCH_ASSOC);
@@ -626,4 +626,82 @@ post('/api/postArticle', function () use ($pdo) {
         http_response_code(405);
         echo json_encode(array('message' => 'Method Not Allowed'));
     }
+});
+
+// Endpoint to fetch the first picture of an article by its ID
+get('/api/firstPicture/$id_article', function ($id_article) use ($pdo) {
+    if (isset($id_article)) {
+        // Prepare the SQL query to select the URL of the first picture
+        $article = $pdo->prepare(
+            'SELECT url
+            FROM Picture
+            WHERE id_article = :id_article
+            ORDER BY id_picture
+            LIMIT  1'
+        );
+        $article->bindValue(':id_article', $id_article, PDO::PARAM_INT);
+        $article->execute();
+        // Fetch the first picture URL
+        $firstPicture = $article->fetch(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+
+        http_response_code(200);
+        // Return only the URL of the picture
+        echo json_encode($firstPicture['url']);
+    }
+});
+
+// Endpoint to fetch all orders along with client details
+get('/api/app/orders', function () use ($pdo) {
+    // Select all orders from the database
+    $ordersQuery = 'SELECT * FROM Orders';
+    $ordersStatement = $pdo->query($ordersQuery);
+    $allOrders = $ordersStatement->fetchAll(PDO::FETCH_ASSOC);
+
+    // Iterate through each order
+    foreach ($allOrders as &$order) {
+        $sessionId = $order['id_session'];
+
+        // SQL query to fetch articles in the order
+        $articleCartQuery = 'SELECT Article.id_article, Article.name, Article.price, Color.color_code AS color, Size.size_name AS size
+        FROM ArticleCart 
+        INNER JOIN Article ON ArticleCart.id_article = Article.id_article 
+        INNER JOIN Color ON ArticleCart.id_color = Color.id_color
+        INNER JOIN Size ON ArticleCart.id_size = Size.id_size
+        WHERE ArticleCart.id_session = :session';
+
+        $articleCartStatement = $pdo->prepare($articleCartQuery);
+        $articleCartStatement->bindParam(':session', $sessionId, PDO::PARAM_STR);
+        $articleCartStatement->execute();
+        $order['article_cart'] = $articleCartStatement->fetchAll(PDO::FETCH_ASSOC);
+
+        // Loop through each article in the order to fetch its first picture
+        foreach ($order['article_cart'] as &$article) {
+            $articleId = $article['id_article'];
+            // SQL query to fetch the first picture of the article
+            $firstPictureQuery = "SELECT url FROM Picture WHERE id_article = :articleId LIMIT 1";
+            $firstPictureStatement = $pdo->prepare($firstPictureQuery);
+            $firstPictureStatement->bindParam(':articleId', $articleId, PDO::PARAM_INT);
+            $firstPictureStatement->execute();
+            $firstPicture = $firstPictureStatement->fetch(PDO::FETCH_ASSOC);
+            // Add the first picture URL to the article information
+            $article['first_picture'] = $firstPicture['url'];
+        }
+
+        // Fetch client details for the order
+        $clientId = $order['id_client'];
+        $clientQuery = 'SELECT first_name, last_name, 
+                        email, address, country, city, region_state, zip_code
+                        FROM Client WHERE id_client = :clientId';
+        $clientStatement = $pdo->prepare($clientQuery);
+        $clientStatement->bindParam(':clientId', $clientId, PDO::PARAM_INT);
+        $clientStatement->execute();
+        $order['client'] = $clientStatement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    header('Content-Type: application/json');
+    http_response_code(200);
+    // Return the JSON representation of all orders with client details and first picture URLs
+    echo json_encode($allOrders);
 });
