@@ -6,8 +6,6 @@ public class ArticleOrderModel {
     private String color;
     private String imageUrl;
     private String size;
-    private String brand;
-
 
     public void setTitle(String title) {
         this.title = title;
@@ -21,16 +19,12 @@ public class ArticleOrderModel {
         this.color = color;
     }
 
-    public void setImageUrls(String imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
     public void setSize(String size) {
-        size = size;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
+        this.size = size;
     }
 
     public String getTitle() {
@@ -53,7 +47,4 @@ public class ArticleOrderModel {
         return size;
     }
 
-    public String getBrand() {
-        return brand;
-    }
 }

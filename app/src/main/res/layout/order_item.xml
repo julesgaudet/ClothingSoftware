@@ -9,6 +9,11 @@
     android:layout_marginBottom="20dp"
     android:background="@drawable/card_background_orders">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#e5e5e5"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,38 +79,6 @@
                 android:gravity="end"
                 android:singleLine="true"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:fontFamily="@font/inter"
-                android:singleLine="true"
-                android:text="@string/client_address"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textViewClientAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:fontFamily="@font/medium"
-                android:gravity="end"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
         </LinearLayout>
 
