@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clothingsoftware.Models.ArticleOrderModel;
-import com.example.clothingsoftware.Models.ClientModel;
 import com.example.clothingsoftware.Models.OrderModel;
 import com.example.clothingsoftware.R;
 import com.squareup.picasso.Picasso;
@@ -135,8 +134,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     public void setOrderList(List<OrderModel> orderList) {
+        int previousSize = this.orderList.size();
         this.orderList.clear();
         this.orderList.addAll(orderList);
-        notifyDataSetChanged();
+        notifyItemRangeRemoved(0, previousSize);
+        notifyItemRangeInserted(0, orderList.size());
     }
 }

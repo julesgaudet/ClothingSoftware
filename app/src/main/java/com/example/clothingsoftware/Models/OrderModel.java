@@ -10,8 +10,6 @@ public class OrderModel {
     private List<ArticleOrderModel> articleOrderList;
     private ClientModel clientModel;
 
-    // Getters and Setters
-
     public String getOrder_code() {
         return order_code;
     }

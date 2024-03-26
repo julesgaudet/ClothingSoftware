@@ -24,7 +24,6 @@ import java.util.List;
 public class Orders extends Fragment implements OrderAdapter.OnOrderItemClickListener {
 
     private List<OrderModel> orderList;
-    private ClientModel clientModel;
     private OrderAdapter orderAdapter;
     private OrderManager orderManager;
 
@@ -38,7 +37,7 @@ public class Orders extends Fragment implements OrderAdapter.OnOrderItemClickLis
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         orderList = new ArrayList<>();
-        clientModel = new ClientModel();
+        new ClientModel();
 
         orderAdapter = new OrderAdapter(orderList);
         orderAdapter.setOnOrderItemClickListener(this);
@@ -52,27 +51,39 @@ public class Orders extends Fragment implements OrderAdapter.OnOrderItemClickLis
     }
 
     private void fetchOrders() {
-        orderManager.getAllOrders(orderAdapter, this);
+        orderManager.getAllOrders(this, new OrderManager.OrderManagerCallback() {
+            @Override
+            public void onOrdersReceived(List<OrderModel> orderList, ClientModel clientModel) {
+                orderAdapter.setOrderList(orderList); // Set order list in the adapter
+            }
+
+        });
     }
 
     public void onOrderItemClick(int position) {
         if (orderList != null && orderList.size() > position) {
             OrderModel clickedOrder = orderList.get(position);
-            Intent intent = new Intent(getContext(), MoreOrder.class);
-            intent.putExtra("ORDER_CODE", clickedOrder.getOrder_code());
-            intent.putExtra("CLIENT_ADDRESS", clientModel.getAddress());
-            intent.putExtra("ORDER_DATE", clickedOrder.getDate());
-            intent.putExtra("ORDER_PAYMENT_OPTION", clickedOrder.getPayment_option());
+            ClientModel clientModel = clickedOrder.getClientModel();
 
-            intent.putExtra("CLIENT_EMAIL", clientModel.getEmail());
-            intent.putExtra("CLIENT_FIRST_NAME", clientModel.getFirst_name());
-            intent.putExtra("CLIENT_LAST_NAME", clientModel.getLast_name());
-            intent.putExtra("CLIENT_CITY", clientModel.getCity());
-            intent.putExtra("CLIENT_REGION_STATE", clientModel.getRegion_state());
-            intent.putExtra("CLIENT_COUNTRY", clientModel.getCountry());
-            intent.putExtra("CLIENT_ZIP_CODE", clientModel.getZip_code());
+            if (clientModel != null) {
+                Intent intent = new Intent(getContext(), MoreOrder.class);
+                intent.putExtra("ORDER_CODE", clickedOrder.getOrder_code());
+                intent.putExtra("ORDER_DATE", clickedOrder.getDate());
+                intent.putExtra("ORDER_PAYMENT_OPTION", clickedOrder.getPayment_option());
 
-            startActivity(intent);
+                intent.putExtra("CLIENT_EMAIL", clientModel.getEmail());
+                intent.putExtra("CLIENT_FIRST_NAME", clientModel.getFirst_name());
+                intent.putExtra("CLIENT_LAST_NAME", clientModel.getLast_name());
+                intent.putExtra("CLIENT_ADDRESS", clientModel.getAddress());
+                intent.putExtra("CLIENT_CITY", clientModel.getCity());
+                intent.putExtra("CLIENT_REGION_STATE", clientModel.getRegion_state());
+                intent.putExtra("CLIENT_COUNTRY", clientModel.getCountry());
+                intent.putExtra("CLIENT_ZIP_CODE", clientModel.getZip_code());
+
+                startActivity(intent);
+            } else {
+                Log.e("Orders", "ClientModel is null");
+            }
         } else {
             Log.e("Orders", "No item found at position: " + position);
         }

@@ -28,13 +28,14 @@ import okhttp3.Response;
 public class OrderManager {
     private final Context context;
     private final OkHttpClient client;
+    private ClientModel clientModel; // Declare clientModel at the class level
 
     public OrderManager(Context context) {
         this.context = context;
         this.client = new OkHttpClient();
     }
 
-    public void getAllOrders(final OrderAdapter orderAdapter, Fragment fragment) {
+    public void getAllOrders(Fragment fragment, final OrderManagerCallback callback) {
         String url = "http://10.0.2.2:80/api/app/orders";
 
         Request request = new Request.Builder()
@@ -68,7 +69,7 @@ public class OrderManager {
                             order.setPayment_option(jsonOrder.getString("payment_option"));
                             // Parse client details
                             JSONObject jsonClient = jsonOrder.getJSONObject("client");
-                            ClientModel clientModel = new ClientModel();
+                            clientModel = new ClientModel(); // Initialize clientModel here
                             clientModel.setEmail(jsonClient.getString("email"));
                             clientModel.setFirst_name(jsonClient.getString("first_name"));
                             clientModel.setLast_name(jsonClient.getString("last_name"));
@@ -100,7 +101,7 @@ public class OrderManager {
                         }
 
                         fragment.requireActivity().runOnUiThread(() -> {
-                            orderAdapter.setOrderList(orderList);
+                            callback.onOrdersReceived(orderList, clientModel); // Pass clientModel to callback
                         });
 
                     } catch (JSONException e) {
@@ -116,5 +117,9 @@ public class OrderManager {
                 }
             }
         });
+    }
+
+    public interface OrderManagerCallback {
+        void onOrdersReceived(List<OrderModel> orderList, ClientModel clientModel);
     }
 }
