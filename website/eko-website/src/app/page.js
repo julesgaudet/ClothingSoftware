@@ -14,6 +14,11 @@ export default function Home() {
           Article
         </Link>
       </p>
+      <p>
+        <Link href="/Cart" className="hover:text-blue-500">
+          Cart
+        </Link>
+      </p>
     </main>
   );
 }
