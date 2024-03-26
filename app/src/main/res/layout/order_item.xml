@@ -9,6 +9,11 @@
     android:layout_marginBottom="20dp"
     android:background="@drawable/card_background_orders">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#e5e5e5"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
