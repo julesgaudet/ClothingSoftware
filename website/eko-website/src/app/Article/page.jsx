@@ -57,10 +57,11 @@ export default function Article() {
  
   return (
     <>
+    <div className="bg-[#F5F5F7]">
       <Header />      
        
       <div
-        className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160  mb-11 min-h-screen"
+        className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160  mb-11 min-h-screen "
         style={{
           borderRight: "160px solid transparent",
           borderLeft: "160px solid transparent",
@@ -71,7 +72,7 @@ export default function Article() {
         </div>
 
         <div className="col-span-1 row-span-1 grid grid-cols-1 gap-4">
-          <div key={dataArticle.id} className="bg-white p-4 rounded">
+          <div key={dataArticle.id} className="bg-[#F5F5F7] p-4 rounded">
             <small class="m-6 text-gray-500 text-base font-black">
               {dataArticle.marque}
             </small>
@@ -105,6 +106,7 @@ export default function Article() {
         </div>
       </div>
       <Footer />
+      </div>
     </>
   );
 }
