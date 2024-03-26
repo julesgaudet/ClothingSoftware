@@ -118,7 +118,7 @@ get('/api/color/$id_article', function ($id_article) use ($pdo) {
 get('/api/size/$id_article', function ($id_article) use ($pdo) {
     if (isset($id_article)) {
         $article = $pdo->prepare(
-            'SELECT size_name 
+            'SELECT *
             FROM Size
             WHERE id_article = :id_article'
         );
