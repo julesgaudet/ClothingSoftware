@@ -40,7 +40,7 @@ public class Orders extends Fragment implements OrderAdapter.OnOrderItemClickLis
         orderList = new ArrayList<>();
         clientModel = new ClientModel();
 
-        orderAdapter = new OrderAdapter(orderList, clientModel);
+        orderAdapter = new OrderAdapter(orderList);
         orderAdapter.setOnOrderItemClickListener(this);
         recyclerView.setAdapter(orderAdapter);
 

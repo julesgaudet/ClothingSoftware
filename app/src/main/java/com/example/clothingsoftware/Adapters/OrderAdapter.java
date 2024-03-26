@@ -35,7 +35,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         mListener = listener;
     }
 
-    public OrderAdapter(List<OrderModel> orderList, ClientModel clientModel) {
+    public OrderAdapter(List<OrderModel> orderList) {
         this.orderList = orderList;
     }
 
@@ -117,7 +117,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewStatus, textViewOrderNumber, textViewClientAddress, textViewTotal;
+        TextView textViewStatus;
+        TextView textViewOrderNumber;
+        TextView textViewTotal;
         Button button;
         LinearLayout articleLinearLayout;
 
