@@ -1,5 +1,8 @@
 package com.example.clothingsoftware.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,11 +11,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.clothingsoftware.Class.FeedManager;
 import com.example.clothingsoftware.R;
 
 import java.util.ArrayList;
 
 public class More extends AppCompatActivity {
+
+    private FeedManager feedManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,11 @@ public class More extends AppCompatActivity {
             Button buttonBack = findViewById(R.id.buttonBack);
             TextView descriptionTextView = findViewById(R.id.descriptionTextView);
             TextView brandTextView = findViewById(R.id.brandTextView);
+            Button buttonDelete = findViewById(R.id.buttonDelete);
+            View shadowOverlay = findViewById(R.id.shadowOverlay);
+
+            feedManager = new FeedManager(this, buttonDelete);
+            feedManager.checkArticleAssociation(title);
 
             titleTextView.setText(title);
             // Set bold for specific parts of text
@@ -50,6 +61,47 @@ public class More extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     finish();
+                }
+            });
+
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shadowOverlay.setVisibility(View.VISIBLE);
+                    shadowOverlay.animate().alpha(1f).setDuration(600).start();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(More.this);
+                    builder.setTitle("Delete Article");
+                    builder.setMessage("Are you sure you want to delete the article?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            feedManager.deleteArticle(title);
+                            shadowOverlay.animate().alpha(0f).setDuration(600).withEndAction(new Runnable() {
+                                @Override
+                                public void run() {
+                                    shadowOverlay.setVisibility(View.INVISIBLE);
+                                }
+                            }).start();
+                            Intent intent = new Intent(More.this, Account.class);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            shadowOverlay.animate().alpha(0f).setDuration(600).withEndAction(new Runnable() {
+                                @Override
+                                public void run() {
+                                    shadowOverlay.setVisibility(View.INVISIBLE);
+                                }
+                            }).start();
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 }
             });
         }

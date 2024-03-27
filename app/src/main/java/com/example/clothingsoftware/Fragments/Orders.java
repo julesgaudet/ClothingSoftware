@@ -67,6 +67,7 @@ public class Orders extends Fragment implements OrderAdapter.OnOrderItemClickLis
 
             if (clientModel != null) {
                 Intent intent = new Intent(getContext(), MoreOrder.class);
+                intent.putExtra("STATUS", clickedOrder.getStatus());
                 intent.putExtra("ORDER_CODE", clickedOrder.getOrder_code());
                 intent.putExtra("ORDER_DATE", clickedOrder.getDate());
                 intent.putExtra("ORDER_PAYMENT_OPTION", clickedOrder.getPayment_option());
