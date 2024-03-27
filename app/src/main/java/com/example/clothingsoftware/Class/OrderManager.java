@@ -1,11 +1,11 @@
 package com.example.clothingsoftware.Class;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.clothingsoftware.Adapters.OrderAdapter;
 import com.example.clothingsoftware.Models.ArticleOrderModel;
 import com.example.clothingsoftware.Models.ClientModel;
 import com.example.clothingsoftware.Models.OrderModel;
@@ -21,8 +21,10 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class OrderManager {
@@ -114,6 +116,64 @@ public class OrderManager {
                     fragment.requireActivity().runOnUiThread(() -> {
                         Toast.makeText(context, "Error fetching orders", Toast.LENGTH_SHORT).show();
                     });
+                }
+            }
+        });
+    }
+
+    public void markCompleted(Context context, int orderId, Runnable onSuccess, Runnable onFailure) {
+        String url = "http://10.0.2.2:80/api/app/markedCompleted/" + orderId;
+
+        RequestBody requestBody = RequestBody.create("{}", MediaType.get("application/json"));
+
+        Request request = new Request.Builder()
+                .url(url)
+                .put(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+                if (context != null) {
+                    ((Activity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Failed to mark order as completed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                if (onFailure != null) {
+                    onFailure.run();
+                }
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                if (response.isSuccessful()) {
+                    if (context != null) {
+                        ((Activity) context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "Order marked as completed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    if (onSuccess != null) {
+                        onSuccess.run();
+                    }
+                } else {
+                    if (context != null) {
+                        ((Activity) context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "Failed to mark order as completed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    if (onFailure != null) {
+                        onFailure.run();
+                    }
                 }
             }
         });

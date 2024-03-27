@@ -1,94 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Activities.More"
-    android:layout_marginHorizontal="30dp"
-    android:layout_marginVertical="22dp">
+    android:background="@color/white"
+    tools:context=".Activities.More">
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/bold"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:layout_marginTop="16dp"/>
-
-    <TextView
-        android:id="@+id/brandTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"/>
-
-    <TextView
-        android:id="@+id/priceTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"/>
-
-    <TextView
-        android:id="@+id/sizesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"/>
-
-    <TextView
-        android:id="@+id/colorsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"/>
-
-    <TextView
-        android:id="@+id/descriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonBack"
-        style="?android:attr/borderlessButtonStyle"
+    <View
+        android:id="@+id/shadowOverlay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/principal_button"
-        android:layout_marginTop="20dp"
-        android:enabled="true"
-        android:fontFamily="@font/medium"
-        android:text="@string/back"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:background="@color/shadow_overlay_color"
+        android:elevation="8dp"
+        android:visibility="invisible" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonDelete"
-        style="?android:attr/borderlessButtonStyle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/signout_button"
-        android:layout_marginTop="20dp"
-        android:enabled="true"
-        android:fontFamily="@font/medium"
-        android:text="@string/Delete"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="22dp"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/bold"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/brandTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/priceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/sizesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/colorsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonBack"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/principal_button"
+            android:enabled="true"
+            android:fontFamily="@font/medium"
+            android:text="@string/back"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonDelete"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/delete_button"
+            android:enabled="true"
+            android:fontFamily="@font/medium"
+            android:text="@string/Delete"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

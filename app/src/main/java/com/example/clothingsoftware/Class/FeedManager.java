@@ -1,8 +1,12 @@
 package com.example.clothingsoftware.Class;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.clothingsoftware.Activities.More;
 import com.example.clothingsoftware.Adapters.FeedAdapter;
 import com.example.clothingsoftware.Fragments.Feed;
 import com.example.clothingsoftware.Models.FeedModel;
@@ -17,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -27,10 +32,17 @@ import okhttp3.Response;
 public class FeedManager {
     private final Context context;
     private final OkHttpClient client;
+    private Button buttonDelete;
 
     public FeedManager(Context context) {
         this.context = context;
         this.client = new OkHttpClient();
+    }
+
+    public FeedManager(Context context, Button buttonDelete) {
+        this.context = context;
+        this.client = new OkHttpClient();
+        this.buttonDelete = buttonDelete;
     }
 
     public void getAllArticles(final FeedAdapter feedAdapter, Feed fragment) {
@@ -111,4 +123,75 @@ public class FeedManager {
             }
         });
     }
+
+    public void deleteArticle(String articleTitle) {
+        String encodedTitle = Uri.encode(articleTitle);
+        String url = "http://10.0.2.2:80/api/app/" + encodedTitle;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .delete()
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+                Log.e("Delete article failed", Objects.requireNonNull(e.getMessage()));
+                showDeleteArticleToast("Article can't be deleted");
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    Log.d("FeedManager", "Article deleted successfully");
+                    showDeleteArticleToast("Article deleted successfully");
+                } else {
+                    int statusCode = response.code();
+                    assert response.body() != null;
+                    String responseBody = response.body().string();
+                    if (statusCode == 400) {
+                        showDeleteArticleToast("Failed to delete article: " + responseBody);
+                    } else {
+                        showDeleteArticleToast("Unexpected error: " + statusCode);
+                    }
+                }
+            }
+        });
+    }
+
+    private void showDeleteArticleToast(String message) {
+        ((More) context).runOnUiThread(() -> Toast.makeText(context, message, Toast.LENGTH_SHORT).show());
+    }
+
+    public void checkArticleAssociation(String articleTitle) {
+        String encodedTitle = Uri.encode(articleTitle);
+
+        String url = "http://10.0.2.2:80/api/app/more/" + encodedTitle;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+                Log.e("Check article association failed", Objects.requireNonNull(e.getMessage()));
+                buttonDelete.post(() -> buttonDelete.setEnabled(false));
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    Log.d("FeedManager", "Article association checked successfully");
+                    buttonDelete.post(() -> buttonDelete.setEnabled(true));
+                } else {
+                    buttonDelete.post(() -> buttonDelete.setEnabled(false));
+                }
+            }
+        });
+    }
+
 }
