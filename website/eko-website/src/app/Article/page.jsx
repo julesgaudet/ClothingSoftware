@@ -30,10 +30,10 @@ async function getArticles(id) {
         type: articleJSON[0].type,
       };
     } else {
-      throw new Error("No colors were found for the given id");
+      throw new Error("No Articles were found for the given id");
     }
   } catch (error) {
-    console.error("Error fetching colors:", error);
+    console.error("Error fetching Articles:", error);
     throw error;
   }
 }
@@ -54,58 +54,58 @@ export default function Article() {
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
 
- 
   return (
     <>
-    <div className="bg-[#F5F5F7]">
-      <Header />      
-       
-      <div
-        className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160  mb-11 min-h-screen "
-        style={{
-          borderRight: "160px solid transparent",
-          borderLeft: "160px solid transparent",
-        }}
-      >
-        <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4 ">
-          <ApercuArticle1 vetement={dataArticle} />
-        </div>
+      <div className="bg-[#F5F5F7]">
+        <Header />
 
-        <div className="col-span-1 row-span-1 grid grid-cols-1 gap-4">
-          <div key={dataArticle.id} className="bg-[#F5F5F7] p-4 rounded">
-            <small class="m-6 text-gray-500 text-base font-black">
-              {dataArticle.marque}
-            </small>
-            <div className="m-6 row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
-              <h2 className="text-xl font-bold">{dataArticle.nom}</h2>
-              <h2 className="text-xl font-semibold text-blue-800">
-                {dataArticle.prix + " $"}
-              </h2>
-            </div>
+        <div
+          className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160  mb-11 min-h-screen "
+          style={{
+            borderRight: "160px solid transparent",
+            borderLeft: "160px solid transparent",
+          }}
+        >
+          <div className="row-span-1 md:col-span-2 grid grid-cols-2 gap-4 ">
+            <ApercuArticle1 vetement={dataArticle} />
+          </div>
 
-            <p className="m-6 text-l">{dataArticle.description}</p>
-            <ApercuCouleurs1/>
-            <div className="flex flex-wrap items-center">
-              <a
-                href={`./Cart`}
-                className="m-5 inline-block text-white font-bold py-4 px-20 rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
-              >
-                Add to Cart
-              </a>
+          <div className="col-span-1 row-span-1 grid grid-cols-1 gap-4">
+            <div key={dataArticle.id} className="bg-[#F5F5F7] p-4 rounded">
+              <small class="m-6 text-gray-500 text-base font-black">
+                {dataArticle.marque}
+              </small>
+              <div className="m-6 row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
+                <h2 className="text-xl font-bold">{dataArticle.nom}</h2>
+                <h2 className="text-xl font-semibold text-blue-800">
+                  {dataArticle.prix + " $"}
+                </h2>
+              </div>
+
+              <p className="m-6 text-l">{dataArticle.description}</p>
+              <ApercuCouleurs1 />
+              <div className="flex flex-wrap items-center">
+                <a
+                  href={`./Cart`}
+                  className="m-5 inline-block text-white font-bold py-4 px-20 rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
+                >
+                  Add to Cart
+                </a>
+              </div>
+              <p className="ml-6 mt-12 font-bold size-10 text-xl">
+                Sustainability
+              </p>
+              <img
+                src="https://i0.wp.com/bleausard.com/wp-content/uploads/2019/04/bleausard_s_engage.png?fit=700%2C700&ssl=1"
+                alt="Photo écoresponsable"
+                className="ml-6 w-auto h-40 space-x-2"
+              />
+              {/* quantiter n'ai pas dans articleJSON */}
+              {/* <p className="font-bold size-10">Quantity left: {dataArticle.quantiter} </p> */}
             </div>
-            <p className="ml-6 mt-12 font-bold size-10 text-xl">Sustainability</p>
-            <img
-              src="https://i0.wp.com/bleausard.com/wp-content/uploads/2019/04/bleausard_s_engage.png?fit=700%2C700&ssl=1"
-              alt="Photo écoresponsable"
-              className="ml-6 w-auto h-40 space-x-2"
-            />
-            {/* quantiter n'ai pas dans articleJSON */}
-            {/* <p className="font-bold size-10">Quantity left: {dataArticle.quantiter} </p> */}
-             
           </div>
         </div>
-      </div>
-      <Footer />
+        <Footer />
       </div>
     </>
   );
