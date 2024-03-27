@@ -109,9 +109,9 @@ export default function ApercuArticles({ dataArticles, handleBrandClick }) {
           </h1>
         </div>
       ) : (
-        dataArticles.map((article) => (
+        dataArticles.map((article, index) => (
           <ApercuArticle
-            key={article.id_article}
+            key={index}
             vetement={article}
             handleBrandClick={handleBrandClick}
           />
