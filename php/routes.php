@@ -437,6 +437,26 @@ get('/api/articles', function () use ($pdo) {
     echo json_encode($articles);
 });
 
+//sélectioner un panier selon un id
+
+get('/api/cart/$id_session', function ($id_session) use ($pdo) {
+    if (isset($id_session)) {
+        $article = $pdo->prepare(
+            'SELECT * 
+            FROM articlecart
+            WHERE id_session = :id_session'
+        );
+        $article->bindValue(':id_article', $id_session, PDO::PARAM_INT);
+        $article->execute();
+        $allArticles = $article->fetchAll(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+
+        http_response_code(200);
+        echo json_encode($allArticles);
+    }
+});
+
 /**********************************************************
                 USED APIS FOR THE APP
  **********************************************************/
