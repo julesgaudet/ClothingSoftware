@@ -8,9 +8,11 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.clothingsoftware.Activities.More;
 import com.example.clothingsoftware.Adapters.FeedAdapter;
+import com.example.clothingsoftware.Class.AccountValidator;
 import com.example.clothingsoftware.Class.FeedManager;
 import com.example.clothingsoftware.Models.FeedModel;
 import com.example.clothingsoftware.R;

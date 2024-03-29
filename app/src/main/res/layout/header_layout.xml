@@ -7,9 +7,9 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:paddingHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="30dp"
         tools:ignore="UselessParent">
 
         <LinearLayout
@@ -40,13 +40,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/resetLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:orientation="vertical"
+            android:visibility="gone"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView

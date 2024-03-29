@@ -66,10 +66,8 @@ public class Account extends AppCompatActivity {
     RelativeLayout layoutFooter;
     View viewFooter;
 
-
     private boolean isDialogShowing = false;  // Verify if the "Search" or "More" menu is still open (prevent spam clicking)
     private boolean isClickable = true; // Variable to track click state
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +91,9 @@ public class Account extends AppCompatActivity {
         filterLayout = findViewById(R.id.filterLayout);
         layoutFooter = findViewById(R.id.layoutFooter);
         viewFooter = findViewById(R.id.viewFooter);
+
+        //If you want to implement the header: set visibility
+        searchLinearLayout.setVisibility(View.GONE);
 
         // Initialize View for shadow
         shadowOverlay = findViewById(R.id.shadowOverlay);
@@ -354,7 +355,7 @@ public class Account extends AppCompatActivity {
         feedText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
         postText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorSecondPrimary));
 
-        searchLinearLayout.setVisibility(View.VISIBLE);
+        searchLinearLayout.setVisibility(View.GONE);
         resetLayout.setVisibility(View.GONE);
     }
 

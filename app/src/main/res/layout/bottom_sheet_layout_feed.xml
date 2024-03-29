@@ -27,6 +27,7 @@
         android:textAppearance="@font/inter"
         android:textColorHint="@color/colorSecondPrimary"
         android:theme="@style/InputText_Overlay"
+        android:visibility="gone"
         app:boxBackgroundColor="@color/white"
         app:boxStrokeColor="@color/colorSecondPrimary"
         app:boxStrokeWidth="1dp"
@@ -55,15 +56,16 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:visibility="gone"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_marginBottom="30dp"
         android:id="@+id/buttonSignout1"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="25dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/signout_button"
         android:enabled="true"
         android:fontFamily="@font/medium"
