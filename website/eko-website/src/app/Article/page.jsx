@@ -74,8 +74,12 @@ export default function Article() {
               <small class="m-6 text-gray-500 text-base font-black">
                 {dataArticle.marque}
               </small>
+
               <div className="m-6 row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
-                <h2 className="text-xl font-bold">{dataArticle.nom}</h2>
+                <h2 className="text-xl font-bold">
+                  {dataArticle.nom}
+                </h2>
+                
                 <h2 className="text-xl font-semibold text-blue-800">
                   {dataArticle.prix + " $"}
                 </h2>
