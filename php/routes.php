@@ -437,16 +437,18 @@ get('/api/articles', function () use ($pdo) {
     echo json_encode($articles);
 });
 
-//sélectioner un panier selon un id
+//sélectioner un panier + la couleur de chaque articles + la photo d'un article selon+ la taille de chaque articles selon un Cartid
 
 get('/api/cart/$id_session', function ($id_session) use ($pdo) {
     if (isset($id_session)) {
         $article = $pdo->prepare(
             'SELECT * 
-            FROM articlecart
-            WHERE id_session = :id_session'
+            FROM articlecart A INNER JOIN color C ON A.id_color = C.id_color
+            INNER JOIN size S ON A.id_size = S.id_size
+            WHERE id_session = :id_session
+            '
         );
-        $article->bindValue(':id_article', $id_session, PDO::PARAM_INT);
+        $article->bindValue(':id_session', $id_session, PDO::PARAM_INT);
         $article->execute();
         $allArticles = $article->fetchAll(PDO::FETCH_ASSOC);
 
@@ -456,6 +458,26 @@ get('/api/cart/$id_session', function ($id_session) use ($pdo) {
         echo json_encode($allArticles);
     }
 });
+
+// Select the hexadecimal color code for an color id
+get('/api/color/id/$id', function ($id) use ($pdo) {
+    if (isset($id)) {
+        $article = $pdo->prepare(
+            'SELECT color_code 
+            FROM Color
+            WHERE id_color = :id'
+        );
+        $article->bindValue(':id', $id, PDO::PARAM_INT);
+        $article->execute();
+        $allArticles = $article->fetchAll(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+
+        http_response_code(200);
+        echo json_encode($allArticles);
+    }
+});
+
 
 /**********************************************************
                 USED APIS FOR THE APP
