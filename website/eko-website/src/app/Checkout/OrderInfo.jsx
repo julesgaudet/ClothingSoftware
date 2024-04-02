@@ -50,8 +50,8 @@ export default function OrderInfo() {
 
   return (
     <>
-      <div className="flex-col mx-7 my-4">
-        <h1 className="text-xl font-semibold my-6">Order Summary:</h1>
+      <div className="flex-col mx-7 mt-4 mb-8">
+        <h1 className="text-xl font-semibold my-6">Order Summary</h1>
         <div className="flex-col">
           {items.length === 0 ? (
             <div className="mx-auto grid h-40 w-full place-items-center rounded-md border-2 border-dashed bg-gray-50 py-10 text-center">
@@ -88,7 +88,7 @@ export default function OrderInfo() {
         </div>
 
         <div>
-          <div className="inline-block w-full text-white text-center font-bold py-2 px-4 cursor-pointer rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 transition-transform duration-3000 ease-in-out mr-2 mb-2">
+          <div className="inline-block w-full text-white text-center font-bold py-2 px-4 cursor-pointer rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-105 transition-transform duration-3000 ease-in-out mr-2 mb-2">
             Place Order
           </div>
         </div>
