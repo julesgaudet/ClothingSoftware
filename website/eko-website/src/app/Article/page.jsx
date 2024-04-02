@@ -46,13 +46,12 @@ export default function Article() {
 
   const [dataArticle, setArticle] = useState([]);
 
-  const articleJSON = fetchData(`http://localhost/api/article/${id}`);
-
   useEffect(() => {
     getArticles(id)
       .then(setArticle)
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
+
 
   return (
     <>
@@ -75,8 +74,12 @@ export default function Article() {
               <small class="m-6 text-gray-500 text-base font-black">
                 {dataArticle.marque}
               </small>
+
               <div className="m-6 row-span-1 md:col-span-2 grid grid-cols-2 gap-4">
-                <h2 className="text-xl font-bold">{dataArticle.nom}</h2>
+                <h2 className="text-xl font-bold">
+                  {dataArticle.nom}
+                </h2>
+                
                 <h2 className="text-xl font-semibold text-blue-800">
                   {dataArticle.prix + " $"}
                 </h2>
@@ -84,24 +87,6 @@ export default function Article() {
 
               <p className="m-6 text-l">{dataArticle.description}</p>
               <ApercuCouleurs1 />
-              <div className="flex flex-wrap items-center">
-                <a
-                  href={`./Cart`}
-                  className="m-5 inline-block text-white font-bold py-4 px-20 rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
-                >
-                  Add to Cart
-                </a>
-              </div>
-              <p className="ml-6 mt-12 font-bold size-10 text-xl">
-                Sustainability
-              </p>
-              <img
-                src="https://i0.wp.com/bleausard.com/wp-content/uploads/2019/04/bleausard_s_engage.png?fit=700%2C700&ssl=1"
-                alt="Photo écoresponsable"
-                className="ml-6 w-auto h-40 space-x-2"
-              />
-              {/* quantiter n'ai pas dans articleJSON */}
-              {/* <p className="font-bold size-10">Quantity left: {dataArticle.quantiter} </p> */}
             </div>
           </div>
         </div>
