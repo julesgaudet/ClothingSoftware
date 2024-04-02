@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-// import { getColorName } from '../utils/utils';
+import Cart from '../Cart/page';
 import React, { useState, useEffect } from "react";
 
 function Cercle({ couleur, isSelected, onClick }) {
@@ -62,7 +62,7 @@ async function getSize(id) {
     throw error;
   }
 }
-
+ 
 
 export default function ApercuCouleurs() {
 
@@ -90,40 +90,47 @@ export default function ApercuCouleurs() {
     getSize(id)
       .then((sizes) => {
         setSize(sizes);
-         // Sélectionner la première taille avec number > 0 par défaut si disponible
-  const sizeZero = sizes.find(size => size.number > 0);
-  if (sizeZero) {
-    setSelectedSizes(sizeZero);
-  }
+        // Sélectionner la première taille avec number > 0 par défaut si disponible
+        const sizeZero = sizes.find(size => size.number > 0);
+        if (sizeZero) {
+          setSelectedSizes(sizeZero);
+        }
       })
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
-  console.log(sizes);
-
- 
-
- 
+  
 
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click
   const handleColorClick = (couleur) => {
     setSelectedColors(couleur);
+   
   }
-  // tableau de size clothing statique
-  // const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
-
   //----------------------------------------------------------------------------------------//
-  
+
   //gestion d'un click
   const handleSizeClick = (size) => {
     if (size.number > 0) {
       setSelectedSizes(size);
     }
   };
+ console.log(selectedColors);
+    console.log(selectedSizes);
+    
+ const addToCart = () => {
+    const dataToSend = {
+      color: selectedColors,
+      size : selectedSizes,
+    };
+    router.push({
+      // pathname: './Cart',
+      query: { data: JSON.stringify(dataToSend) },
+    });
+};
+
+
   return (
-    // peut etre utiliser si on ajoute le nom de la couleur
-    /* <p className="font-bold size-10">colors: {colors.color_name ?? ""}</p> */
     <>
       <p className="mt-6 ml-6 font-bold size-10">colors:</p>
       <ul className="ml-6 flex gap-2 items-center justify-start">
@@ -134,15 +141,14 @@ export default function ApercuCouleurs() {
               onClick={() => handleColorClick(couleur)} // Passer la fonction de gestion de clic 
             />
           </li>))}
-          </ul>
-          <p className="mt-6 ml-6 font-bold size-10">Size: </p>
-          <ul className="ml-6 flex gap-2 items-center justify-start">
+      </ul>
+      <p className="mt-6 ml-6 font-bold size-10">Size: </p>
+      <ul className="ml-6 flex gap-2 items-center justify-start">
         <li>
           <div className="flex flex-wrap gap-3 mb-3">
             {sizes.map((sizes) => (
               <div
-                className={`flex items-center justify-center cursor-pointer border-4 font-bold py-1 px-2 ${
-                  sizes.number > 0 ? (sizes === selectedSizes ? "border-[#3858D6] bg-[#3858D6] text-white" : "border-[#3858D6]") : "border-[#808080] bg-[#808080]"
+                className={`flex items-center justify-center cursor-pointer border-4 font-bold py-1 px-2 ${sizes.number > 0 ? (sizes === selectedSizes ? "border-[#3858D6] bg-[#3858D6] text-white" : "border-[#3858D6]") : "border-[#808080] bg-[#808080]"
                   }`}
                 onClick={() => handleSizeClick(sizes)}
               >
@@ -153,6 +159,23 @@ export default function ApercuCouleurs() {
         </li>
 
       </ul>
+      <div className="flex flex-wrap items-center">
+        <a
+          href={`/Cart`}
+          onClick={addToCart}
+          className="m-5 inline-block text-white font-bold py-4 px-20 rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
+        >
+          Add to Cart
+        </a>
+      </div>
+      <p className="ml-6 mt-12 font-bold size-10 text-xl">
+        Sustainability
+      </p>
+      <img
+        src="https://i0.wp.com/bleausard.com/wp-content/uploads/2019/04/bleausard_s_engage.png?fit=700%2C700&ssl=1"
+        alt="Photo écoresponsable"
+        className="ml-6 w-auto h-40 space-x-2"
+      />
     </>
   );
 }
