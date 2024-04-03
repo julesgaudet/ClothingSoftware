@@ -458,6 +458,7 @@ get('/api/cart/$id_session', function ($id_session) use ($pdo) {
             'SELECT * 
             FROM articlecart A INNER JOIN color C ON A.id_color = C.id_color
             INNER JOIN size S ON A.id_size = S.id_size
+            INNER JOIN article AR ON A.id_article = AR.id_article
             WHERE id_session = :id_session
             '
         );
@@ -471,6 +472,7 @@ get('/api/cart/$id_session', function ($id_session) use ($pdo) {
         echo json_encode($allArticles);
     }
 });
+
 
 // Select the hexadecimal color code for an color id
 get('/api/color/id/$id', function ($id) use ($pdo) {

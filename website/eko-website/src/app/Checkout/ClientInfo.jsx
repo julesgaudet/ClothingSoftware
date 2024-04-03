@@ -34,10 +34,12 @@ export default function ClientInfo({ clientInfo, setClientInfo }) {
 
   return (
     <>
-      <h1 className="text-xl font-semibold my-6">Billing Information</h1>
+      <h1 className="text-xl font-semibold my-6 px-8 lg:px-0">
+        Billing Information
+      </h1>
 
       <form>
-        <div className="flex-col w-full pr-24">
+        <div className="flex-col w-full px-8 lg:px-0 lg:pr-24">
           <div className="flex-col my-5  space-y-2 w-full">
             <label className="font-medium">Name</label>
             <div className="flex w-full justify-between">

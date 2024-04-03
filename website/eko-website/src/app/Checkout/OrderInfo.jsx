@@ -5,7 +5,7 @@ export default function OrderInfo() {
   const [items, setItems] = useState([]);
 
   //A CHANGER
-  const sessionId = 123456;
+  const sessionId = "session";
 
   // Effect pour récupérer les données depuis l'API
   useEffect(() => {

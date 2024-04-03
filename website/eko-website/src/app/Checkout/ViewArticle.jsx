@@ -5,7 +5,7 @@ export default function ViewArticle({ article }) {
   const [url, setUrl] = useState(null);
 
   const nbMaxCharName = 20;
-  const nbMaxCharCol = 9;
+  const nbMaxCharCol = 11;
 
   //----------------------------------------------------------------------------------------//
   // Effect pour récupérer une photo depuis l'API
@@ -65,7 +65,7 @@ export default function ViewArticle({ article }) {
           />
         </a>
         <div className="flex-col w-5/6 pl-4">
-          <div>
+          <div className="flex justify-between ">
             <a href={`Article?id=${article.id}`}>
               <h1 className="font-medium mb-1 hover:underline">
                 {article.name.length > nbMaxCharName
@@ -73,28 +73,30 @@ export default function ViewArticle({ article }) {
                   : article.name}
               </h1>
             </a>
+
+            <h1 className="text-[#3858D6] font-medium">
+              {"$" + article.price}
+            </h1>
           </div>
 
           <div className="flex justify-between ">
             <h1 className="font-medium">
               Size: <span className="text-[#3858D6]">{article.size}</span>
             </h1>
+
             <div className="flex items-center">
               <h1 className="font-medium">Color: </h1>
               <div
                 className={`w-3 h-3 rounded-full bg-${article.color} ml-2 mr-1`}
                 style={{ backgroundColor: article.color }}
               ></div>
+
               <h1 className="text-[#3858D6]">
                 {articleColor.length > nbMaxCharCol
                   ? `${articleColor.substring(0, nbMaxCharCol)}...`
                   : articleColor}
               </h1>
             </div>
-
-            <h1 className="text-[#3858D6] font-medium">
-              {"$" + article.price}
-            </h1>
           </div>
         </div>
 
