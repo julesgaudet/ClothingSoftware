@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 
 export default function ViewArticle({ article }) {
-  const [articleColor, setArticleColor] = useState(null);
+  const [articleColor, setArticleColor] = useState("");
   const [url, setUrl] = useState(null);
+
+  const nbMaxCharName = 20;
+  const nbMaxCharCol = 9;
 
   //----------------------------------------------------------------------------------------//
   // Effect pour récupérer une photo depuis l'API
@@ -53,7 +56,7 @@ export default function ViewArticle({ article }) {
       <div className="flex my-2 items-center">
         <a
           href={`Article?id=${article.id}`}
-          className="aspect-h-1 aspect-w-1 max-w-1/6 h-24 overflow-hidden items-center justify-center border-4 border-white  hover:border-4 hover:border-[#3858D6]"
+          className="aspect-h-1 aspect-w-1 max-w-1/6 h-24 overflow-hidden items-center justify-center"
         >
           <img
             src={url}
@@ -61,18 +64,34 @@ export default function ViewArticle({ article }) {
             className="h-full w-full object-cover object-center"
           />
         </a>
-        <div className="flex-col w-5/6">
+        <div className="flex-col w-5/6 pl-4">
           <div>
-            <h1 className="font-medium mb-1">{article.name}</h1>
+            <a href={`Article?id=${article.id}`}>
+              <h1 className="font-medium mb-1 hover:underline">
+                {article.name.length > nbMaxCharName
+                  ? `${article.name.substring(0, nbMaxCharName)}...`
+                  : article.name}
+              </h1>
+            </a>
           </div>
 
           <div className="flex justify-between ">
             <h1 className="font-medium">
               Size: <span className="text-[#3858D6]">{article.size}</span>
             </h1>
-            <h1 className="font-medium">
-              Color: <span className="text-[#3858D6]">{articleColor}</span>
-            </h1>
+            <div className="flex items-center">
+              <h1 className="font-medium">Color: </h1>
+              <div
+                className={`w-3 h-3 rounded-full bg-${article.color} ml-2 mr-1`}
+                style={{ backgroundColor: article.color }}
+              ></div>
+              <h1 className="text-[#3858D6]">
+                {articleColor.length > nbMaxCharCol
+                  ? `${articleColor.substring(0, nbMaxCharCol)}...`
+                  : articleColor}
+              </h1>
+            </div>
+
             <h1 className="text-[#3858D6] font-medium">
               {"$" + article.price}
             </h1>
