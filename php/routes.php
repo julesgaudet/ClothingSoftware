@@ -75,11 +75,42 @@ get('/api/orders/$session', function ($session) use ($pdo) {
     }
 });
 
+post('/api/AddToCart', function() use ($pdo){
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Récupérer les données JSON envoyées dans le corps de la requête
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+       
+        // Récupérer les valeurs des champs
+        $id_article = $data['id_article'];
+        $id_color = $data['id_color'];
+        $id_size = $data['id_size'];
+    
+        // Vous pouvez effectuer des opérations supplémentaires ici, comme l'insertion des données dans la base de données
+        try {
+             $requete = $pdo->prepare('INSERT INTO ArticleCart(id_article, id_color, id_size) VALUES (?, ?, ?)');
+             $requete->execute([$id_article, $id_color, $id_size]);
+    
+            // Exemple de réponse JSON
+            $response = ['message' => 'Item added to cart successfully'];
+            echo json_encode($response);
+        } catch (Exception $e) {
+            http_response_code(500); // Internal Server Error
+            echo json_encode(['error' => 'An error occurred while processing your request']);
+        }
+    } else {
+        // Si la requête n'est pas de type POST, retourner une erreur de méthode non autorisée
+        http_response_code(405); // Method Not Allowed
+        echo json_encode(['error' => 'Method not allowed']);
+    }
+});
+
 // Select the size name and the number of size for an article
 get('/api/size/$id_article', function ($id_article) use ($pdo) {
     if (isset($id_article)) {
         $article = $pdo->prepare(
-            'SELECT size_name, number_of_size 
+            'SELECT *
             FROM Article
             INNER JOIN Size ON Article.id_article = Size.id_article
             WHERE Size.id_article = :id_article'
@@ -99,7 +130,7 @@ get('/api/size/$id_article', function ($id_article) use ($pdo) {
 get('/api/color/$id_article', function ($id_article) use ($pdo) {
     if (isset($id_article)) {
         $article = $pdo->prepare(
-            'SELECT color_code 
+            'SELECT color_code , id_color
             FROM Color
             WHERE id_article = :id_article'
         );
@@ -114,24 +145,6 @@ get('/api/color/$id_article', function ($id_article) use ($pdo) {
     }
 });
 
-//Select the size for an article
-get('/api/size/$id_article', function ($id_article) use ($pdo) {
-    if (isset($id_article)) {
-        $article = $pdo->prepare(
-            'SELECT *
-            FROM Size
-            WHERE id_article = :id_article'
-        );
-        $article->bindValue(':id_article', $id_article, PDO::PARAM_INT);
-        $article->execute();
-        $allArticles = $article->fetchAll(PDO::FETCH_ASSOC);
-
-        header('Content-Type: application/json');
-
-        http_response_code(200);
-        echo json_encode($allArticles);
-    }
-});
 
 // Select all of the urls (pictures) for an article
 get('/api/picture/$id_article', function ($id_article) use ($pdo) {
