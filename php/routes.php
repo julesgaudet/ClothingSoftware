@@ -75,7 +75,7 @@ get('/api/orders/$session', function ($session) use ($pdo) {
     }
 });
 
-post('/api/AddToCart', function() use ($pdo){
+post('/api/addtocart', function() use ($pdo){
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Récupérer les données JSON envoyées dans le corps de la requête
