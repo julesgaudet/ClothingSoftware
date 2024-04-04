@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import ViewArticle from "./ViewArticle";
 
-export default function OrderInfo({ onClickOrder }) {
+export default function OrderInfo({ onClickOrder, sessionId }) {
   const [items, setItems] = useState([]);
-
-  //A CHANGER
-  const sessionId = "session";
 
   // Effect pour récupérer les données depuis l'API
   useEffect(() => {
@@ -36,8 +33,6 @@ export default function OrderInfo({ onClickOrder }) {
 
     fetchData();
   }, [sessionId]);
-
-  console.log("Les articles:", items);
 
   const subTotal = items.reduce(
     (total, item) => total + parseFloat(item.price),
