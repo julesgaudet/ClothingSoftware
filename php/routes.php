@@ -518,8 +518,11 @@ post('/api/AddClient', function() use ($pdo){
              $requete = $pdo->prepare('INSERT INTO Client(first_name, last_name, email, address, country, city, region_state, zip_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
              $requete->execute([$first_name, $last_name, $email, $address, $country, $city, $region_state, $zip_code]);
     
+            // Récupérer l'ID du dernier client ajouté
+            $lastClientId = $pdo->lastInsertId();
+    
             // Exemple de réponse JSON
-            $response = ['message' => 'Client added successfully'];
+            $response = ['message' => 'Client added successfully', 'lastClientId' => $lastClientId];
             echo json_encode($response);
         } catch (Exception $e) {
             http_response_code(500); // Internal Server Error
@@ -531,6 +534,41 @@ post('/api/AddClient', function() use ($pdo){
         echo json_encode(['error' => 'Method not allowed']);
     }
 });
+
+// Ajouter un nouvel order
+post('/api/AddOrder', function() use ($pdo){
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+       
+        
+        $date = date('Y-m-d H:i:s'); // la date actuelle
+        $status = cleaning($data['status']);
+        $payment_option = cleaning($data['payment_option']);
+        $id_session = cleaning($data['id_session']);
+        $id_client = cleaning($data['id_client']);
+    
+        try {
+             $requete = $pdo->prepare('INSERT INTO orders(date, status, payment_option, id_session, id_client) VALUES (?, ?, ?, ?, ?)');
+             $requete->execute([$date, $status, $payment_option, $id_session, $id_client]);
+             
+    
+            // Exemple de réponse JSON
+            $response = ['message' => 'Order added successfully'];
+            echo json_encode($response);
+        } catch (Exception $e) {
+            http_response_code(500); // Internal Server Error
+            echo json_encode(['error' => 'An error occurred while processing your request', 'msg' => [$date, $status, $payment_option, $id_session, $id_client]]);
+        }
+    } else {
+        // Si la requête n'est pas de type POST, retourner une erreur de méthode non autorisée
+        http_response_code(405); // Method Not Allowed
+        echo json_encode(['error' => 'Method not allowed']);
+    }
+});
+
 
 
 /**********************************************************
