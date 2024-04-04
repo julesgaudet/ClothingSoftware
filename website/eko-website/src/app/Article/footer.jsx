@@ -1,6 +1,6 @@
 import { type } from "os";
 import React, { useState, useEffect } from "react";
-
+import Articles from "../Articles/page";
 
 
 

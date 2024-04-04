@@ -45,7 +45,7 @@ function CategoriesFiltres({ handleTypeClick }) {
         All
       </div>
       {uniqueTypes.map((type, index) => (
-        <div
+        <div id = {type}
           key={index}
           className="inline-block text-white font-bold py-2 px-4 cursor-pointer rounded-full bg-[#3858D6] border border-transparent transform hover:scale-110 transition-transform duration-3000 ease-in-out mr-2 mb-2"
           onClick={() => handleTypeClick(type)}

@@ -5,13 +5,13 @@ import Footer from "../Article/Footer";
 import { useRouter } from 'next/navigation';
 
 
-    
 
-export default function Cart(){
+
+export default function Cart() {
 
     const router = useRouter();
     const [cartData, setCartData] = useState(null);
-  
+
     useEffect(() => {
         // Vérifie si router.query est défini et contient la propriété data
         if (router.query && router.query.data) {
@@ -30,17 +30,31 @@ export default function Cart(){
                 }}>
 
                 <div className=" col-span-2 ">
-                    <div className="grid h-20 w-auto place-items-left rounded-md border-2  bg-white py-2 text-justified ">
+                    <div className="grid h-20 w-auto place-items-left bg-white py-2 text-justified ">
                         <h1 className="ml-2 mt-2 text-2xl font-bold tracking-tight text-black">
                             Shopping Cart
                         </h1>
                     </div>
-                    <div className="grid h-20 w-auto place-items-left rounded-md border-2  bg-white py-2 text-justified ">
-                        <h1 className="ml-2 mt-2 text-2xl font-bold tracking-tight text-black">
-                            Shopping Cart
-                        </h1>
+                    <div className="flex gap-40 h-20 w-auto place-items-left bg-[#F5F5F7] px-2 py-2 text-justified ">
+                        <h2 className="text-gray-500 mb-2 mr-auto">
+                            Products
+                        </h2>
+                        <h2 className="text-gray-500 mb-2">
+                            Price
+                        </h2>
+                        <h2 className="text-gray-500 mb-2">
+                            Quantity
+                        </h2>
+                        <h2 className="text-gray-500 mb-2 ">
+                            Sub-total
+                        </h2>
                     </div>
                 </div>
+
+
+
+
+
 
                 <div className="col-span-1 row-span-1 grid grid-cols-1 gap-4">
                     <div className="bg-white p-4 rounded">
@@ -86,6 +100,8 @@ export default function Cart(){
                             <h2 className="text-xl font-bold text-blue-800 text-right ">
                                 252.23 $
                             </h2>
+
+
                         </div>
 
                     </div>
