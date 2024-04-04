@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 
 
 
+<<<<<<< HEAD
 
 export default function Cart() {
 
@@ -20,6 +21,9 @@ export default function Cart() {
         }
     }, [router.query]);
     console.log(cartData);
+=======
+export default function Cart(){
+>>>>>>> 1ab8e5ffcfd81a5757d87fe4cad1b946f68dafaa
     return (
         <div className="bg-[#F5F5F7]">
             <Header />

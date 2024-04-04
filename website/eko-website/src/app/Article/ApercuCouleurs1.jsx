@@ -125,7 +125,7 @@ console.log(selectedSizes);
         }
 
     try {
-      const response = await fetch('/api/AddToCart', {
+      const response = await fetch('http://localhost/api/addtocart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -133,15 +133,15 @@ console.log(selectedSizes);
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to add item to cart');
-      }
+      // if (!response.ok) {
+      //   throw new Error('Failed to add item to cart');
+      // }
 
-      // router.push('/Cart');
+      //  router.push('/Cart');
     } catch (error) {
       console.error('Error adding item to cart:', error);
     }
-    return false;
+    
   };
 
 
