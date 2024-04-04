@@ -494,6 +494,45 @@ get('/api/color/id/$id', function ($id) use ($pdo) {
 });
 
 
+//ajouter un nouveau client
+
+post('/api/AddClient', function() use ($pdo){
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Récupérer les données JSON envoyées dans le corps de la requête
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+       
+        // Récupérer les valeurs des champs
+        $first_name = cleaning($data['name']);
+        $last_name = cleaning($data['name']);
+        $email = cleaning($data['email']);
+        $address = cleaning($data['address']);
+        $country = cleaning($data['country']);
+        $city = cleaning($data['city']);
+        $region_state = cleaning($data['region']);
+        $zip_code = cleaning($data['zip']);
+    
+        // Vous pouvez effectuer des opérations supplémentaires ici, comme l'insertion des données dans la base de données
+        try {
+             $requete = $pdo->prepare('INSERT INTO Client(first_name, last_name, email, address, country, city, region_state, zip_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+             $requete->execute([$first_name, $last_name, $email, $address, $country, $city, $region_state, $zip_code]);
+    
+            // Exemple de réponse JSON
+            $response = ['message' => 'Client added successfully'];
+            echo json_encode($response);
+        } catch (Exception $e) {
+            http_response_code(500); // Internal Server Error
+            echo json_encode(['error' => 'An error occurred while processing your request']);
+        }
+    } else {
+        // Si la requête n'est pas de type POST, retourner une erreur de méthode non autorisée
+        http_response_code(405); // Method Not Allowed
+        echo json_encode(['error' => 'Method not allowed']);
+    }
+});
+
+
 /**********************************************************
                 USED APIS FOR THE APP
  **********************************************************/

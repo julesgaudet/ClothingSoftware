@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ViewArticle from "./ViewArticle";
 
-export default function OrderInfo() {
+export default function OrderInfo({ onClickOrder }) {
   const [items, setItems] = useState([]);
 
   //A CHANGER
@@ -88,7 +88,10 @@ export default function OrderInfo() {
         </div>
 
         <div>
-          <div className="inline-block w-full text-white text-center font-bold py-2 px-4 cursor-pointer rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-105 transition-transform duration-3000 ease-in-out mr-2 mb-2">
+          <div
+            className="inline-block w-full text-white text-center font-bold py-2 px-4 cursor-pointer rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-105 transition-transform duration-3000 ease-in-out mr-2 mb-2"
+            onClick={onClickOrder}
+          >
             Place Order
           </div>
         </div>
