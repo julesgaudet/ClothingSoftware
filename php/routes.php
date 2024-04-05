@@ -89,15 +89,15 @@ post('/api/addtocart', function() use ($pdo){
     
         // Vous pouvez effectuer des opérations supplémentaires ici, comme l'insertion des données dans la base de données
         try {
-             $requete = $pdo->prepare('INSERT INTO ArticleCart(id_article, id_color, id_size) VALUES (?, ?, ?)');
-             $requete->execute([$id_article, $id_color, $id_size]);
+             $requete = $pdo->prepare('INSERT INTO ArticleCart(id_article,id_session, id_color, id_size) VALUES (?,?, ?, ?)');
+             $requete->execute([$id_article,"session_3", $id_color, $id_size]);
     
             // Exemple de réponse JSON
             $response = ['message' => 'Item added to cart successfully'];
             echo json_encode($response);
         } catch (Exception $e) {
             http_response_code(500); // Internal Server Error
-            echo json_encode(['error' => 'An error occurred while processing your request']);
+            echo json_encode(['error' => $e]);
         }
     } else {
         // Si la requête n'est pas de type POST, retourner une erreur de méthode non autorisée

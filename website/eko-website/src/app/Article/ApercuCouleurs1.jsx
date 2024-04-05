@@ -133,11 +133,10 @@ console.log(selectedSizes);
         body: JSON.stringify(data),
       });
 
-      // if (!response.ok) {
-      //   throw new Error('Failed to add item to cart');
-      // }
+      if (!response.ok) {
+        throw new Error('Failed to add item to cart');
+      }
 
-      //  router.push('/Cart');
     } catch (error) {
       console.error('Error adding item to cart:', error);
     }
@@ -175,14 +174,12 @@ console.log(selectedSizes);
 
       </ul>
       <div className="flex flex-wrap items-center">
-        <a 
-          href={`/Cart`}
+        <button 
           onClick={addToCart}
           className="m-5 inline-block text-white font-bold py-4 px-20 rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
         >
           Add to Cart
-        </a>
-        <input type='button' value="panier" onClick={addToCart}/>
+        </button>
       </div>
       <p className="ml-6 mt-12 font-bold size-10 text-xl">
         Sustainability
