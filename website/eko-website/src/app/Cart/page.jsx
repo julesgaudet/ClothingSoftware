@@ -5,13 +5,39 @@ import Footer from "../Article/Footer";
 import { useRouter } from 'next/navigation';
 
 
+function GenerateProduct({ Product }) {
 
+}
 
 
 export default function Cart() {
 
     const router = useRouter();
     const [cartData, setCartData] = useState(null);
+
+
+    // Counter variable to keep track of the quantity
+    const [counter, setCounter] = useState(0);
+
+    // Function to increment the counter
+    const incrementCounter = () => {
+        setCounter(counter +1);
+    };
+
+    // Function to decrement the counter
+    const decrementCounter = () => {
+        if (counter > 1) {
+            setCounter(counter-1);
+        }
+        
+    };
+
+    const prix = 50
+
+    // Function to get the current counter value
+    const getCounter = () => {
+        return counter;
+    };
 
     useEffect(() => {
         // Vérifie si router.query est défini et contient la propriété data
@@ -31,7 +57,7 @@ export default function Cart() {
                 }}>
 
                 <div className=" col-span-2 ">
-                    <div className="grid h-20 w-auto place-items-left bg-white py-2 text-justified ">
+                    <div className="grid h-20 w-auto place-items-left bg-white py-2 text-justified content-center">
                         <h1 className="ml-2 mt-2 text-2xl font-bold tracking-tight text-black">
                             Shopping Cart
                         </h1>
@@ -49,6 +75,26 @@ export default function Cart() {
                         <h2 className="text-gray-500 mb-2 ">
                             Sub-total
                         </h2>
+                    </div>
+                    <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
+                        <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
+                            x
+                        </div>
+                        <img className="h-24" src="https://dimemtl.com/cdn/shop/files/TSHIRTS_SP24D1_COLLAGE_BLACK_900x900.jpg?v=1708372450" alt="image1" />
+                        <p className="ml-5 mt-2 text-xl text-black">
+                            Acne Studios Basic Shirt
+                        </p>
+                        <p className="ml-10  mt-2 text-xl text-black">
+                            {prix}$
+                        </p>
+                        <div className=" ml-10 flex h-15 w-32 items-center justify-center rounded-md bg-gray-100 border-2">
+                            <button  onClick={decrementCounter} className="ml-3 mr-auto text-xl text-black click:scale-125">-</button>
+                            <p className="  text-xl text-black">{counter}</p>
+                            <button  onClick={incrementCounter} className="mr-3 ml-auto text-xl text-black click:scale-125">+</button>
+                        </div>
+                        <p className="ml-10  mt-2 text-xl text-black">
+                            {prix*counter}$
+                        </p>
                     </div>
                 </div>
 
