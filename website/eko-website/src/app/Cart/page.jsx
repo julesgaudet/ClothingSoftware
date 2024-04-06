@@ -65,13 +65,26 @@ function GenerateProduct({ Product }) {
             .catch((error) => console.error("Error fetching picture:", error));
     }, [id]);
 
-
+    const deleteArticle = async () => {
+        try {
+            const response = await fetch(`http://localhost/api/deleteArticle/${Product.id}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete article');
+            }
+            // Mise à jour de l'état du panier après la suppression
+            // Vous devrez probablement recharger les données du panier après la suppression
+        } catch (error) {
+            console.error('Error deleting article:', error);
+        }
+    }
 
 
     return (
         <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
             <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
-                <button>x</button>
+                <button onClick={deleteArticle} >x</button>
             </div>
             <img className="h-24" src={pictureUrl} alt={Product.name} />
             <p className="ml-5 mr-28  text-xl text-black">

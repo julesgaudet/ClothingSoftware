@@ -75,6 +75,7 @@ get('/api/orders/$session', function ($session) use ($pdo) {
     }
 });
 
+//post le id_article, id_color, id_size à base de donnée (tableau articleCart)
 post('/api/addtocart', function() use ($pdo){
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -569,6 +570,22 @@ post('/api/AddOrder', function() use ($pdo){
     }
 });
 
+delete('/api/deleteArticle/{id_A}/{id_C}/{id_S}', function ($id_A, $id_C, $id_S) use ($pdo) {
+    try {
+        // Préparez la requête SQL DELETE pour supprimer l'article du panier avec les IDs spécifiés
+        $requete = $pdo->prepare('DELETE FROM ArticleCart WHERE id_article = ? AND id_color = ? AND id_size = ?');
+        // Exécutez la requête en passant les IDs de l'article, de la couleur et de la taille à supprimer
+        $requete->execute([$id_A, $id_C, $id_S]);
+
+        // Réponse JSON indiquant que l'article a été supprimé avec succès
+        $response = ['message' => 'Article deleted successfully'];
+        echo json_encode($response);
+    } catch (Exception $e) {
+        // En cas d'erreur, renvoyez une réponse d'erreur avec le code 500 (Internal Server Error)
+        http_response_code(500);
+        echo json_encode(['error' => 'An error occurred while deleting the article']);
+    }
+});
 
 
 /**********************************************************
