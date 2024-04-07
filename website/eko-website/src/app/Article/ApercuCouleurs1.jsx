@@ -94,6 +94,7 @@ export default function ApercuCouleurs() {
   const parametresURL = new URLSearchParams(queryString);
   const id = parametresURL.get("id");
 
+  const[session, setSession ] = useState(null)
   const [couleurs, setColors] = useState([]);
   const [sizes, setSize] = useState([]);
   //gestion de l'état des sizes
@@ -169,7 +170,7 @@ console.log(selectedSizes);
 
   const CartSession = async () => {
     const data ={
-          id_session:session,
+          id_session: session,
         }
 
     try {
@@ -191,7 +192,28 @@ console.log(selectedSizes);
     
   };
 
+  
 
+    // Fonction pour générer un code de session unique
+    const generateSessionCode = () => {
+      const code = Math.floor(Math.random() * 1000000); // Générer un code aléatoire
+      return code;
+    };
+
+  useEffect(() => {
+    // Vérifier si le code de session est déjà présent dans le local storage
+    const existingSession = window.localStorage.getItem('MY_SESSION');
+    if (!existingSession) {
+      // Si le code de session n'existe pas, générer un nouveau code et le stocker
+      const newSession = generateSessionCode();
+      setSession(newSession);
+      window.localStorage.setItem('MY_SESSION', JSON.stringify(newSession));
+    } else {
+      // Si le code de session existe déjà, le récupérer et le définir dans l'état
+      setSession(JSON.parse(existingSession));
+    }
+    
+  }, []);
 
   return (
     <>
@@ -224,13 +246,14 @@ console.log(selectedSizes);
       </ul>
       <div className="flex flex-wrap items-center">
         <button 
-      
-  
-         onClickD={CartSession}
+         onClick={addToCartHandler}
+         onClickD={addToCart}
+         onClickDD={CartSession}
           className="m-5 inline-block text-white font-bold py-4 px-20 rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
         >
           Add to Cart
         </button>
+        
       </div>
       <p className="ml-6 mt-12 font-bold size-10 text-xl">
         Sustainability
