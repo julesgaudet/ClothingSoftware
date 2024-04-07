@@ -64,10 +64,14 @@ async function getSize(id) {
  
 
 export default function ApercuCouleurs() {
+  const router = useRouter();
+  const queryString = window.location.search;
+  const parametresURL = new URLSearchParams(queryString);
+  const id = parametresURL.get("id");
 
   const[session, setSession ] = useState(null)
-
-    // Fonction pour générer un code de session unique
+  
+  // Fonction pour générer un code de session unique
     const generateSessionCode = () => {
       const code = Math.floor(Math.random() * 1000000); // Générer un code aléatoire
       return code;
@@ -75,12 +79,12 @@ export default function ApercuCouleurs() {
 
   useEffect(() => {
     // Vérifier si le code de session est déjà présent dans le local storage
-    const existingSession = window.localStorage.getItem('id_session');
+    const existingSession = window.localStorage.getItem('MY_SESSION');
     if (!existingSession) {
       // Si le code de session n'existe pas, générer un nouveau code et le stocker
       const newSession = generateSessionCode();
       setSession(newSession);
-      window.localStorage.setItem('id_session', JSON.stringify(newSession));
+      window.localStorage.setItem('MY_SESSION', JSON.stringify(newSession));
     } else {
       // Si le code de session existe déjà, le récupérer et le définir dans l'état
       setSession(JSON.parse(existingSession));
@@ -88,13 +92,37 @@ export default function ApercuCouleurs() {
     
   }, []);
 
+  useEffect(() => {
+    if (session !== null) {
+      // Si le code de session est différent de null, envoyer le code de session
+      CartSession(session);
+    }
+  }, [session]);
 
-  const router = useRouter();
-  const queryString = window.location.search;
-  const parametresURL = new URLSearchParams(queryString);
-  const id = parametresURL.get("id");
+  const CartSession = async (session) => {
+    const data ={
+          id_session: session,
+        }
 
-  const[session, setSession ] = useState(null)
+    try {
+      const response = await fetch('http://localhost/api/CartSession', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add item to cart');
+      }
+
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+    }
+    
+  };
+
   const [couleurs, setColors] = useState([]);
   const [sizes, setSize] = useState([]);
   //gestion de l'état des sizes
@@ -122,8 +150,6 @@ export default function ApercuCouleurs() {
       })
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
-  
-console.log(selectedSizes);
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click
@@ -164,10 +190,9 @@ console.log(selectedSizes);
 
     } catch (error) {
       console.error('Error adding item to cart:', error);
-    }
+    } 
     
   };
-
   const CartSession = async () => {
     const data ={
           id_session: session,
@@ -247,8 +272,8 @@ console.log(selectedSizes);
       <div className="flex flex-wrap items-center">
         <button 
          onClick={addToCartHandler}
-         onClickD={addToCart}
-         onClickDD={CartSession}
+         onClick={addToCart}
+         onClick={CartSession}
           className="m-5 inline-block text-white font-bold py-4 px-20 rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
         >
           Add to Cart
