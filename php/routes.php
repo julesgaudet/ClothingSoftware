@@ -108,6 +108,38 @@ post('/api/addtocart', function() use ($pdo){
     }
 });
 
+
+
+//post le 
+post('/api/CartSession', function() use ($pdo){
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Récupérer les données JSON envoyées dans le corps de la requête
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+       
+        // Récupérer les valeurs des champs
+        $id_session = $data['id_session'];
+    
+        // Vous pouvez effectuer des opérations supplémentaires ici, comme l'insertion des données dans la base de données
+        try {
+             $requete = $pdo->prepare('INSERT INTO Cart(id_session) VALUES (?)');
+             $requete->execute([$id_session]);
+    
+            // Exemple de réponse JSON
+            $response = ['message' => 'Item added to cart successfully'];
+            echo json_encode($response);
+        } catch (Exception $e) {
+            http_response_code(500); // Internal Server Error
+            echo json_encode(['error' => $e]);
+        }
+    } else {
+        // Si la requête n'est pas de type POST, retourner une erreur de méthode non autorisée
+        http_response_code(405); // Method Not Allowed
+        echo json_encode(['error' => 'Method not allowed']);
+    }
+});
+
 // Select the size name and the number of size for an article
 get('/api/size/$id_article', function ($id_article) use ($pdo) {
     if (isset($id_article)) {
