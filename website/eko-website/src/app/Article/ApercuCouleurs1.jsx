@@ -1,7 +1,6 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-import Cart from '../Cart/page';
 import React, { useState, useEffect } from "react";
 
 function Cercle({ couleur, isSelected, onClick }) {
@@ -143,6 +142,28 @@ console.log(selectedSizes);
     
   };
 
+  const[session, setSession ] = useState()
+
+    // Fonction pour générer un code de session unique
+    const generateSessionCode = () => {
+      const code = Math.floor(Math.random() * 1000000); // Générer un code aléatoire
+      return code;
+    };
+
+  useEffect(() => {
+    // Vérifier si le code de session est déjà présent dans le local storage
+    const existingSession = window.localStorage.getItem('MY_SESSION');
+    if (!existingSession) {
+      // Si le code de session n'existe pas, générer un nouveau code et le stocker
+      const newSession = generateSessionCode();
+      setSession(newSession);
+      window.localStorage.setItem('MY_SESSION', JSON.stringify(newSession));
+    } else {
+      // Si le code de session existe déjà, le récupérer et le définir dans l'état
+      setSession(JSON.parse(existingSession));
+    }
+    console.log(session);
+  }, []);
 
   return (
     <>
