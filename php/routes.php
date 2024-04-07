@@ -87,11 +87,12 @@ post('/api/addtocart', function() use ($pdo){
         $id_article = $data['id_article'];
         $id_color = $data['id_color'];
         $id_size = $data['id_size'];
+        $id_session = $data['id_session'];
     
         // Vous pouvez effectuer des opérations supplémentaires ici, comme l'insertion des données dans la base de données
         try {
              $requete = $pdo->prepare('INSERT INTO ArticleCart(id_article,id_session, id_color, id_size) VALUES (?,?, ?, ?)');
-             $requete->execute([$id_article,"session_3", $id_color, $id_size]);
+             $requete->execute([$id_article, $id_session, $id_color, $id_size]);
     
             // Exemple de réponse JSON
             $response = ['message' => 'Item added to cart successfully'];

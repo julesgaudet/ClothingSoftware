@@ -147,7 +147,8 @@ console.log(selectedSizes);
     const data ={
           id_article: selectedSizes.idArticle,
           id_color: selectedColors.id,
-          id_size: selectedSizes.id
+          id_size: selectedSizes.id,
+          id_session:session,
         }
 
     try {
@@ -168,8 +169,31 @@ console.log(selectedSizes);
     }
     
   };
+  const CartSession = async () => {
+    const data ={
+          id_session:session,
+        }
 
-  const[session, setSession ] = useState()
+    try {
+      const response = await fetch('http://localhost/api/CartSession', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add item to cart');
+      }
+
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+    }
+    
+  };
+
+  const[session, setSession ] = useState(null)
 
     // Fonction pour générer un code de session unique
     const generateSessionCode = () => {
@@ -189,7 +213,7 @@ console.log(selectedSizes);
       // Si le code de session existe déjà, le récupérer et le définir dans l'état
       setSession(JSON.parse(existingSession));
     }
-    console.log(session);
+    
   }, []);
 
   return (
@@ -225,6 +249,7 @@ console.log(selectedSizes);
         <button 
          onClick={addToCartHandler}
          onClickD={addToCart}
+         onClickDD={CartSession}
           className="m-5 inline-block text-white font-bold py-4 px-20 rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
         >
           Add to Cart
