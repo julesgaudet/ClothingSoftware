@@ -66,6 +66,33 @@ async function getSize(id) {
 
 export default function ApercuCouleurs() {
 
+  const [sessionId, setSessionId] = useState(null);
+
+  // Gérer l'ajout d'un article au panier
+  function addToCartHandler() {
+    const storedSessionId = window.localStorage.getItem('id_session');
+
+    if (storedSessionId === null) {
+      // Si id_session n'existe pas, initialiser avec un identifiant unique
+      const newSessionId = generateUniqueId();
+
+      // Stocker le nouvel id_session dans le localStorage
+      window.localStorage.setItem('id_session', JSON.stringify(newSessionId));
+      setSessionId(newSessionId); // Mettre à jour l'état avec le nouvel id_session
+    } else {
+      // Si id_session existe déjà, utiliser sa valeur
+      setSessionId(JSON.parse(storedSessionId));
+    }
+
+    // Ici, vous pouvez également ajouter l'article au panier
+  }
+
+  // Fonction pour générer un identifiant unique
+  function generateUniqueId() {
+    return Date.now(); // Utilisation de la timestamp actuelle comme identifiant unique
+  }
+
+
   const router = useRouter();
   const queryString = window.location.search;
   const parametresURL = new URLSearchParams(queryString);
@@ -175,7 +202,8 @@ console.log(selectedSizes);
       </ul>
       <div className="flex flex-wrap items-center">
         <button 
-          onClick={addToCart}
+         onClick={addToCartHandler}
+         onClickD={addToCart}
           className="m-5 inline-block text-white font-bold py-4 px-20 rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
         >
           Add to Cart
