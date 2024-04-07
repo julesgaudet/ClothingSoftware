@@ -97,6 +97,7 @@ export default function ApercuCouleurs() {
   const parametresURL = new URLSearchParams(queryString);
   const id = parametresURL.get("id");
 
+  const[session, setSession ] = useState(null)
   const [couleurs, setColors] = useState([]);
   const [sizes, setSize] = useState([]);
   //gestion de l'état des sizes
@@ -171,7 +172,7 @@ console.log(selectedSizes);
   };
   const CartSession = async () => {
     const data ={
-          id_session:session,
+          id_session: session,
         }
 
     try {
@@ -193,7 +194,7 @@ console.log(selectedSizes);
     
   };
 
-  const[session, setSession ] = useState(null)
+  
 
     // Fonction pour générer un code de session unique
     const generateSessionCode = () => {
