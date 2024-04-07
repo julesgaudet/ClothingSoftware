@@ -110,7 +110,7 @@ post('/api/addtocart', function() use ($pdo){
 
 
 
-//post le 
+//post pour le id session seulement 
 post('/api/CartSession', function() use ($pdo){
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
