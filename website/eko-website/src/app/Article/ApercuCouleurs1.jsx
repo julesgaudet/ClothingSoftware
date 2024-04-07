@@ -64,40 +64,65 @@ async function getSize(id) {
  
 
 export default function ApercuCouleurs() {
-
-  const [sessionId, setSessionId] = useState(null);
-
-  // Gérer l'ajout d'un article au panier
-  function addToCartHandler() {
-    const storedSessionId = window.localStorage.getItem('id_session');
-
-    if (storedSessionId === null) {
-      // Si id_session n'existe pas, initialiser avec un identifiant unique
-      const newSessionId = generateUniqueId();
-
-      // Stocker le nouvel id_session dans le localStorage
-      window.localStorage.setItem('id_session', JSON.stringify(newSessionId));
-      setSessionId(newSessionId); // Mettre à jour l'état avec le nouvel id_session
-    } else {
-      // Si id_session existe déjà, utiliser sa valeur
-      setSessionId(JSON.parse(storedSessionId));
-    }
-
-    // Ici, vous pouvez également ajouter l'article au panier
-  }
-
-  // Fonction pour générer un identifiant unique
-  function generateUniqueId() {
-    return Date.now(); // Utilisation de la timestamp actuelle comme identifiant unique
-  }
-
-
   const router = useRouter();
   const queryString = window.location.search;
   const parametresURL = new URLSearchParams(queryString);
   const id = parametresURL.get("id");
 
   const[session, setSession ] = useState(null)
+  
+  // Fonction pour générer un code de session unique
+    const generateSessionCode = () => {
+      const code = Math.floor(Math.random() * 1000000); // Générer un code aléatoire
+      return code;
+    };
+
+  useEffect(() => {
+    // Vérifier si le code de session est déjà présent dans le local storage
+    const existingSession = window.localStorage.getItem('MY_SESSION');
+    if (!existingSession) {
+      // Si le code de session n'existe pas, générer un nouveau code et le stocker
+      const newSession = generateSessionCode();
+      setSession(newSession);
+      window.localStorage.setItem('MY_SESSION', JSON.stringify(newSession));
+    } else {
+      // Si le code de session existe déjà, le récupérer et le définir dans l'état
+      setSession(JSON.parse(existingSession));
+    }
+    
+  }, []);
+
+  useEffect(() => {
+    if (session !== null) {
+      // Si le code de session est différent de null, envoyer le code de session
+      CartSession(session);
+    }
+  }, [session]);
+
+  const CartSession = async (session) => {
+    const data ={
+          id_session: session,
+        }
+
+    try {
+      const response = await fetch('http://localhost/api/CartSession', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add item to cart');
+      }
+
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+    }
+    
+  };
+
   const [couleurs, setColors] = useState([]);
   const [sizes, setSize] = useState([]);
   //gestion de l'état des sizes
@@ -125,8 +150,6 @@ export default function ApercuCouleurs() {
       })
       .catch((error) => console.error("Error fetching colors:", error));
   }, [id]);
-  
-console.log(selectedSizes);
 
   //----------------------------------------------------------------------------------------//
   //gestion d'un click
@@ -167,55 +190,14 @@ console.log(selectedSizes);
 
     } catch (error) {
       console.error('Error adding item to cart:', error);
-    }
+    } 
     
   };
-  const CartSession = async () => {
-    const data ={
-          id_session: session,
-        }
-
-    try {
-      const response = await fetch('http://localhost/api/CartSession', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add item to cart');
-      }
-
-    } catch (error) {
-      console.error('Error adding item to cart:', error);
-    }
-    
-  };
+  
 
   
 
-    // Fonction pour générer un code de session unique
-    const generateSessionCode = () => {
-      const code = Math.floor(Math.random() * 1000000); // Générer un code aléatoire
-      return code;
-    };
 
-  useEffect(() => {
-    // Vérifier si le code de session est déjà présent dans le local storage
-    const existingSession = window.localStorage.getItem('MY_SESSION');
-    if (!existingSession) {
-      // Si le code de session n'existe pas, générer un nouveau code et le stocker
-      const newSession = generateSessionCode();
-      setSession(newSession);
-      window.localStorage.setItem('MY_SESSION', JSON.stringify(newSession));
-    } else {
-      // Si le code de session existe déjà, le récupérer et le définir dans l'état
-      setSession(JSON.parse(existingSession));
-    }
-    
-  }, []);
 
   return (
     <>
@@ -248,9 +230,7 @@ console.log(selectedSizes);
       </ul>
       <div className="flex flex-wrap items-center">
         <button 
-         onClick={addToCartHandler}
          onClick={addToCart}
-         onClick={CartSession}
           className="m-5 inline-block text-white font-bold py-4 px-20 rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
         >
           Add to Cart

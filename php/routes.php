@@ -85,9 +85,10 @@ post('/api/addtocart', function() use ($pdo){
        
         // Récupérer les valeurs des champs
         $id_article = $data['id_article'];
+        $id_session = $data['id_session'];
         $id_color = $data['id_color'];
         $id_size = $data['id_size'];
-        $id_session = $data['id_session'];
+        
     
         // Vous pouvez effectuer des opérations supplémentaires ici, comme l'insertion des données dans la base de données
         try {
