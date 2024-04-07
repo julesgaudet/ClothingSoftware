@@ -193,52 +193,11 @@ export default function ApercuCouleurs() {
     } 
     
   };
-  const CartSession = async () => {
-    const data ={
-          id_session: session,
-        }
-
-    try {
-      const response = await fetch('http://localhost/api/CartSession', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add item to cart');
-      }
-
-    } catch (error) {
-      console.error('Error adding item to cart:', error);
-    }
-    
-  };
+  
 
   
 
-    // Fonction pour générer un code de session unique
-    const generateSessionCode = () => {
-      const code = Math.floor(Math.random() * 1000000); // Générer un code aléatoire
-      return code;
-    };
 
-  useEffect(() => {
-    // Vérifier si le code de session est déjà présent dans le local storage
-    const existingSession = window.localStorage.getItem('MY_SESSION');
-    if (!existingSession) {
-      // Si le code de session n'existe pas, générer un nouveau code et le stocker
-      const newSession = generateSessionCode();
-      setSession(newSession);
-      window.localStorage.setItem('MY_SESSION', JSON.stringify(newSession));
-    } else {
-      // Si le code de session existe déjà, le récupérer et le définir dans l'état
-      setSession(JSON.parse(existingSession));
-    }
-    
-  }, []);
 
   return (
     <>
@@ -271,9 +230,7 @@ export default function ApercuCouleurs() {
       </ul>
       <div className="flex flex-wrap items-center">
         <button 
-         onClick={addToCartHandler}
          onClick={addToCart}
-         onClick={CartSession}
           className="m-5 inline-block text-white font-bold py-4 px-20 rounded-lg bg-[#3858D6] border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out mr-2 mb-2"
         >
           Add to Cart
