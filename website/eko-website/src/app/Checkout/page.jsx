@@ -1,5 +1,5 @@
 "use client"; // important!!!!
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../Article/Header";
 import Footer from "../Article/Footer";
 import ClientInfo from "./ClientInfo";
@@ -88,7 +88,9 @@ export default function Checkout() {
 
   //----------------------------------------------------------------------------------------//
   //A CHANGER ID de session
-  const sessionId = 123456;
+  const sesssionId = 123456;
+
+  const [sessionId, setSessionId] = useState(null);
 
   //----------------------------------------------------------------------------------------//
   // Fonction pour vérifier si les erreurs sont vides
@@ -191,7 +193,27 @@ export default function Checkout() {
       console.error("Server Error while addign order:", error);
     }
   };
+  //----------------------------------------------------------------------------------------//
+  //gestion session id
+  // Fonction pour générer un code de session unique
+  const generateSessionCode = () => {
+    const code = Math.floor(Math.random() * 100000000); // Générer un code aléatoire
+    return code;
+  };
 
+  useEffect(() => {
+    // Vérifier si le code de session est déjà présent dans le local storage
+    const existingSession = window.localStorage.getItem("MY_SESSION");
+    if (!existingSession) {
+      // Si le code de session n'existe pas, générer un nouveau code et le stocker
+      const newSession = generateSessionCode();
+      setSessionId(newSession);
+      window.localStorage.setItem("MY_SESSION", JSON.stringify(newSession));
+    } else {
+      // Si le code de session existe déjà, le récupérer et le définir dans l'état
+      setSessionId(JSON.parse(existingSession));
+    }
+  }, []);
   //----------------------------------------------------------------------------------------//
   //Ce qui arrive quand on click sur " place order "
 
@@ -221,6 +243,11 @@ export default function Checkout() {
             clientData.lastClientId
         );
 
+        //on enleve l'id de session et en donne un nouveau
+        const newSession = generateSessionCode();
+        setSessionId(newSession);
+        window.localStorage.setItem("MY_SESSION", JSON.stringify(newSession));
+
         //si aucune réponse
       } else {
         setMsgSuccess("");
@@ -241,6 +268,7 @@ export default function Checkout() {
   };
 
   //----------------------------------------------------------------------------------------//
+  console.log("id de session:", sessionId);
   //----------------------------------------------------------------------------------------//
   return (
     <div className="bg-[#F5F5F7] min-h-screen">
