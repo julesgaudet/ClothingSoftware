@@ -56,7 +56,7 @@ export default function ViewArticle({ article }) {
       <div className="flex my-2 items-center">
         <a
           href={`Article?id=${article.id}`}
-          className="aspect-h-1 aspect-w-1 max-w-1/6 h-24 overflow-hidden items-center justify-center"
+          className="aspect-h-1 aspect-w-1 w-20 h-24 overflow-hidden items-center justify-center"
         >
           <img
             src={url}

@@ -38,7 +38,7 @@ function Succes({ msgSucces, setMsgSuccess }) {
               <p>{msgSucces}</p>
               <button className="text-sm" onClick={() => setMsgSuccess("")}>
                 <img
-                  src="https://static.vecteezy.com/system/resources/previews/021/815/761/original/cross-close-icon-free-png.png"
+                  src="https://icones.pro/wp-content/uploads/2021/08/icone-x-verte.png"
                   className="w-6 h-6 mr-2"
                   alt="X"
                 />
@@ -223,7 +223,9 @@ export default function Checkout() {
       if (!allEmpty(error) || !allFull(clientInfo)) {
         setMsgSuccess("");
         setMsgNon("");
-        setMsgNon("Please fill out all the fields correctly to place an order");
+        setMsgNon(
+          "🚫 Oops! It seems like there's a small hiccup. 🤔 Please make sure all fields are filled out correctly to proceed with your order. 📝"
+        );
         return;
       }
 
@@ -239,7 +241,7 @@ export default function Checkout() {
         setMsgNon("");
         setMsgSuccess("");
         setMsgSuccess(
-          "Your order is complete! Your items are on the way. Thank you for choosing us! Order-ID: " +
+          "🎉 Great news! Your order confirmation is in! 🌟 Your items are soon to be on their way. Thank you for choosing our shopping website! Your Order-ID is " +
             clientData.lastClientId
         );
 
@@ -253,7 +255,7 @@ export default function Checkout() {
         setMsgSuccess("");
         setMsgNon("");
         setMsgNon(
-          "Oops! It seems like an error has occurred on our end. We're actively addressing it. Please try again later!"
+          "🛑 Oops! It looks like we've hit a bump in the road. 😔 Our team is on it, working to fix the issue. Please hang tight and try again later! 💼 We appreciate your patience and understanding. If you need immediate assistance, feel free to contact us directly. Thank you! "
         );
       }
 
@@ -262,7 +264,7 @@ export default function Checkout() {
       setMsgSuccess("");
       setMsgNon("");
       setMsgNon(
-        "Oops! It seems like an error has occurred on our end. We're actively addressing it. Please try again later!"
+        "🛑 Oops! It looks like we've hit a bump in the road. 😔 Our team is on it, working to fix the issue. Please hang tight and try again later! 💼 We appreciate your patience and understanding. If you need immediate assistance, feel free to contact us directly. Thank you! "
       );
     }
   };
@@ -284,7 +286,7 @@ export default function Checkout() {
             setError={setError}
           />
         </div>
-        <div className=" lg:col-span-1 bg-white h-fit mx-8 lg:mx-0">
+        <div className=" lg:col-span-1 bg-white h-fit mx-8  border-2 lg:mx-0">
           <OrderInfo onClickOrder={onClickOrder} sessionId={sessionId} />
         </div>
       </div>
