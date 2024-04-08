@@ -66,10 +66,7 @@ export default function Cart() {
 
     const router = useRouter();
     const [cartData, setCartData] = useState(null);
-    const [total, setTotal] = useState((0));
-    const [session, setSession] = useState(null);
-
-    const prix = 50
+    
 
 
     /////////////////////////////
@@ -125,7 +122,7 @@ export default function Cart() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let url = `http://localhost/api/orders/89952393`;
+                let url = `http://localhost/api/cart/${sessionId}`;
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
