@@ -75,6 +75,48 @@ get('/api/orders/$session', function ($session) use ($pdo) {
     }
 });
 
+get('/api/orders/$session', function ($session) use ($pdo) {
+    if (isset($session)) {
+        $article = $pdo->prepare(
+            'SELECT * FROM Article 
+            INNER JOIN ArticleCart 
+            ON ArticleCart.id_article = Article.id_article 
+            INNER JOIN Orders 
+            ON ArticleCart.id_session = Orders.id_session
+            WHERE Orders.id_session = :session'
+        );
+        $article->bindValue(':session', $session, PDO::PARAM_STR);
+        $article->execute();
+        $allArticles = $article->fetchAll(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+
+        http_response_code(200);
+        echo json_encode($allArticles);
+    }
+});
+
+get('/api/totalPrice/$session', function ($session) use ($pdo) {
+    if (isset($session)) {
+        $article = $pdo->prepare(
+            'SELECT sum(price) as total FROM Article 
+            INNER JOIN ArticleCart 
+            ON ArticleCart.id_article = Article.id_article 
+            INNER JOIN Orders 
+            ON ArticleCart.id_session = Orders.id_session
+            WHERE Orders.id_session = :session'
+        );
+        $article->bindValue(':session', $session, PDO::PARAM_STR);
+        $article->execute();
+        $allArticles = $article->fetchAll(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+
+        http_response_code(200);
+        echo json_encode($allArticles);
+    }
+});
+
 //post le id_article, id_color, id_size à base de donnée (tableau articleCart)
 post('/api/addtocart', function() use ($pdo){
 
