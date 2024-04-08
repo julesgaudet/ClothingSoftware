@@ -5,10 +5,6 @@ import Footer from "../Article/Footer";
 import { useRouter } from 'next/navigation';
 
 
-
-
-
-
 function GenerateProduct({ dataProduct }) {
 
 
@@ -35,14 +31,27 @@ function GenerateProduct({ dataProduct }) {
         fetchData();
     }, [dataProduct]);
 
-
+    const deleteArticle = async () => {
+        try {
+            const response = await fetch(`http://localhost/api/deleteArticle/${dataProduct.id}/${dataProduct.colorID}/${dataProduct.sizeID}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete article');
+            }
+            // Mise à jour de l'état du panier après la suppression
+            // Vous devrez probablement recharger les données du panier après la suppression
+        } catch (error) {
+            console.error('Error deleting article:', error);
+        }
+    }
 
 
     return (
 
         <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
             <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
-                <button>x</button>
+                <button onClick={deleteArticle} >x</button>
             </div>
             <img className="h-24" src={url} alt={dataProduct.name} />
             <p className="ml-5 mr-28 text-xl text-black">
@@ -62,30 +71,6 @@ function GenerateProduct({ dataProduct }) {
 
 export default function Cart() {
 
-    ///STATES / VARIABLES///////
-
-    const router = useRouter();
-    const [cartData, setCartData] = useState(null);
-    const [total, setTotal] = useState((0));
-    const [session, setSession] = useState(null);
-
-    const prix = 50
-
-
-    /////////////////////////////
-    //ROUTER////////////////////
-    ///////////////////////////
-
-    useEffect(() => {
-        // Vérifie si router.query est défini et contient la propriété data
-        if (router.query && router.query.data) {
-            // Parse les données JSON et les stocke dans l'état du panier
-            setCartData(JSON.parse(router.query.data));
-        }
-    }, [router.query]);
-    console.log(cartData);
-
-
     //////////////////////////////////////
     //GETTING THE CURRENT SESSION ID(?)///
     //////////////////////////////////////
@@ -94,26 +79,15 @@ export default function Cart() {
     // Fonction pour générer un code de session unique
     const [sessionId, setSessionId] = useState(null);
 
-    const generateSessionCode = () => {
-        const code = Math.floor(Math.random() * 100000000); // Générer un code aléatoire
-        return code;
-    };
-
     useEffect(() => {
         // Vérifier si le code de session est déjà présent dans le local storage
         const existingSession = window.localStorage.getItem("MY_SESSION");
-        if (!existingSession) {
-            // Si le code de session n'existe pas, générer un nouveau code et le stocker
-            const newSession = generateSessionCode();
-            setSessionId(newSession);
-            window.localStorage.setItem("MY_SESSION", JSON.stringify(newSession));
-        } else {
             // Si le code de session existe déjà, le récupérer et le définir dans l'état
             setSessionId(JSON.parse(existingSession));
-        }
+        
     }, []);
     //----------------------------------------------------------------------------------------//
-
+console.log('session', sessionId);
     ////////////////////////////////
     //GET SESSION CART//////////
     //retrieving the total with the session id////
@@ -125,7 +99,7 @@ export default function Cart() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let url = `http://localhost/api/orders/89952393`;
+                let url = `http://localhost/api/cart/${sessionId}`;
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -150,6 +124,9 @@ export default function Cart() {
 
         fetchData();
     }, [sessionId]);
+
+    console.log('items', items);
+
 
     const subTotal = items.reduce(
         (total, item) => total + parseFloat(item.price),
