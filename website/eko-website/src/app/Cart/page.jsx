@@ -70,42 +70,46 @@ function GenerateProduct({ dataProduct }) {
 
 
 
-    const prix = dataProduct.price;
-
 
     //////PHOTO/////////////
 
-    const [pictureUrl, setPictureUrl] = useState([]);
-
-
-
+    const [url, setUrl] = useState(null);
     useEffect(() => {
-        getPicture(dataProduct.idArticle)
-            .then((photo) => setPictureUrl(photo.url))
-            .catch((error) => console.error("Error fetching picture:", error));
-    }, [dataProduct.idArticle]);
+        const fetchData = async () => {
+            try {
+                let url = `http://localhost/api/firstPicture/${dataProduct.id}`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const photoJSON = await response.json();
+                const photoArticle = photoJSON[0].url;
+                setUrl(photoArticle);
+            } catch (error) {
+                console.error("Une erreur s'est produite:", error);
+            }
+        };
+        fetchData();
+    }, [dataProduct]);
 
 
 
 
     return (
+
         <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
-            
-            <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
-                <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
-                    <button>x</button>
-                </div>
-                <img className="h-24" src={pictureUrl} alt={dataProduct.name} />
-                <p className="ml-5 mr-28 mr-auto  text-xl text-black">
-                    {dataProduct.name}
-                </p>
-                <p className=" mr-5  text-xl text-black">
-                    {dataProduct.price}$
-                </p>
-
+            <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
+                <button>x</button>
             </div>
-        </div>
+            <img className="h-24" src={url} alt={dataProduct.name} />
+            <p className="ml-5 mr-28 text-xl text-black">
+                {dataProduct.name}
+            </p>
+            <p className=" mr-5 ml-auto mltext-xl text-black">
+                {dataProduct.price}$
+            </p>
 
+        </div>
     );
 
 }
@@ -121,7 +125,6 @@ export default function Cart() {
     const [cartData, setCartData] = useState(null);
     const [total, setTotal] = useState((0));
     const [session, setSession] = useState(null);
-    const [sessionCartData, setSessionCartData] = useState(null);
 
     const prix = 50
 
@@ -143,30 +146,76 @@ export default function Cart() {
     //////////////////////////////////////
     //GETTING THE CURRENT SESSION ID(?)///
     //////////////////////////////////////
+    //----------------------------------------------------------------------------------------//
+    //gestion session id
+    // Fonction pour générer un code de session unique
+    const [sessionId, setSessionId] = useState(null);
+
+    const generateSessionCode = () => {
+        const code = Math.floor(Math.random() * 100000000); // Générer un code aléatoire
+        return code;
+    };
 
     useEffect(() => {
         // Vérifier si le code de session est déjà présent dans le local storage
-        const existingSession = window.localStorage.getItem('MY_SESSION');
-        // Si le code de session existe déjà, le récupérer et le définir dans l'état
-        setSession(JSON.parse(existingSession));
-    }, []);    //pour récupérer le id_session
+        const existingSession = window.localStorage.getItem("MY_SESSION");
+        if (!existingSession) {
+            // Si le code de session n'existe pas, générer un nouveau code et le stocker
+            const newSession = generateSessionCode();
+            setSessionId(newSession);
+            window.localStorage.setItem("MY_SESSION", JSON.stringify(newSession));
+        } else {
+            // Si le code de session existe déjà, le récupérer et le définir dans l'état
+            setSessionId(JSON.parse(existingSession));
+        }
+    }, []);
+    //----------------------------------------------------------------------------------------//
 
     ////////////////////////////////
     //GET SESSION CART//////////
     //retrieving the total with the session id////
     ////////////////////////////////
-    const sessionId = 'session_1';
 
+    const [items, setItems] = useState([]);
 
+    // Effect pour récupérer les données depuis l'API
     useEffect(() => {
-        getSessionCart(sessionId)
-            .then((cart) => setSessionCartData(cart))
-            .catch((error) => console.error("Error fetching picture:", error));
-        getSumPrice(sessionId)
-            .then((sum) => setTotal(sum.total))
-            .catch((error) => console.error("Error fetching picture:", error));
+        const fetchData = async () => {
+            try {
+                let url = `http://localhost/api/orders/session_1`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const cartItemsJSON = await response.json();
+                const cartitems = cartItemsJSON.map((item) => ({
+                    id: item.id_article,
+                    sizeID: item.id_size,
+                    colorID: item.id_color,
+                    color: item.color_code,
+                    size: item.size_name,
+                    sizeQuant: item.number_of_size,
+                    name: item.name,
+                    brand: item.brand,
+                    price: item.price,
+                }));
+                setItems(cartitems);
+            } catch (error) {
+                console.error("Une erreur s'est produite:", error);
+            }
+        };
+
+        fetchData();
     }, [sessionId]);
 
+    const subTotal = items.reduce(
+        (total, item) => total + parseFloat(item.price),
+        0
+    );
+    const shipping = items.length === 0 ? 0 : 20;
+    const tax = subTotal * 0.14975;
+    const discount = 0;
+    const prixTotal = subTotal + shipping + tax - discount;
 
 
 
@@ -197,19 +246,17 @@ export default function Cart() {
                     </div>
 
 
-                    <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
-                        <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
-                            <button>x</button>
-                        </div>
-                        <img className="h-24" src="https://dimemtl.com/cdn/shop/files/TSHIRTS_SP24D1_COLLAGE_BLACK_900x900.jpg?v=1708372450" alt="image1" />
-                        <p className="ml-5 mr-28 mr-auto  text-xl text-black">
-                            Acne Studios Basic Shirt
-                        </p>
-                        <p className=" mr-5  text-xl text-black">
-                            {prix}$
-                        </p>
-
-                    </div>
+                    {items.length == 0 ? (
+                        <div className="mx-auto grid h-40 w-full place-items-center rounded-md border-2 border-dashed bg-gray-50 py-10 text-center ">
+                            <h1 className="mt-2 text-2xl font-bold tracking-tight text-gray-400">
+                                No products found in cart
+                            </h1>
+                        </div>) : (items.map((article, index) => (
+                            <GenerateProduct
+                                key={index}
+                                dataProduct={article}
+                            />
+                        )))}
 
                 </div>
 
@@ -230,14 +277,14 @@ export default function Cart() {
                             </h2>
 
                             <h2 className="text-xl font-bold text-blue-800 text-right mb-2">
-                                {total} $
+                                {subTotal.toFixed(2)} $
                             </h2>
                             <h2 className="text-gray-500 mb-2">
                                 Shipping
                             </h2>
 
                             <h2 className="text-xl font-bold text-blue-800 text-right mb-2">
-                                Free
+                                {shipping.toFixed(2)} $
                             </h2>
                             <h2 className="text-gray-500 mb-2">
                                 Discount
@@ -251,7 +298,7 @@ export default function Cart() {
                             </h2>
 
                             <h2 className="text-xl font-bold text-blue-800 text-right mb-2">
-                                {total * 0.15} $
+                                {tax.toFixed(2)} $
                             </h2>
 
                             <hr className=" row-span-1 md:col-span-2 mb-2" ></hr>
@@ -260,10 +307,15 @@ export default function Cart() {
                                 Total
                             </h1>
                             <h2 className="text-xl font-bold text-blue-800 text-right ">
-                                {total * 0.15 + total} $
+                                {prixTotal.toFixed(2)} $
                             </h2>
 
-
+                            <div
+                                className="inline-block w-full text-white text-center font-bold py-2 px-4 cursor-pointer rounded-lg bg-[#3858D6] 
+                                border border-transparent transform hover:scale-105 transition-transform duration-3000 ease-in-out mr-2 mb-2 mt-10 col-span-2"
+                            >
+                              <a href="http://localhost:3000/Checkout"> Check out</a> 
+                            </div>
                         </div>
 
                     </div>
