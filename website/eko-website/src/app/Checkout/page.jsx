@@ -186,6 +186,8 @@ export default function Checkout() {
           payment: null,
         });
         setError({});
+
+        return data;
       } else {
         console.error("Error adding order:", data.error);
       }
@@ -235,14 +237,17 @@ export default function Checkout() {
       //si il y a bel et bien une réponse
       if (clientData) {
         //on ajoute l'order
-        addOrder(clientData.lastClientId);
+        const OrderData = await addOrder(clientData.lastClientId);
+
+        console.log("orderdata:", OrderData);
+        console.log("orderdataID:", OrderData.lastOrderId);
 
         //on affiche un message de succès
         setMsgNon("");
         setMsgSuccess("");
         setMsgSuccess(
-          "🎉 Great news! Your order confirmation is in! 🌟 Your items are soon to be on their way. Thank you for choosing our shopping website! Your Order-ID is " +
-            clientData.lastClientId
+          "🎉 Great news! Your order confirmation is in! 🌟 Your items are soon to be on their way. Thank you for choosing EKO! Your Order ID is " +
+            OrderData.lastOrderId
         );
 
         //on enleve l'id de session et en donne un nouveau
