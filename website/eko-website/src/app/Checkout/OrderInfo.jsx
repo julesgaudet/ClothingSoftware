@@ -38,10 +38,12 @@ export default function OrderInfo({ onClickOrder, sessionId }) {
     (total, item) => total + parseFloat(item.price),
     0
   );
-  const shipping = 0;
+  const shipping = 20;
   const tax = subTotal * 0.14975;
 
   const prixTotal = subTotal + shipping + tax;
+
+  console.log("les articles:", items);
 
   return (
     <>
