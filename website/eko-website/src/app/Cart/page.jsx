@@ -197,12 +197,20 @@ export default function Cart() {
                     </div>
 
 
-                    {sessionCartData.map((article, index) => (
-                            <GenerateProduct
-                                key={index}
-                                dataProduct={article}
-                            />
-                        ))};
+                    <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
+                        <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
+                            <button>x</button>
+                        </div>
+                        <img className="h-24" src="https://dimemtl.com/cdn/shop/files/TSHIRTS_SP24D1_COLLAGE_BLACK_900x900.jpg?v=1708372450" alt="image1" />
+                        <p className="ml-5 mr-28 mr-auto  text-xl text-black">
+                            Acne Studios Basic Shirt
+                        </p>
+                        <p className=" mr-5  text-xl text-black">
+                            {prix}$
+                        </p>
+
+                    </div>
+
                 </div>
 
 
