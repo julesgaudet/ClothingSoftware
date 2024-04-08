@@ -569,7 +569,7 @@ post('/api/AddClient', function() use ($pdo){
     }
 });
 
-// Ajouter un nouvel order
+// Ajouter un nouvel order et diminuer le stock des size de cet order
 post('/api/AddOrder', function() use ($pdo){
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -588,10 +588,27 @@ post('/api/AddOrder', function() use ($pdo){
              $requete = $pdo->prepare('INSERT INTO orders(date, status, payment_option, id_session, id_client) VALUES (?, ?, ?, ?, ?)');
              $requete->execute([$date, $status, $payment_option, $id_session, $id_client]);
              
+
+             // Récupérer l'ID du dernier client ajouté
+            $lastId = $pdo->lastInsertId();
     
             // Exemple de réponse JSON
-            $response = ['message' => 'Order added successfully'];
+            $response = ['message' => 'Order added successfully', 'lastOrderId' => $lastId];
             echo json_encode($response);
+
+            // Récupérer les ID de taille associés à l'ID de session
+            $stmt = $pdo->prepare('SELECT id_size FROM articlecart WHERE id_session = ?');
+            $stmt->execute([$id_session]);
+            $id_sizes = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+            // Si des ID de taille sont trouvés, diminuer le stock
+            if ($id_sizes) {
+                $id_sizes_str = implode(',', $id_sizes); // Convertir en chaîne séparée par des virgules
+                $sql_update = "UPDATE `size` SET `number_of_size` = `number_of_size` - 1 WHERE `id_size` IN ($id_sizes_str)";
+                $pdo->exec($sql_update);
+            }
+
+
         } catch (Exception $e) {
             http_response_code(500); // Internal Server Error
             echo json_encode(['error' => 'An error occurred while processing your request', 'msg' => [$date, $status, $payment_option, $id_session, $id_client]]);
