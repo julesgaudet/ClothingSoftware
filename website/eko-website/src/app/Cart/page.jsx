@@ -5,63 +5,6 @@ import Footer from "../Article/Footer";
 import { useRouter } from 'next/navigation';
 
 
-async function getPicture(id) {
-    try {
-        const photoJSON = await fetchData(
-            `/api/firstPicture/${id}`
-        );
-        if (photoJSON.length > 0) {
-            return photoJSON.map(photoJSON => ({
-                id: photoJSON.id_picture,
-                url: photoJSON.url,
-                idArticle: photoJSON.id_article,
-            }));
-        } else {
-            throw new Error("No picture found for the given id");
-        }
-    } catch (error) {
-        console.error("Error fetching picture:", error);
-        throw error;
-    }
-}
-
-async function getSumPrice(sessionId) {
-    try {
-        const cartTotal = await fetchData(
-            `http://localhost/api/totalPrice/${sessionId}`
-        );
-        if (cartTotal.length > 0) {
-            return cartTotal.total;
-        } else {
-            throw new Error("No picture found for the given id");
-        }
-    } catch (error) {
-        console.error("Error fetching picture:", error);
-        throw error;
-    }
-}
-
-
-async function getSessionCart(sessionId) {
-    try {
-        const cartItems = await fetchData(
-            `http://localhost/api/orders/${sessionId}`
-        );
-        if (cartItems.length > 0) {
-            return cartItems.map(cartItem => ({
-                name: cartItem.name,
-                price: cartItem.price,
-                idArticle: cartItem.id_article,
-            }));
-        } else {
-            throw new Error("No picture found for the given id");
-        }
-    } catch (error) {
-        console.error("Error fetching picture:", error);
-        throw error;
-    }
-}
-
 
 
 
@@ -182,7 +125,7 @@ export default function Cart() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let url = `http://localhost/api/orders/session_1`;
+                let url = `http://localhost/api/orders/89952393`;
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
