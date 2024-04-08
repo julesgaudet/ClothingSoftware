@@ -87,10 +87,12 @@ export default function Checkout() {
   const [msgSucces, setMsgSuccess] = useState("");
 
   //----------------------------------------------------------------------------------------//
-  //A CHANGER ID de session
-  const sesssionId = 123456;
-
+  //de session
   const [sessionId, setSessionId] = useState(null);
+
+  //----------------------------------------------------------------------------------------//
+  //A CHANGER ID de session
+  const [items, setItems] = useState([]);
 
   //----------------------------------------------------------------------------------------//
   // Fonction pour vérifier si les erreurs sont vides
@@ -274,6 +276,36 @@ export default function Checkout() {
     }
   };
 
+  // Effect pour récupérer les données depuis l'API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let url = `http://localhost/api/cart/${sessionId}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const cartItemsJSON = await response.json();
+        const cartitems = cartItemsJSON.map((item) => ({
+          id: item.id_article,
+          sizeID: item.id_size,
+          colorID: item.id_color,
+          color: item.color_code,
+          size: item.size_name,
+          sizeQuant: item.number_of_size,
+          name: item.name,
+          brand: item.brand,
+          price: item.price,
+        }));
+        setItems(cartitems);
+      } catch (error) {
+        console.error("Une erreur s'est produite:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   //----------------------------------------------------------------------------------------//
   console.log("id de session:", sessionId);
   //----------------------------------------------------------------------------------------//
@@ -292,7 +324,7 @@ export default function Checkout() {
           />
         </div>
         <div className=" lg:col-span-1 bg-white h-fit mx-8  border-2 lg:mx-0">
-          <OrderInfo onClickOrder={onClickOrder} sessionId={sessionId} />
+          <OrderInfo onClickOrder={onClickOrder} items={items} />
         </div>
       </div>
       <Footer />

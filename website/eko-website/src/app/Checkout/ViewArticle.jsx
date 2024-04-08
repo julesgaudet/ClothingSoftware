@@ -7,6 +7,8 @@ export default function ViewArticle({ article }) {
   const nbMaxCharName = 20;
   const nbMaxCharCol = 11;
 
+  console.log("l'article pour la photo", article);
+
   //----------------------------------------------------------------------------------------//
   // Effect pour récupérer une photo depuis l'API
   useEffect(() => {
@@ -49,7 +51,7 @@ export default function ViewArticle({ article }) {
     };
 
     fetchData();
-  }, [article]);
+  }, []);
 
   return (
     <>
