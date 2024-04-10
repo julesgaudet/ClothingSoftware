@@ -5,7 +5,7 @@ import Footer from "../Article/Footer";
 import { useRouter } from 'next/navigation';
 
 
-function GenerateProduct({ dataProduct }) {
+function GenerateProduct({ dataProduct, deleteArticle}) {
 
 
 
@@ -13,6 +13,7 @@ function GenerateProduct({ dataProduct }) {
     //////PHOTO/////////////
 
     const [url, setUrl] = useState(null);
+    const [articleColor, setArticleColor] = useState("");
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -31,41 +32,93 @@ function GenerateProduct({ dataProduct }) {
         fetchData();
     }, [dataProduct]);
 
-    const deleteArticle = async () => {
-        try {
-            const response = await fetch(`http://localhost/api/deleteArticle/${dataProduct.id}/${dataProduct.colorID}/${dataProduct.sizeID}`, {
-                method: 'DELETE',
-            });
-            if (!response.ok) {
-                throw new Error('Failed to delete article');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let url = `https://www.thecolorapi.com/id?hex=${dataProduct.color.replace(
+                    "#",
+                    ""
+                )}`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const colorNameJSON = await response.json();
+                const colorName = colorNameJSON.name.value;
+                setArticleColor(colorName);
+            } catch (error) {
+                console.error("Une erreur s'est produite:", error);
             }
-            // Mise à jour de l'état du panier après la suppression
-            // Vous devrez probablement recharger les données du panier après la suppression
-        } catch (error) {
-            console.error('Error deleting article:', error);
-        }
-    }
+        };
+
+        fetchData();
+    }, []);
+
+    
 
 
     return (
 
-        <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
-            <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
-                <button onClick={deleteArticle} >x</button>
+        <div className="flex h-40 w-auto  bg-white text-justified items-center ">
+            <div className=" flex place-items-left items-center mr-auto">
+                <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2  hover:scale-125">
+                <button onClick={() => deleteArticle(dataProduct)}>x</button> 
+                </div>
+                <img className="h-24" src={url} alt={dataProduct.name} />
+                <p className="ml-5 mr-auto text-xl text-black">
+                    {dataProduct.name}
+                </p>
             </div>
-            <img className="h-24" src={url} alt={dataProduct.name} />
-            <p className="ml-5 mr-28 text-xl text-black">
-                {dataProduct.name}
-            </p>
-            <p className=" mr-5 ml-auto mltext-xl text-black">
-                {dataProduct.price}$
-            </p>
 
+            <div className="justify-items-start w-80 mr-10 ">
+                <p className="ml-5  text-xl text-black">
+                    Size: {dataProduct.size}
+                </p>
+                <p className="ml-5 mr-auto text-xl text-black">
+                    Color: {articleColor.length > 18 ?
+                        `${articleColor.substring(0, 18)}...` :
+                        articleColor}
+                </p>
+                <div className="flex mx-5">
+                    <div className={`w-8 h-8 rounded-full`}
+                        style={{ backgroundColor: dataProduct.color }}>
+
+                    </div>
+                    <p className=" mr-5 ml-5 mltext-xl text-black mt-1">
+                        {dataProduct.price}$
+                    </p>
+                </div>
+            </div>
         </div>
     );
 
 }
 
+async function getCartdata (SetItems){
+    try {
+        let url = `http://localhost/api/cart/89952393`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const cartItemsJSON = await response.json();
+        const cartitems = cartItemsJSON.map((item) => ({
+            id: item.id_article,
+            sizeID: item.id_size,
+            colorID: item.id_color,
+            color: item.color_code,
+            size: item.size_name,
+            sizeQuant: item.number_of_size,
+            name: item.name,
+            brand: item.brand,
+            price: item.price,
+        }));
+        SetItems(cartitems);
+    } catch (error) {
+        console.error("Une erreur s'est produite:", error);
+    }
+}
 
 
 
@@ -82,44 +135,20 @@ export default function Cart() {
     useEffect(() => {
         // Vérifier si le code de session est déjà présent dans le local storage
         const existingSession = window.localStorage.getItem("MY_SESSION");
-            // Si le code de session existe déjà, le récupérer et le définir dans l'état
-            setSessionId(JSON.parse(existingSession));
-        
+        // Si le code de session existe déjà, le récupérer et le définir dans l'état
+        setSessionId(JSON.parse(existingSession));
+
     }, []);
     //----------------------------------------------------------------------------------------//
-console.log('session', sessionId);
-    ////////////////////////////////
-    //GET SESSION CART//////////
-    //retrieving the total with the session id////
-    ////////////////////////////////
+    console.log('session', sessionId);
 
     const [items, setItems] = useState([]);
+    let a = 0;
 
     // Effect pour récupérer les données depuis l'API
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                let url = `http://localhost/api/cart/${sessionId}`;
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                const cartItemsJSON = await response.json();
-                const cartitems = cartItemsJSON.map((item) => ({
-                    id: item.id_article,
-                    sizeID: item.id_size,
-                    colorID: item.id_color,
-                    color: item.color_code,
-                    size: item.size_name,
-                    sizeQuant: item.number_of_size,
-                    name: item.name,
-                    brand: item.brand,
-                    price: item.price,
-                }));
-                setItems(cartitems);
-            } catch (error) {
-                console.error("Une erreur s'est produite:", error);
-            }
+            getCartdata(setItems);
         };
 
         fetchData();
@@ -136,6 +165,24 @@ console.log('session', sessionId);
     const tax = subTotal * 0.14975;
     const discount = 0;
     const prixTotal = subTotal + shipping + tax - discount;
+
+    const deleteArticle = async (dataProduct) => {
+        try {
+            const response = await fetch(`http://localhost/api/deleteArticle/${dataProduct.id}/${dataProduct.colorID}/${dataProduct.sizeID}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete article');
+            }
+            // Mise à jour de l'état du panier après la suppression
+            getCartdata(setItems);
+            
+            // Vous devrez probablement recharger les données du panier après la suppression
+        } catch (error) {
+            console.error('Error deleting article:', error);
+        }
+
+    }
 
 
 
@@ -175,6 +222,7 @@ console.log('session', sessionId);
                             <GenerateProduct
                                 key={index}
                                 dataProduct={article}
+                                deleteArticle={deleteArticle}
                             />
                         )))}
 
@@ -234,7 +282,7 @@ console.log('session', sessionId);
                                 className="inline-block w-full text-white text-center font-bold py-2 px-4 cursor-pointer rounded-lg bg-[#3858D6] 
                                 border border-transparent transform hover:scale-105 transition-transform duration-3000 ease-in-out mr-2 mb-2 mt-10 col-span-2"
                             >
-                              <a href="http://localhost:3000/Checkout"> Check out</a> 
+                                <a href="http://localhost:3000/Checkout"> Check out</a>
                             </div>
                         </div>
 
@@ -246,4 +294,3 @@ console.log('session', sessionId);
     );
 
 }
-
