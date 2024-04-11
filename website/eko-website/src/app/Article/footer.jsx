@@ -24,6 +24,9 @@ async function getTypes() {
 
 
 
+
+
+
 function makeLink() {
 
   const [types, setTypes] = useState([]);
@@ -32,13 +35,14 @@ function makeLink() {
     getTypes()
       .then(setTypes)
       .catch((error) => console.log("Error", error))
-  });
+  },[types]);
   if (types !== undefined) {
     return (
       <div>
         {types.map((type, index) => (
           <li key={index} >
-            <a href={`http://localhost:3000/Articles?type=${type}`}>{type}</a>
+            <a  href={`http://localhost:3000/Articles`}>{type}</a>
+            {console.log(type)}
           </li>
         ))}
       </div>
@@ -49,6 +53,8 @@ function makeLink() {
   }
 
 }
+
+
 
 
 

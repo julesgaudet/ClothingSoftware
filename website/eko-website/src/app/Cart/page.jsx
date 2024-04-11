@@ -1,152 +1,191 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import Header from "../Article/Header";
 import Footer from "../Article/Footer";
 import { useRouter } from 'next/navigation';
 
 
-async function getPicture(id) {
+function GenerateProduct({ dataProduct, deleteArticle}) {
+
+
+
+
+    //////PHOTO/////////////
+
+    const [url, setUrl] = useState(null);
+    const [articleColor, setArticleColor] = useState("");
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let url = `http://localhost/api/firstPicture/${dataProduct.id}`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const photoJSON = await response.json();
+                const photoArticle = photoJSON[0].url;
+                setUrl(photoArticle);
+            } catch (error) {
+                console.error("Une erreur s'est produite:", error);
+            }
+        };
+        fetchData();
+    }, [dataProduct]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let url = `https://www.thecolorapi.com/id?hex=${dataProduct.color.replace(
+                    "#",
+                    ""
+                )}`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const colorNameJSON = await response.json();
+                const colorName = colorNameJSON.name.value;
+                setArticleColor(colorName);
+            } catch (error) {
+                console.error("Une erreur s'est produite:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    
+
+
+    return (
+
+        <div className="flex h-40 w-auto  bg-white text-justified items-center ">
+            <div className=" flex place-items-left items-center mr-auto">
+                <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2  hover:scale-125">
+                <button onClick={() => deleteArticle(dataProduct)}>x</button> 
+                </div>
+                <img className="h-24" src={url} alt={dataProduct.name} />
+                <p className="ml-5 mr-auto text-xl text-black">
+                    {dataProduct.name}
+                </p>
+            </div>
+
+            <div className="justify-items-start w-80 mr-10 ">
+                <p className="ml-5  text-xl text-black">
+                    Size: {dataProduct.size}
+                </p>
+                <p className="ml-5 mr-auto text-xl text-black">
+                    Color: {articleColor.length > 18 ?
+                        `${articleColor.substring(0, 18)}...` :
+                        articleColor}
+                </p>
+                <div className="flex mx-5">
+                    <div className={`w-8 h-8 rounded-full`}
+                        style={{ backgroundColor: dataProduct.color }}>
+
+                    </div>
+                    <p className=" mr-5 ml-5 mltext-xl text-black mt-1">
+                        {dataProduct.price}$
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+
+}
+
+async function getCartdata (SetItems){
     try {
-        const photoJSON = await fetchData(
-            `http://localhost/api/picture/${id}`
-        );
-        if (photoJSON.length > 0) {
-            const firstPhoto = photoJSON[0]; // Get the first photo
-            return {
-                id: firstPhoto.id_picture,
-                url: firstPhoto.url,
-                idArticle: firstPhoto.id_article,
-            };
-        } else {
-            throw new Error("No picture found for the given id");
+        let url = `http://localhost/api/cart/89952393`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
         }
+        const cartItemsJSON = await response.json();
+        const cartitems = cartItemsJSON.map((item) => ({
+            id: item.id_article,
+            sizeID: item.id_size,
+            colorID: item.id_color,
+            color: item.color_code,
+            size: item.size_name,
+            sizeQuant: item.number_of_size,
+            name: item.name,
+            brand: item.brand,
+            price: item.price,
+        }));
+        SetItems(cartitems);
     } catch (error) {
-        console.error("Error fetching picture:", error);
-        throw error;
+        console.error("Une erreur s'est produite:", error);
     }
 }
 
 
 
-function GenerateProduct({ Product }) {
+export default function Cart() {
 
-    // Counter variable to keep track of the quantity
-    const [counter, setCounter] = useState(0);
-
-    // Function to increment the counter
-    const incrementCounter = () => {
-        setCounter(counter + 1);
-    };
-
-    // Function to decrement the counter
-    const decrementCounter = () => {
-        if (counter > 1) {
-            setCounter(counter - 1);
-        }
-
-    };
-
-    const prix = Product.price;
-
-    // Function to get the current counter value
-    const getCounter = () => {
-        return counter;
-    };
-
-
-
-    const [pictureUrl, setPictureUrl] = useState([]);
-
-
+    //////////////////////////////////////
+    //GETTING THE CURRENT SESSION ID(?)///
+    //////////////////////////////////////
+    //----------------------------------------------------------------------------------------//
+    //gestion session id
+    // Fonction pour générer un code de session unique
+    const [sessionId, setSessionId] = useState(null);
 
     useEffect(() => {
-        getPicture(id)
-            .then((photo) => setPictureUrl(photo.url))
-            .catch((error) => console.error("Error fetching picture:", error));
-    }, [id]);
+        // Vérifier si le code de session est déjà présent dans le local storage
+        const existingSession = window.localStorage.getItem("MY_SESSION");
+        // Si le code de session existe déjà, le récupérer et le définir dans l'état
+        setSessionId(JSON.parse(existingSession));
 
-    const deleteArticle = async () => {
+    }, []);
+    //----------------------------------------------------------------------------------------//
+    console.log('session', sessionId);
+
+    const [items, setItems] = useState([]);
+    let a = 0;
+
+    // Effect pour récupérer les données depuis l'API
+    useEffect(() => {
+        const fetchData = async () => {
+            getCartdata(setItems);
+        };
+
+        fetchData();
+    }, [sessionId]);
+
+    console.log('items', items);
+
+
+    const subTotal = items.reduce(
+        (total, item) => total + parseFloat(item.price),
+        0
+    );
+    const shipping = items.length === 0 ? 0 : 20;
+    const tax = subTotal * 0.14975;
+    const discount = 0;
+    const prixTotal = subTotal + shipping + tax - discount;
+
+    const deleteArticle = async (dataProduct) => {
         try {
-            const response = await fetch(`http://localhost/api/deleteArticle/${Product.id}`, {
+            const response = await fetch(`http://localhost/api/deleteArticle/${dataProduct.id}/${dataProduct.colorID}/${dataProduct.sizeID}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
                 throw new Error('Failed to delete article');
             }
             // Mise à jour de l'état du panier après la suppression
+            getCartdata(setItems);
+            
             // Vous devrez probablement recharger les données du panier après la suppression
         } catch (error) {
             console.error('Error deleting article:', error);
         }
+
     }
 
 
-    return (
-        <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
-            <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
-                <button onClick={deleteArticle} >x</button>
-            </div>
-            <img className="h-24" src={pictureUrl} alt={Product.name} />
-            <p className="ml-5 mr-28  text-xl text-black">
-                {Product.name}
-            </p>
-            <p className="   text-xl text-black">
-                {prix}$
-            </p>
-            <div className=" ml-32 flex h-15 w-32 items-center justify-center rounded-md bg-gray-100 border-2">
-                <button onClick={decrementCounter} className="ml-3 mr-auto text-xl text-black click:scale-125">-</button>
-                <p className="  text-xl text-black">{counter}</p>
-                <button onClick={incrementCounter} className="mr-3 ml-auto text-xl text-black click:scale-125">+</button>
-            </div>
-            <p className="ml-auto mr-5 text-xl text-black">
-                {prix * counter}$
-            </p>
-        </div>
 
-    );
-
-}
-
-
-
-
-export default function Cart() {
-
-    const router = useRouter();
-    const [cartData, setCartData] = useState(null);
-
-
-    // Counter variable to keep track of the quantity
-    const [counter, setCounter] = useState(0);
-
-    // Function to increment the counter
-    const incrementCounter = () => {
-        setCounter(counter + 1);
-    };
-
-    // Function to decrement the counter
-    const decrementCounter = () => {
-        if (counter > 1) {
-            setCounter(counter - 1);
-        }
-
-    };
-
-    const prix = 50
-
-    // Function to get the current counter value
-    const getCounter = () => {
-        return counter;
-    };
-
-    useEffect(() => {
-        // Vérifie si router.query est défini et contient la propriété data
-        if (router.query && router.query.data) {
-            // Parse les données JSON et les stocke dans l'état du panier
-            setCartData(JSON.parse(router.query.data));
-        }
-    }, [router.query]);
-    console.log(cartData);
     return (
 
         <div className="bg-[#F5F5F7]">
@@ -167,60 +206,25 @@ export default function Cart() {
                         <h2 className="text-gray-500 mr-auto">
                             Products
                         </h2>
-                        <h2 className="text-gray-500 ">
+                        <h2 className="text-gray-500 mr-2">
                             Price
                         </h2>
-                        <h2 className="text-gray-500 ">
-                            Quantity
-                        </h2>
-                        <h2 className="text-gray-500 ">
-                            Sub-total
-                        </h2>
+
                     </div>
 
 
-                    <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
-                        <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
-                            <button>x</button>
-                        </div>
-                        <img className="h-24" src="https://dimemtl.com/cdn/shop/files/TSHIRTS_SP24D1_COLLAGE_BLACK_900x900.jpg?v=1708372450" alt="image1" />
-                        <p className="ml-5 mr-28  text-xl text-black">
-                            Acne Studios Basic Shirt
-                        </p>
-                        <p className="   text-xl text-black">
-                            {prix}$
-                        </p>
-                        <div className=" ml-32 flex h-15 w-32 items-center justify-center rounded-md bg-gray-100 border-2">
-                            <button onClick={decrementCounter} className="ml-3 mr-auto text-xl text-black click:scale-125">-</button>
-                            <p className="  text-xl text-black">{counter}</p>
-                            <button onClick={incrementCounter} className="mr-3 ml-auto text-xl text-black click:scale-125">+</button>
-                        </div>
-                        <p className="ml-auto mr-5 text-xl text-black">
-                            {prix * counter}$
-                        </p>
-                    </div>
-
-
-                    <div className="flex h-40 w-auto place-items-left bg-white text-justified items-center ">
-                        <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2 pb-1 hover:scale-125">
-                            <button>x</button>
-                        </div>
-                        <img className="h-24" src="https://dimemtl.com/cdn/shop/files/TSHIRTS_SP24D1_COLLAGE_BLACK_900x900.jpg?v=1708372450" alt="image1" />
-                        <p className="ml-5 mr-28  text-xl text-black">
-                            Acne Studios Basic Shirt
-                        </p>
-                        <p className="   text-xl text-black">
-                            {prix}$
-                        </p>
-                        <div className=" ml-32 flex h-15 w-32 items-center justify-center rounded-md bg-gray-100 border-2">
-                            <button onClick={decrementCounter} className="ml-3 mr-auto text-xl text-black click:scale-125">-</button>
-                            <p className="  text-xl text-black">{counter}</p>
-                            <button onClick={incrementCounter} className="mr-3 ml-auto text-xl text-black click:scale-125">+</button>
-                        </div>
-                        <p className="ml-auto mr-5 text-xl text-black">
-                            {prix * counter}$
-                        </p>
-                    </div>
+                    {items.length == 0 ? (
+                        <div className="mx-auto grid h-40 w-full place-items-center rounded-md border-2 border-dashed bg-gray-50 py-10 text-center ">
+                            <h1 className="mt-2 text-2xl font-bold tracking-tight text-gray-400">
+                                No products found in cart
+                            </h1>
+                        </div>) : (items.map((article, index) => (
+                            <GenerateProduct
+                                key={index}
+                                dataProduct={article}
+                                deleteArticle={deleteArticle}
+                            />
+                        )))}
 
                 </div>
 
@@ -241,14 +245,14 @@ export default function Cart() {
                             </h2>
 
                             <h2 className="text-xl font-bold text-blue-800 text-right mb-2">
-                                220 $
+                                {subTotal.toFixed(2)} $
                             </h2>
                             <h2 className="text-gray-500 mb-2">
                                 Shipping
                             </h2>
 
                             <h2 className="text-xl font-bold text-blue-800 text-right mb-2">
-                                Free
+                                {shipping.toFixed(2)} $
                             </h2>
                             <h2 className="text-gray-500 mb-2">
                                 Discount
@@ -262,7 +266,7 @@ export default function Cart() {
                             </h2>
 
                             <h2 className="text-xl font-bold text-blue-800 text-right mb-2">
-                                32.23 $
+                                {tax.toFixed(2)} $
                             </h2>
 
                             <hr className=" row-span-1 md:col-span-2 mb-2" ></hr>
@@ -271,10 +275,15 @@ export default function Cart() {
                                 Total
                             </h1>
                             <h2 className="text-xl font-bold text-blue-800 text-right ">
-                                252.23 $
+                                {prixTotal.toFixed(2)} $
                             </h2>
 
-
+                            <div
+                                className="inline-block w-full text-white text-center font-bold py-2 px-4 cursor-pointer rounded-lg bg-[#3858D6] 
+                                border border-transparent transform hover:scale-105 transition-transform duration-3000 ease-in-out mr-2 mb-2 mt-10 col-span-2"
+                            >
+                                <a href="http://localhost:3000/Checkout"> Check out</a>
+                            </div>
                         </div>
 
                     </div>
@@ -285,4 +294,3 @@ export default function Cart() {
     );
 
 }
-

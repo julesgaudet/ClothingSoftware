@@ -1,5 +1,5 @@
 "use client"; // important!!!!
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../Article/Header";
 import Footer from "../Article/Footer";
 import ClientInfo from "./ClientInfo";
@@ -38,7 +38,7 @@ function Succes({ msgSucces, setMsgSuccess }) {
               <p>{msgSucces}</p>
               <button className="text-sm" onClick={() => setMsgSuccess("")}>
                 <img
-                  src="https://static.vecteezy.com/system/resources/previews/021/815/761/original/cross-close-icon-free-png.png"
+                  src="https://icones.pro/wp-content/uploads/2021/08/icone-x-verte.png"
                   className="w-6 h-6 mr-2"
                   alt="X"
                 />
@@ -87,8 +87,12 @@ export default function Checkout() {
   const [msgSucces, setMsgSuccess] = useState("");
 
   //----------------------------------------------------------------------------------------//
+  //de session
+  const [sessionId, setSessionId] = useState(null);
+
+  //----------------------------------------------------------------------------------------//
   //A CHANGER ID de session
-  const sessionId = 123456;
+  const [items, setItems] = useState([]);
 
   //----------------------------------------------------------------------------------------//
   // Fonction pour vérifier si les erreurs sont vides
@@ -184,6 +188,8 @@ export default function Checkout() {
           payment: null,
         });
         setError({});
+
+        return data;
       } else {
         console.error("Error adding order:", data.error);
       }
@@ -191,7 +197,27 @@ export default function Checkout() {
       console.error("Server Error while addign order:", error);
     }
   };
+  //----------------------------------------------------------------------------------------//
+  //gestion session id
+  // Fonction pour générer un code de session unique
+  const generateSessionCode = () => {
+    const code = Math.floor(Math.random() * 100000000); // Générer un code aléatoire
+    return code;
+  };
 
+  useEffect(() => {
+    // Vérifier si le code de session est déjà présent dans le local storage
+    const existingSession = window.localStorage.getItem("MY_SESSION");
+    if (!existingSession) {
+      // Si le code de session n'existe pas, générer un nouveau code et le stocker
+      const newSession = generateSessionCode();
+      setSessionId(newSession);
+      window.localStorage.setItem("MY_SESSION", JSON.stringify(newSession));
+    } else {
+      // Si le code de session existe déjà, le récupérer et le définir dans l'état
+      setSessionId(JSON.parse(existingSession));
+    }
+  }, []);
   //----------------------------------------------------------------------------------------//
   //Ce qui arrive quand on click sur " place order "
 
@@ -201,7 +227,9 @@ export default function Checkout() {
       if (!allEmpty(error) || !allFull(clientInfo)) {
         setMsgSuccess("");
         setMsgNon("");
-        setMsgNon("Please fill out all the fields correctly to place an order");
+        setMsgNon(
+          "🚫 Oops! It seems like there's a small hiccup. 🤔 Please make sure all fields are filled out correctly to proceed with your order. 📝"
+        );
         return;
       }
 
@@ -211,22 +239,30 @@ export default function Checkout() {
       //si il y a bel et bien une réponse
       if (clientData) {
         //on ajoute l'order
-        addOrder(clientData.lastClientId);
+        const OrderData = await addOrder(clientData.lastClientId);
+
+        console.log("orderdata:", OrderData);
+        console.log("orderdataID:", OrderData.lastOrderId);
 
         //on affiche un message de succès
         setMsgNon("");
         setMsgSuccess("");
         setMsgSuccess(
-          "Your order is complete! Your items are on the way. Thank you for choosing us! Order-ID: " +
-            clientData.lastClientId
+          "🎉 Great news! Your order confirmation is in! 🌟 Your items are soon to be on their way. Thank you for choosing EKO! Your Order ID is " +
+            OrderData.lastOrderId
         );
+
+        //on enleve l'id de session et en donne un nouveau
+        const newSession = generateSessionCode();
+        setSessionId(newSession);
+        window.localStorage.setItem("MY_SESSION", JSON.stringify(newSession));
 
         //si aucune réponse
       } else {
         setMsgSuccess("");
         setMsgNon("");
         setMsgNon(
-          "Oops! It seems like an error has occurred on our end. We're actively addressing it. Please try again later!"
+          "🛑 Oops! It looks like we've hit a bump in the road. 😔 Our team is on it, working to fix the issue. Please hang tight and try again later! 💼 We appreciate your patience and understanding. If you need immediate assistance, feel free to contact us directly. Thank you! "
         );
       }
 
@@ -235,12 +271,43 @@ export default function Checkout() {
       setMsgSuccess("");
       setMsgNon("");
       setMsgNon(
-        "Oops! It seems like an error has occurred on our end. We're actively addressing it. Please try again later!"
+        "🛑 Oops! It looks like we've hit a bump in the road. 😔 Our team is on it, working to fix the issue. Please hang tight and try again later! 💼 We appreciate your patience and understanding. If you need immediate assistance, feel free to contact us directly. Thank you! "
       );
     }
   };
 
+  // Effect pour récupérer les données depuis l'API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let url = `http://localhost/api/cart/${sessionId}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const cartItemsJSON = await response.json();
+        const cartitems = cartItemsJSON.map((item) => ({
+          id: item.id_article,
+          sizeID: item.id_size,
+          colorID: item.id_color,
+          color: item.color_code,
+          size: item.size_name,
+          sizeQuant: item.number_of_size,
+          name: item.name,
+          brand: item.brand,
+          price: item.price,
+        }));
+        setItems(cartitems);
+      } catch (error) {
+        console.error("Une erreur s'est produite:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   //----------------------------------------------------------------------------------------//
+  console.log("id de session:", sessionId);
   //----------------------------------------------------------------------------------------//
   return (
     <div className="bg-[#F5F5F7] min-h-screen">
@@ -256,8 +323,8 @@ export default function Checkout() {
             setError={setError}
           />
         </div>
-        <div className=" lg:col-span-1 bg-white h-fit mx-8 lg:mx-0">
-          <OrderInfo onClickOrder={onClickOrder} sessionId={sessionId} />
+        <div className=" lg:col-span-1 bg-white h-fit mx-8  border-2 lg:mx-0">
+          <OrderInfo onClickOrder={onClickOrder} items={items} />
         </div>
       </div>
       <Footer />
