@@ -1,12 +1,14 @@
 "use client";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../Article/Header";
 import Footer from "../Article/Footer";
-import { useRouter } from "next/navigation";
 
+//==========================================================================================//
+//==========================================================================================//
+//donction pour générer un produit
 function GenerateProduct({ dataProduct, deleteArticle }) {
-  //////PHOTO/////////////
-
+  //----------------------------------------------------------------------------------------//
+  //obtient la photo de l'article
   const [url, setUrl] = useState(null);
   const [articleColor, setArticleColor] = useState("");
   useEffect(() => {
@@ -27,6 +29,8 @@ function GenerateProduct({ dataProduct, deleteArticle }) {
     fetchData();
   }, [dataProduct]);
 
+  //----------------------------------------------------------------------------------------//
+  //obtient le nom de la couleur de l'article
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,6 +53,8 @@ function GenerateProduct({ dataProduct, deleteArticle }) {
     fetchData();
   }, []);
 
+  //----------------------------------------------------------------------------------------//
+  //----------------------------------------------------------------------------------------//
   return (
     <div className="flex h-40 w-auto  bg-white text-justified items-center ">
       <div className=" flex place-items-left items-center mr-auto">
@@ -79,8 +85,13 @@ function GenerateProduct({ dataProduct, deleteArticle }) {
       </div>
     </div>
   );
+  //----------------------------------------------------------------------------------------//
+  //----------------------------------------------------------------------------------------//
 }
 
+//==========================================================================================//
+//==========================================================================================//
+//obtient les données du cart
 async function getCartdata(SetItems, sessionId) {
   try {
     let url = `http://localhost/api/cart/${sessionId}`;
@@ -106,8 +117,13 @@ async function getCartdata(SetItems, sessionId) {
   }
 }
 
+//==========================================================================================//
+//==========================================================================================//
+//fonction principale
 export default function Cart() {
+  //----------------------------------------------------------------------------------------//
   //gestion session id
+
   // Fonction pour générer un code de session unique
   const [sessionId, setSessionId] = useState(null);
 
@@ -117,12 +133,11 @@ export default function Cart() {
     // Si le code de session existe déjà, le récupérer et le définir dans l'état
     setSessionId(JSON.parse(existingSession));
   }, []);
+
   //----------------------------------------------------------------------------------------//
-  console.log("session", sessionId);
-
   const [items, setItems] = useState([]);
-  let a = 0;
 
+  //----------------------------------------------------------------------------------------//
   // Effect pour récupérer les données depuis l'API
   useEffect(
     () => {
@@ -136,17 +151,15 @@ export default function Cart() {
     [items]
   );
 
-  console.log("items", items);
-
-  const subTotal = items.reduce(
+  //----------------------------------------------------------------------------------------//
+  //calcule le prix total selon les items du panier
+  const prixTotal = items.reduce(
     (total, item) => total + parseFloat(item.price),
     0
   );
-  const shipping = items.length === 0 ? 0 : 20;
-  const tax = subTotal * 0.14975;
-  const discount = 0;
-  const prixTotal = subTotal + shipping + tax - discount;
 
+  //----------------------------------------------------------------------------------------//
+  //suprime un article du panier
   const deleteArticle = async (dataProduct) => {
     try {
       const response = await fetch(
@@ -167,6 +180,8 @@ export default function Cart() {
     }
   };
 
+  //----------------------------------------------------------------------------------------//
+  //----------------------------------------------------------------------------------------//
   return (
     <div className="bg-[#F5F5F7]">
       <Header />
@@ -206,44 +221,21 @@ export default function Cart() {
         </div>
 
         <div className="col-span-1 row-span-1 grid grid-cols-1 gap-4">
-          <div className="bg-white p-4 rounded">
-            <h1 class="m-6  text-xl font-bold">Total</h1>
-            <hr></hr>
+          <div className="bg-white p-4 rounded h-fit">
             <div className="m-6 row-span-1 md:col-span-2 grid grid-cols-2 gap-auto">
-              <h2 className="text-gray-500 mb-2">Sub-total</h2>
-
-              <h2 className="text-xl font-bold text-blue-800 text-right mb-2">
-                {subTotal.toFixed(2)} $
-              </h2>
-              <h2 className="text-gray-500 mb-2">Shipping</h2>
-
-              <h2 className="text-xl font-bold text-blue-800 text-right mb-2">
-                {shipping.toFixed(2)} $
-              </h2>
-              <h2 className="text-gray-500 mb-2">Discount</h2>
-
-              <h2 className="text-xl font-bold text-blue-800 text-right mb-2">
-                0 $
-              </h2>
-              <h2 className="text-gray-500 mb-2">Tax</h2>
-
-              <h2 className="text-xl font-bold text-blue-800 text-right mb-2">
-                {tax.toFixed(2)} $
-              </h2>
-
-              <hr className=" row-span-1 md:col-span-2 mb-2"></hr>
-
               <h1 class=" text-xl font-bold">Total</h1>
+
               <h2 className="text-xl font-bold text-blue-800 text-right ">
                 {prixTotal.toFixed(2)} $
               </h2>
 
-              <div
+              <a
+                href="/Checkout"
                 className="inline-block w-full text-white text-center font-bold py-2 px-4 cursor-pointer rounded-lg bg-[#3858D6] 
                                 border border-transparent transform hover:scale-105 transition-transform duration-3000 ease-in-out mr-2 mb-2 mt-10 col-span-2"
               >
-                <a href="/Checkout"> Check out</a>
-              </div>
+                Check out
+              </a>
             </div>
           </div>
         </div>
@@ -251,4 +243,6 @@ export default function Cart() {
       <Footer />
     </div>
   );
+  //----------------------------------------------------------------------------------------//
+  //----------------------------------------------------------------------------------------//
 }
