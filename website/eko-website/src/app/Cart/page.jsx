@@ -95,9 +95,11 @@ function GenerateProduct({ dataProduct, deleteArticle}) {
 
 }
 
-async function getCartdata (SetItems){
+async function getCartdata (SetItems, sessionId){
+
+
     try {
-        let url = `http://localhost/api/cart/89952393`;
+        let url = `http://localhost/api/cart/${sessionId}`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -124,10 +126,7 @@ async function getCartdata (SetItems){
 
 export default function Cart() {
 
-    //////////////////////////////////////
-    //GETTING THE CURRENT SESSION ID(?)///
-    //////////////////////////////////////
-    //----------------------------------------------------------------------------------------//
+    
     //gestion session id
     // Fonction pour générer un code de session unique
     const [sessionId, setSessionId] = useState(null);
@@ -148,11 +147,11 @@ export default function Cart() {
     // Effect pour récupérer les données depuis l'API
     useEffect(() => {
         const fetchData = async () => {
-            getCartdata(setItems);
+            getCartdata(setItems, sessionId);
         };
 
         fetchData();
-    }, [sessionId]);
+    }, [sessionId], [items]);
 
     console.log('items', items);
 
@@ -175,7 +174,7 @@ export default function Cart() {
                 throw new Error('Failed to delete article');
             }
             // Mise à jour de l'état du panier après la suppression
-            getCartdata(setItems);
+            getCartdata(setItems, sessionId);
             
             // Vous devrez probablement recharger les données du panier après la suppression
         } catch (error) {
