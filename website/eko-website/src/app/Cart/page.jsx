@@ -281,7 +281,7 @@ export default function Cart() {
                                 className="inline-block w-full text-white text-center font-bold py-2 px-4 cursor-pointer rounded-lg bg-[#3858D6] 
                                 border border-transparent transform hover:scale-105 transition-transform duration-3000 ease-in-out mr-2 mb-2 mt-10 col-span-2"
                             >
-                                <a href="http://localhost:3000/Checkout"> Check out</a>
+                                <a href="/Checkout"> Check out</a>
                             </div>
                         </div>
 
