@@ -15,6 +15,29 @@ function Cercle({ couleur, isSelected, onClick }) {
   );
 }
 
+function Succes({ msgSucces, setMsgSuccess }) {
+  return (
+    <>
+      {msgSucces && (
+        <div className="fixed top-0 left-0 w-full flex justify-center">
+          <div className="bg-green-100 border-2 border-green-400 text-green-700 text-medium px-8 py-6 my-4 mx-40 rounded w-full">
+            <div className="flex items-center justify-between">
+              <p>{msgSucces}</p>
+              <button className="text-sm" onClick={() => setMsgSuccess("")}>
+                <img
+                  src="https://icones.pro/wp-content/uploads/2021/08/icone-x-verte.png"
+                  className="w-6 h-6 mr-2"
+                  alt="X"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 async function fetchData(url) {
   const response = await fetch(url);
   if (!response.ok) {
@@ -123,6 +146,9 @@ export default function ApercuCouleurs() {
   const [selectedSizes, setSelectedSizes] = useState(null);
   //état des couleurs sélectionnées
   const [selectedColors, setSelectedColors] = useState(null);
+  //----------------------------------------------------------------------------------------//
+  //variable d'état pour les messages de succès
+  const [msgSucces, setMsgSuccess] = useState("");
   useEffect(() => {
     getColors(id)
       .then((couleurs) => {
@@ -178,6 +204,8 @@ export default function ApercuCouleurs() {
 
       if (!response.ok) {
         throw new Error("Failed to add item to cart");
+      }else {
+        setMsgSuccess('bravo');
       }
     } catch (error) {
       console.error("Error adding item to cart:", error);
@@ -233,6 +261,7 @@ export default function ApercuCouleurs() {
         alt="Photo écoresponsable"
         className="ml-6 w-auto h-40 space-x-2"
       />
+         <Succes msgSucces={msgSucces} setMsgSuccess={setMsgSuccess}/>
     </>
   );
 }

@@ -99,24 +99,24 @@ get('/api/totalPrice/$session', function ($session) use ($pdo) {
 });
 
 //post le id_article, id_color, id_size à base de donnée (tableau articleCart)
-post('/api/addtocart', function() use ($pdo){
+post('/api/addtocart', function () use ($pdo) {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Récupérer les données JSON envoyées dans le corps de la requête
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
-       
+
         // Récupérer les valeurs des champs
         $id_article = $data['id_article'];
         $id_color = $data['id_color'];
         $id_size = $data['id_size'];
         $id_session = $data['id_session'];
-    
+
         // Vous pouvez effectuer des opérations supplémentaires ici, comme l'insertion des données dans la base de données
         try {
-             $requete = $pdo->prepare('INSERT INTO ArticleCart(id_article,id_session, id_color, id_size) VALUES (?,?, ?, ?)');
-             $requete->execute([$id_article, $id_session, $id_color, $id_size]);
-    
+            $requete = $pdo->prepare('INSERT INTO ArticleCart(id_article,id_session, id_color, id_size) VALUES (?,?, ?, ?)');
+            $requete->execute([$id_article, $id_session, $id_color, $id_size]);
+
             // Exemple de réponse JSON
             $response = ['message' => 'Item added to cart successfully'];
             echo json_encode($response);
@@ -134,21 +134,21 @@ post('/api/addtocart', function() use ($pdo){
 
 
 //post pour le id session seulement 
-post('/api/CartSession', function() use ($pdo){
+post('/api/CartSession', function () use ($pdo) {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Récupérer les données JSON envoyées dans le corps de la requête
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
-       
+
         // Récupérer les valeurs des champs
         $id_session = $data['id_session'];
-    
+
         // Vous pouvez effectuer des opérations supplémentaires ici, comme l'insertion des données dans la base de données
         try {
-             $requete = $pdo->prepare('INSERT INTO Cart(id_session) VALUES (?)');
-             $requete->execute([$id_session]);
-    
+            $requete = $pdo->prepare('INSERT INTO Cart(id_session) VALUES (?)');
+            $requete->execute([$id_session]);
+
             // Exemple de réponse JSON
             $response = ['message' => 'Item added to cart successfully'];
             echo json_encode($response);
@@ -553,13 +553,13 @@ get('/api/color/id/$id', function ($id) use ($pdo) {
 
 //ajouter un nouveau client
 
-post('/api/AddClient', function() use ($pdo){
+post('/api/AddClient', function () use ($pdo) {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Récupérer les données JSON envoyées dans le corps de la requête
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
-       
+
         // Récupérer les valeurs des champs
         $first_name = cleaning($data['name']);
         $last_name = cleaning($data['name']);
@@ -569,15 +569,15 @@ post('/api/AddClient', function() use ($pdo){
         $city = cleaning($data['city']);
         $region_state = cleaning($data['region']);
         $zip_code = cleaning($data['zip']);
-    
+
         // Vous pouvez effectuer des opérations supplémentaires ici, comme l'insertion des données dans la base de données
         try {
-             $requete = $pdo->prepare('INSERT INTO Client(first_name, last_name, email, address, country, city, region_state, zip_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
-             $requete->execute([$first_name, $last_name, $email, $address, $country, $city, $region_state, $zip_code]);
-    
+            $requete = $pdo->prepare('INSERT INTO Client(first_name, last_name, email, address, country, city, region_state, zip_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+            $requete->execute([$first_name, $last_name, $email, $address, $country, $city, $region_state, $zip_code]);
+
             // Récupérer l'ID du dernier client ajouté
             $lastClientId = $pdo->lastInsertId();
-    
+
             // Exemple de réponse JSON
             $response = ['message' => 'Client added successfully', 'lastClientId' => $lastClientId];
             echo json_encode($response);
@@ -593,28 +593,28 @@ post('/api/AddClient', function() use ($pdo){
 });
 
 // Ajouter un nouvel order et diminuer le stock des size de cet order
-post('/api/AddOrder', function() use ($pdo){
+post('/api/AddOrder', function () use ($pdo) {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
-       
-        
+
+
         $date = date('Y-m-d H:i:s'); // la date actuelle
         $status = cleaning($data['status']);
         $payment_option = cleaning($data['payment_option']);
         $id_session = cleaning($data['id_session']);
         $id_client = cleaning($data['id_client']);
-    
-        try {
-             $requete = $pdo->prepare('INSERT INTO orders(date, status, payment_option, id_session, id_client) VALUES (?, ?, ?, ?, ?)');
-             $requete->execute([$date, $status, $payment_option, $id_session, $id_client]);
-             
 
-             // Récupérer l'ID du dernier client ajouté
+        try {
+            $requete = $pdo->prepare('INSERT INTO orders(date, status, payment_option, id_session, id_client) VALUES (?, ?, ?, ?, ?)');
+            $requete->execute([$date, $status, $payment_option, $id_session, $id_client]);
+
+
+            // Récupérer l'ID du dernier client ajouté
             $lastId = $pdo->lastInsertId();
-    
+
             // Exemple de réponse JSON
             $response = ['message' => 'Order added successfully', 'lastOrderId' => $lastId];
             echo json_encode($response);
@@ -630,8 +630,6 @@ post('/api/AddOrder', function() use ($pdo){
                 $sql_update = "UPDATE `size` SET `number_of_size` = `number_of_size` - 1 WHERE `id_size` IN ($id_sizes_str)";
                 $pdo->exec($sql_update);
             }
-
-
         } catch (Exception $e) {
             http_response_code(500); // Internal Server Error
             echo json_encode(['error' => 'An error occurred while processing your request', 'msg' => [$date, $status, $payment_option, $id_session, $id_client]]);
@@ -663,7 +661,7 @@ delete('/api/deleteArticle/$id_A/$id_C/$id_S', function ($id_A, $id_C, $id_S) us
 
 /**********************************************************
                 USED APIS FOR THE APP
- **********************************************************/
+ ***********************************************************/
 
 // Api for the login
 post('/api/login', function () use ($pdo) {
@@ -928,4 +926,143 @@ get('/api/app/orders', function () use ($pdo) {
     http_response_code(200);
     // Return the JSON representation of all orders with client details and first picture URLs
     echo json_encode($allOrders);
+});
+
+// Delete an Article
+delete('/api/app/$title', function ($title) use ($pdo) {
+    if (isset($title)) {
+
+        $title = urldecode($title);
+        // Prepare the SQL query to select the ID of the article
+        $article = $pdo->prepare("SELECT id_article FROM Article WHERE name = :title");
+        $article->bindValue(':title', $title, PDO::PARAM_STR);
+        $article->execute();
+
+        // Fetch the article ID
+        $article_id = $article->fetch(PDO::FETCH_ASSOC)['id_article'];
+
+        // Begin a transaction
+        $pdo->beginTransaction();
+
+        // Delete entries in the Color table related to the article
+        $delete_color = $pdo->prepare("DELETE FROM Color WHERE id_article = :article_id");
+        $delete_color->bindValue(':article_id', $article_id, PDO::PARAM_INT);
+        $delete_color->execute();
+
+        // Delete entries in the Size table related to the article
+        $delete_size = $pdo->prepare("DELETE FROM Size WHERE id_article = :article_id");
+        $delete_size->bindValue(':article_id', $article_id, PDO::PARAM_INT);
+        $delete_size->execute();
+
+        // Delete entries in the Picture table related to the article
+        $delete_picture = $pdo->prepare("DELETE FROM Picture WHERE id_article = :article_id");
+        $delete_picture->bindValue(':article_id', $article_id, PDO::PARAM_INT);
+        $delete_picture->execute();
+
+        // Delete the article itself
+        $delete_article = $pdo->prepare("DELETE FROM Article WHERE id_article = :article_id");
+        $delete_article->bindValue(':article_id', $article_id, PDO::PARAM_INT);
+        $delete_article->execute();
+
+        // Commit the transaction
+        $pdo->commit();
+
+        // Check if any rows were affected by the deletion
+        $rowsAffected = $delete_article->rowCount();
+        if ($rowsAffected > 0) {
+            // Set response headers and status code
+            header('Content-Type: application/json');
+            http_response_code(200);
+            echo json_encode(array("message" => "Article deleted successfully"));
+        } else {
+            // Set response headers and status code for failure
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode(array("message" => "Failed to delete article"));
+        }
+    }
+});
+
+get('/api/app/more/$title', function ($title) use ($pdo) {
+    if (!empty($title)) {
+        $title = urldecode($title);
+
+        try {
+            // Prepare the SQL query to select the ID of the article
+            $article = $pdo->prepare("SELECT id_article FROM Article WHERE name = :title");
+            $article->bindParam(':title', $title, PDO::PARAM_STR);
+            $article->execute();
+
+            // Fetch the article ID
+            $articleData = $article->fetch(PDO::FETCH_ASSOC);
+
+            if ($articleData !== false && isset($articleData['id_article'])) {
+                $article_id = $articleData['id_article'];
+
+                // Check if the article ID is not associated with any id_article in ArticleCart
+                $stmt = $pdo->prepare("SELECT COUNT(*) as count FROM ArticleCart WHERE id_article = :article_id");
+                $stmt->bindParam(':article_id', $article_id, PDO::PARAM_INT);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                // If the count is 0, the article is not associated with any id_article in ArticleCart
+                if ($result['count'] == 0) {
+                    // Set response headers and status code for success
+                    header('Content-Type: application/json');
+                    http_response_code(200);
+                    echo json_encode(array("message" => "Article is not associated with any id_article in ArticleCart"));
+                } else {
+                    // Set response headers and status code for failure
+                    header('Content-Type: application/json');
+                    http_response_code(400);
+                    echo json_encode(array("message" => "Failed to delete article: Article is associated with id_article in ArticleCart"));
+                }
+            } else {
+                // Article not found
+                header('Content-Type: application/json');
+                http_response_code(404);
+                echo json_encode(array("message" => "Article not found"));
+            }
+        } catch (PDOException $e) {
+            // Handle PDOException
+            header('Content-Type: application/json');
+            http_response_code(500);
+            echo json_encode(array("message" => "Database error: " . $e->getMessage()));
+        }
+    } else {
+        // Invalid or empty title
+        header('Content-Type: application/json');
+        http_response_code(400);
+        echo json_encode(array("message" => "Invalid or empty title"));
+    }
+});
+
+// API to mark an order as shipped
+put('/api/app/markedCompleted/$orderID', function ($orderID) use ($pdo) {
+    // Retrieve data sent in the request
+    $requestData = json_decode(file_get_contents('php://input'), true);
+
+    // Check if the 'id_orders' field is present in the data
+    if (isset($orderID)) {
+        // Prepare the SQL query to update the order status
+        $updateOrderStatus = $pdo->prepare("UPDATE Orders SET status = 'Shipped' WHERE id_orders = :orderId");
+
+        // Bind the value of the order ID
+        $updateOrderStatus->bindParam(':orderId', $orderID, PDO::PARAM_INT);
+
+        // Execute the query
+        if ($updateOrderStatus->execute()) {
+            // If the update succeeds, send a success response
+            http_response_code(200);
+            echo json_encode(array("message" => "Order status updated successfully"));
+        } else {
+            // If the update fails, send an error response
+            http_response_code(500);
+            echo json_encode(array("message" => "Failed to update order status"));
+        }
+    } else {
+        // If the order ID is missing in the URL, send an error response
+        http_response_code(400);
+        echo json_encode(array("message" => "Missing order ID in URL"));
+    }
 });
