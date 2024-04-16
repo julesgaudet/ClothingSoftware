@@ -1,6 +1,6 @@
 "use client"; // important!!!!
 import React, { useState, useEffect } from "react";
-
+import { useSearchParams, useRouter } from 'next/navigation'
 import ApercuArticles from "./ApercuArticles";
 import Filtres from "./Filtres";
 import Header from "../Article/Header";
@@ -14,24 +14,38 @@ export default function Articles() {
   const dataNull = [];
 
   //----------------------------------------------------------------------------------------//
+  // Initiatisation de la page pour le footer
+  let typeini = null;
+  const searchParams = new URLSearchParams(window.location.search);
+  console.log(searchParams);
+  
+  if (searchParams.has('type')){
+     const searchType = searchParams.get('type');
+     if(searchType!=null){
+      typeini = searchType.substring(0, searchType.length);
+     } 
+  }
+  //----------------------------------------------------------------------------------------//
   const [data, setData] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
   const [selectedSort, setSelectedSort] = useState(0);
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedType, setSelectedType] = useState(typeini);
   const [selectedBrand, setSelectedBrand] = useState(null);
+  const router = useRouter();
 
   //----------------------------------------------------------------------------------------//
   // Effect pour récupérer les données depuis l'API
+  
   useEffect(() => {
+
     const fetchData = async () => {
       try {
+
         let url = `http://localhost/api/articles?order=${selectedSort}`;
-        
 
         if (selectedType !== null && selectedType !== "All") {
           url += `&type=${selectedType}`;
-          
         }
         if (selectedBrand !== null) {
           url += `&brand=${selectedBrand}`;
@@ -79,7 +93,7 @@ export default function Articles() {
     selectedBrand,
     selectedSizes,
     selectedColors,
-    selectedSort,
+    selectedSort
   ]);
 
   //----------------------------------------------------------------------------------------//
@@ -117,6 +131,7 @@ export default function Articles() {
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un type
   const handleTypeClick = (type) => {
+    router.replace('/Articles', undefined, { shallow: true });
     setSelectedType(type);
   };
 
