@@ -27,9 +27,11 @@ export default function Articles() {
     const fetchData = async () => {
       try {
         let url = `http://localhost/api/articles?order=${selectedSort}`;
+        
 
         if (selectedType !== null && selectedType !== "All") {
           url += `&type=${selectedType}`;
+          
         }
         if (selectedBrand !== null) {
           url += `&brand=${selectedBrand}`;

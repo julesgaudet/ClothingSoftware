@@ -41,8 +41,7 @@ function makeLink() {
       <div>
         {types.map((type, index) => (
           <li key={index} >
-            <a  href={`http://localhost:3000/Articles`}>{type}</a>
-            {console.log(type)}
+            <a  href={`/Articles?type=${type}`}>{type}</a>
           </li>
         ))}
       </div>

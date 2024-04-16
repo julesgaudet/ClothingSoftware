@@ -151,7 +151,7 @@ export default function Cart() {
         };
 
         fetchData();
-    }, [sessionId], [items]);
+    }, [sessionId,items]);
 
     console.log('items', items);
 
