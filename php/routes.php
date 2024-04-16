@@ -562,7 +562,7 @@ post('/api/AddClient', function () use ($pdo) {
 
         // Récupérer les valeurs des champs
         $first_name = cleaning($data['name']);
-        $last_name = cleaning($data['name']);
+        $last_name = cleaning($data['lastName']);
         $email = cleaning($data['email']);
         $address = cleaning($data['address']);
         $country = cleaning($data['country']);

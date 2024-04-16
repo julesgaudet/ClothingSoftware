@@ -304,7 +304,7 @@ export default function Checkout() {
     };
 
     fetchData();
-  }, []);
+  }, [sessionId]);
 
   //----------------------------------------------------------------------------------------//
   console.log("id de session:", sessionId);

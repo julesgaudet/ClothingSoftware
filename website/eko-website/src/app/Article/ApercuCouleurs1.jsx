@@ -204,8 +204,10 @@ export default function ApercuCouleurs() {
 
       if (!response.ok) {
         throw new Error("Failed to add item to cart");
-      }else {
-        setMsgSuccess('bravo');
+      } else {
+        setMsgSuccess(
+          "Congratulations! 🎉 You've successfully added the article to your cart.🛒"
+        );
       }
     } catch (error) {
       console.error("Error adding item to cart:", error);
@@ -261,7 +263,7 @@ export default function ApercuCouleurs() {
         alt="Photo écoresponsable"
         className="ml-6 w-auto h-40 space-x-2"
       />
-         <Succes msgSucces={msgSucces} setMsgSuccess={setMsgSuccess}/>
+      <Succes msgSucces={msgSucces} setMsgSuccess={setMsgSuccess} />
     </>
   );
 }
