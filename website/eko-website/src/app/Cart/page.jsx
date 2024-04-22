@@ -155,14 +155,10 @@ export default function Cart() {
 
   console.log("items", items);
 
-  const subTotal = items.reduce(
+  const prixTotal = items.reduce(
     (total, item) => total + parseFloat(item.price),
     0
   );
-  const shipping = items.length === 0 ? 0 : 20;
-  const tax = subTotal * 0.14975;
-  const discount = 0;
-  const prixTotal = subTotal + shipping + tax - discount;
 
   //----------------------------------------------------------------------------------------//
   //suprime un article du panier
