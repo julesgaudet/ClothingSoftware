@@ -225,7 +225,7 @@ export default function Cart() {
         <div className="col-span-1 row-span-1 grid grid-cols-1 gap-4">
           <div className="bg-white p-4 rounded h-fit">
             <div className="m-6 row-span-1 md:col-span-2 grid grid-cols-2 gap-auto">
-              <h1 class=" text-xl font-bold">Total</h1>
+              <h1 className=" text-xl font-bold">Total</h1>
 
               <h2 className="text-xl font-bold text-blue-800 text-right ">
                 {prixTotal.toFixed(2)} $
