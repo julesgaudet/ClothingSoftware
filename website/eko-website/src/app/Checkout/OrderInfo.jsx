@@ -11,8 +11,6 @@ export default function OrderInfo({ onClickOrder, items }) {
 
   const prixTotal = subTotal + shipping + tax;
 
-  console.log("les articles:", items);
-
   return (
     <>
       <div className="flex-col mx-7 mt-4 mb-8">

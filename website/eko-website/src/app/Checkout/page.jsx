@@ -91,7 +91,7 @@ export default function Checkout() {
   const [sessionId, setSessionId] = useState(null);
 
   //----------------------------------------------------------------------------------------//
-  //A CHANGER ID de session
+  //les items dans le panier
   const [items, setItems] = useState([]);
 
   //----------------------------------------------------------------------------------------//
@@ -242,7 +242,6 @@ export default function Checkout() {
         const OrderData = await addOrder(clientData.lastClientId);
 
         console.log("orderdata:", OrderData);
-        console.log("orderdataID:", OrderData.lastOrderId);
 
         //on affiche un message de succès
         setMsgNon("");
@@ -278,6 +277,9 @@ export default function Checkout() {
 
   // Effect pour récupérer les données depuis l'API
   useEffect(() => {
+    console.log("id de session:", sessionId);
+    console.log("je cherche les articles avec l'api");
+
     const fetchData = async () => {
       try {
         let url = `http://localhost/api/cart/${sessionId}`;
@@ -286,6 +288,9 @@ export default function Checkout() {
           throw new Error("Network response was not ok");
         }
         const cartItemsJSON = await response.json();
+
+        console.log("les items en json", cartItemsJSON);
+
         const cartitems = cartItemsJSON.map((item) => ({
           id: item.id_article,
           sizeID: item.id_size,
@@ -297,7 +302,13 @@ export default function Checkout() {
           brand: item.brand,
           price: item.price,
         }));
-        setItems(cartitems);
+
+        if (cartitems.length > 0) {
+          setItems(cartitems);
+          console.log("je set les items", cartitems);
+        }
+
+        console.log("je set les items", cartitems);
       } catch (error) {
         console.error("Une erreur s'est produite:", error);
       }
@@ -307,7 +318,9 @@ export default function Checkout() {
   }, [sessionId]);
 
   //----------------------------------------------------------------------------------------//
-  console.log("id de session:", sessionId);
+
+  console.log("les items:", items);
+
   //----------------------------------------------------------------------------------------//
   return (
     <div className="bg-[#F5F5F7] min-h-screen">
@@ -327,7 +340,6 @@ export default function Checkout() {
           <OrderInfo onClickOrder={onClickOrder} items={items} />
         </div>
       </div>
-      <Footer />
     </div>
   );
   //----------------------------------------------------------------------------------------//

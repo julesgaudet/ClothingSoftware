@@ -6,9 +6,6 @@ export default function ViewArticle({ article }) {
 
   const nbMaxCharName = 20;
   const nbMaxCharCol = 11;
-
-  console.log("l'article pour la photo", article);
-
   //----------------------------------------------------------------------------------------//
   // Effect pour récupérer une photo depuis l'API
   useEffect(() => {
@@ -23,7 +20,10 @@ export default function ViewArticle({ article }) {
         const photoArticle = photoJSON[0].url;
         setUrl(photoArticle);
       } catch (error) {
-        console.error("Une erreur s'est produite:", error);
+        console.error(
+          "Une erreur s'est produite lors de la récupération de la photo de l'aricle via l'api:",
+          error
+        );
       }
     };
     fetchData();
@@ -101,8 +101,6 @@ export default function ViewArticle({ article }) {
             </div>
           </div>
         </div>
-
-        <div></div>
       </div>
     </>
   );

@@ -111,7 +111,9 @@ async function getCartdata(SetItems, sessionId) {
       brand: item.brand,
       price: item.price,
     }));
-    SetItems(cartitems);
+    if (cartitems.length > 0) {
+      SetItems(cartitems);
+    }
   } catch (error) {
     console.error("Une erreur s'est produite:", error);
   }
@@ -144,20 +146,19 @@ export default function Cart() {
       const fetchData = async () => {
         getCartdata(setItems, sessionId);
       };
-        fetchData();
-    }, [sessionId],[items]);
 
-    console.log('items', items);
+      fetchData();
+    },
+    [sessionId],
+    [items]
+  );
 
+  console.log("items", items);
 
-    const subTotal = items.reduce(
-        (total, item) => total + parseFloat(item.price),
-        0
-    );
-    const shipping = items.length === 0 ? 0 : 20;
-    const tax = subTotal * 0.14975;
-    const discount = 0;
-    const prixTotal = subTotal + shipping + tax - discount;
+  const prixTotal = items.reduce(
+    (total, item) => total + parseFloat(item.price),
+    0
+  );
 
   //----------------------------------------------------------------------------------------//
   //suprime un article du panier
