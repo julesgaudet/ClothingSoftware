@@ -62,7 +62,7 @@ function ApercuArticle({ vetement, handleBrandClick }) {
   }, [vetement.id]);
 
   return (
-    <div className="flex justify-between space-y-5 flex-col">
+    <div className="flex justify-between space-y-5 flex-col min-w-[260px]">
       <a
         href={`Article?id=${vetement.id}`}
         className="aspect-h-1 aspect-w-1 max-w-80 h-96 overflow-hidden items-center justify-center border-gray-200 bg-gray-100 ease-in-out duration-300 hover:scale-110"

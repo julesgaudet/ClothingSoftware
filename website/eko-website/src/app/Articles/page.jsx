@@ -1,6 +1,6 @@
 "use client"; // important!!!!
 import React, { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import ApercuArticles from "./ApercuArticles";
 import Filtres from "./Filtres";
 import Header from "../Article/Header";
@@ -18,12 +18,12 @@ export default function Articles() {
   let typeini = null;
   const searchParams = new URLSearchParams(window.location.search);
   console.log(searchParams);
-  
-  if (searchParams.has('type')){
-     const searchType = searchParams.get('type');
-     if(searchType!=null){
+
+  if (searchParams.has("type")) {
+    const searchType = searchParams.get("type");
+    if (searchType != null) {
       typeini = searchType.substring(0, searchType.length);
-     } 
+    }
   }
   //----------------------------------------------------------------------------------------//
   const [data, setData] = useState([]);
@@ -36,12 +36,10 @@ export default function Articles() {
 
   //----------------------------------------------------------------------------------------//
   // Effect pour récupérer les données depuis l'API
-  
-  useEffect(() => {
 
+  useEffect(() => {
     const fetchData = async () => {
       try {
-
         let url = `http://localhost/api/articles?order=${selectedSort}`;
 
         if (selectedType !== null && selectedType !== "All") {
@@ -93,7 +91,7 @@ export default function Articles() {
     selectedBrand,
     selectedSizes,
     selectedColors,
-    selectedSort
+    selectedSort,
   ]);
 
   //----------------------------------------------------------------------------------------//
@@ -131,7 +129,7 @@ export default function Articles() {
   //----------------------------------------------------------------------------------------//
   //gestion d'un click sur un type
   const handleTypeClick = (type) => {
-    router.replace('/Articles', undefined, { shallow: true });
+    router.replace("/Articles", undefined, { shallow: true });
     setSelectedType(type);
   };
 
