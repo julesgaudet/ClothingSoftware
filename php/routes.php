@@ -1,5 +1,6 @@
 <?php
-
+// CE DOCUMENT S'OCCUPE DE GÉRER TOUT LES API COTÉ SERVEUR
+// (il est un copié collé de celui présent dans le dossier htdocs du serveur local XAMPP)
 // Fonction pour ajouter les en-têtes CORS
 function addCorsHeaders()
 {
