@@ -56,39 +56,72 @@ function GenerateProduct({ dataProduct, deleteArticle }) {
   //----------------------------------------------------------------------------------------//
   //----------------------------------------------------------------------------------------//
   return (
-    <div className="flex h-40 w-auto  bg-white text-justified items-center ">
-      <div className=" flex place-items-left items-center mr-auto">
-        <div className="w-4 h-4 text-gray-400 bg-white rounded-full flex items-center justify-center mx-10 border-2  hover:scale-125">
-          <button onClick={() => deleteArticle(dataProduct)}>x</button>
-        </div>
-        <img className="h-24" src={url} alt={dataProduct.name} />
-        <p className="ml-5 mr-auto text-xl text-black">{dataProduct.name}</p>
+    <div className=" flex-col lg:grid lg:grid-cols-11 items-center text-xl font-medium text-black bg-white py-4">
+      <div className="col-span-1 w-full h-full flex justify-center items-center hover:scale-110 transition-transform duration-3000 ease-in-out cursor-pointer">
+        <img
+          src="https://cdns.iconmonstr.com/wp-content/releases/preview/2018/240/iconmonstr-x-mark-circle-thin.png"
+          alt="X"
+          onClick={() => deleteArticle(dataProduct)}
+          className="w-8 h-8"
+        />
       </div>
 
-      <div className="justify-items-start w-80 mr-10 ">
-        <p className="ml-5  text-xl text-black">Size: {dataProduct.size}</p>
-        <p className="ml-5 mr-auto text-xl text-black">
-          Color:{" "}
+      <div className="col-span-2 flex justify-center items-center">
+        <img className="w-32 max-h-30" src={url} alt={dataProduct.name} />
+      </div>
+
+      <div className="col-span-3 text-center">
+        <p>{dataProduct.name}</p>
+      </div>
+
+      <div className="col-span-1 text-center">
+        <p>{dataProduct.size}</p>
+      </div>
+
+      <div className="col-span-2 flex items-center justify-center">
+        <div
+          className={`w-4 h-4 rounded-full`}
+          style={{ backgroundColor: dataProduct.color }}
+        ></div>
+        <p className="ml-2">
           {articleColor.length > 18
             ? `${articleColor.substring(0, 18)}...`
             : articleColor}
         </p>
-        <div className="flex mx-5">
-          <div
-            className={`w-8 h-8 rounded-full`}
-            style={{ backgroundColor: dataProduct.color }}
-          ></div>
-          <p className=" mr-5 ml-5 mltext-xl text-black mt-1">
-            {dataProduct.price}$
-          </p>
-        </div>
+      </div>
+
+      <div className="col-span-2 text-center">
+        <p>${dataProduct.price}</p>
       </div>
     </div>
   );
   //----------------------------------------------------------------------------------------//
   //----------------------------------------------------------------------------------------//
 }
-
+//==========================================================================================//
+//==========================================================================================//
+function Non({ msgNon, setMsgNon }) {
+  return (
+    <>
+      {msgNon && (
+        <div className="fixed top-0 left-0 w-full flex justify-center">
+          <div className="bg-red-100 border-2 border-red-400 text-red-700 text-medium px-8 py-6 my-4 mx-40 rounded w-full">
+            <div className="flex items-center justify-between">
+              <p>{msgNon}</p>
+              <button className="text-sm" onClick={() => setMsgNon("")}>
+                <img
+                  src="https://static.vecteezy.com/system/resources/previews/021/815/761/original/cross-close-icon-free-png.png"
+                  className="w-6 h-6 mr-2"
+                  alt="X"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
 //==========================================================================================//
 //==========================================================================================//
 //obtient les données du cart
@@ -159,26 +192,36 @@ export default function Cart() {
     (total, item) => total + parseFloat(item.price),
     0
   );
+  //----------------------------------------------------------------------------------------//
+  //variables d'état pour les message d'erreurs
+  const [msgNon, setMsgNon] = useState("");
 
   //----------------------------------------------------------------------------------------//
   //suprime un article du panier
   const deleteArticle = async (dataProduct) => {
-    try {
-      const response = await fetch(
-        `http://localhost/api/deleteArticle/${dataProduct.id}/${dataProduct.colorID}/${dataProduct.sizeID}`,
-        {
-          method: "DELETE",
-        }
+    if (items.length === 1) {
+      setMsgNon("");
+      setMsgNon(
+        "🛒 Whoops! It appears you're attempting to remove the only item in your cart! 🤔 No problem, you can delete it once you've added more items."
       );
-      if (!response.ok) {
-        throw new Error("Failed to delete article");
-      }
-      // Mise à jour de l'état du panier après la suppression
-      getCartdata(setItems, sessionId);
+    } else {
+      try {
+        const response = await fetch(
+          `http://localhost/api/deleteArticle/${dataProduct.id}/${dataProduct.colorID}/${dataProduct.sizeID}`,
+          {
+            method: "DELETE",
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to delete article");
+        }
+        // Mise à jour de l'état du panier après la suppression
+        getCartdata(setItems, sessionId);
 
-      // Vous devrez probablement recharger les données du panier après la suppression
-    } catch (error) {
-      console.error("Error deleting article:", error);
+        // Vous devrez probablement recharger les données du panier après la suppression
+      } catch (error) {
+        console.error("Error deleting article:", error);
+      }
     }
   };
 
@@ -187,6 +230,7 @@ export default function Cart() {
   return (
     <div className="bg-[#F5F5F7]">
       <Header />
+      <Non msgNon={msgNon} setMsgNon={setMsgNon} />
       <div
         className="grid grid-cols-1 md:grid-cols-3 gap-10 border-160  min-h-screen "
         style={{
@@ -196,13 +240,17 @@ export default function Cart() {
       >
         <div className=" col-span-2 ">
           <div className="grid h-20 w-auto place-items-left bg-white py-2 text-justified content-center">
-            <h1 className="ml-2 mt-2 text-2xl font-bold tracking-tight text-black">
+            <h1 className="ml-4 mt-2 text-2xl font-bold tracking-tight text-black">
               Shopping Cart
             </h1>
           </div>
-          <div className="flex gap-40 h-20 w-auto place-items-left bg-[#F5F5F7] px-2 text-justified items-center">
-            <h2 className="text-gray-500 mr-auto">Products</h2>
-            <h2 className="text-gray-500 mr-2">Price</h2>
+          <div className="grid grid-cols-11 my-2 w-auto text-center items-center">
+            <div className="col-span-1"></div>
+            <div className="col-span-2"></div>
+            <h2 className="text-gray-500  text-center col-span-3">Product</h2>
+            <h2 className="text-gray-500 text-center col-span-1">Size</h2>
+            <h2 className="text-gray-500  text-center col-span-2">Color</h2>
+            <h2 className="text-gray-500 text-center col-span-2">Price</h2>
           </div>
 
           {items.length == 0 ? (
@@ -223,12 +271,12 @@ export default function Cart() {
         </div>
 
         <div className="col-span-1 row-span-1 grid grid-cols-1 gap-4">
-          <div className="bg-white p-4 rounded h-fit">
+          <div className="bg-white pt-2 rounded h-fit">
             <div className="m-6 row-span-1 md:col-span-2 grid grid-cols-2 gap-auto">
-              <h1 className=" text-xl font-bold">Total</h1>
+              <h1 className=" text-2xl font-bold">Total</h1>
 
               <h2 className="text-xl font-bold text-blue-800 text-right ">
-                {prixTotal.toFixed(2)} $
+                ${prixTotal.toFixed(2)}
               </h2>
 
               <a
