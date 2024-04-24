@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import ApercuArticles from "./Articles/ApercuArticles";
 
 export default function Homepage({}) {
-  //gestion d'un click sur un brand
+  //gestion d'un click sur un brand (rien)
   const handleBrandClick = () => {};
 
   //----------------------------------------------------------------------------------------//

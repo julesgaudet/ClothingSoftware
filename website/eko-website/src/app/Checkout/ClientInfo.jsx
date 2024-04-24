@@ -53,10 +53,7 @@ export default function ClientInfo({
   };
 
   const handleCountryBlur = () => {
-    const isValidCountry =
-      /^[a-zA-Z]+(?:-[a-zA-Z]+)*(?: [a-zA-Z]+(?:-[a-zA-Z]+)*)*$/.test(
-        clientInfo.country
-      );
+    const isValidCountry = /^[A-Z]{3}$/.test(clientInfo.country);
     setError((prevState) => ({
       ...prevState,
       country: isValidCountry ? "" : "Please enter a valid country",
