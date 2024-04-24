@@ -35,7 +35,7 @@ function makeLink() {
     getTypes()
       .then(setTypes)
       .catch((error) => console.log("Error", error))
-  },[types]);
+  },[]);
   if (types !== undefined) {
     return (
       <div>
