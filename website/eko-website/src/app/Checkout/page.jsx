@@ -256,6 +256,8 @@ export default function Checkout() {
         setSessionId(newSession);
         window.localStorage.setItem("MY_SESSION", JSON.stringify(newSession));
 
+        setItems([]);
+
         //si aucune réponse
       } else {
         setMsgSuccess("");
@@ -278,8 +280,6 @@ export default function Checkout() {
   // Effect pour récupérer les données depuis l'API
   useEffect(() => {
     console.log("id de session:", sessionId);
-    console.log("je cherche les articles avec l'api");
-
     const fetchData = async () => {
       try {
         let url = `http://localhost/api/cart/${sessionId}`;
@@ -288,8 +288,6 @@ export default function Checkout() {
           throw new Error("Network response was not ok");
         }
         const cartItemsJSON = await response.json();
-
-        console.log("les items en json", cartItemsJSON);
 
         const cartitems = cartItemsJSON.map((item) => ({
           id: item.id_article,
@@ -305,10 +303,7 @@ export default function Checkout() {
 
         if (cartitems.length > 0) {
           setItems(cartitems);
-          console.log("je set les items", cartitems);
         }
-
-        console.log("je set les items", cartitems);
       } catch (error) {
         console.error("Une erreur s'est produite:", error);
       }
